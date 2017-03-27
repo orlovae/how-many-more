@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.GridLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.alex.howmanymore.MainActivity"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:columnCount="10"
-    app:rowCount="10"
-    app:orientation="horizontal">
+    android:orientation="horizontal"
+    tools:context="com.example.alex.howmanymore.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/colorBlack"
-        android:text="skdj"/>
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
-</android.support.v7.widget.GridLayout>
+    <android.support.v7.widget.GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:columnCount="10"
+        app:orientation="horizontal"
+        app:rowCount="10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBlack"
+            android:text="skdj" />
+
+    </android.support.v7.widget.GridLayout>
+
+</LinearLayout>
