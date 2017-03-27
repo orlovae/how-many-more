@@ -1,12 +1,17 @@
 package com.example.alex.howmanymore;
 
+import android.app.Notification;
+import android.content.Context;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.ViewTreeObserver;
+import android.view.Window;
 import android.view.WindowManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,10 +30,13 @@ public class MainActivity extends AppCompatActivity {
 
         getScreenSize();
 
-        getHeightToolbar();
+        getHeightToolbar(getApplicationContext());
+
+        getHeightNotificationBar(getApplicationContext());
     }
 
     private void iniView(){
+
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
@@ -45,17 +53,27 @@ public class MainActivity extends AppCompatActivity {
         Log.d(LOG_TAG, "End getScreenSize");
     }
 
-    private void getHeightToolbar(){
+    private void getHeightToolbar(Context context){
         Log.d(LOG_TAG, "Start getWidthToolbar");
 
-        toolbar.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                toolbar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                toolbarHeight = toolbar.getHeight();
-                Log.d(LOG_TAG, "toolbar toolbarHeight = " + toolbarHeight);
-            }
-        });
-        Log.d(LOG_TAG, "End getWidthToolbar");
+        int heightToolbar = 0;
+        TypedValue tv = new TypedValue();
+        if (context.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)){
+            heightToolbar = TypedValue.complexToDimensionPixelSize(tv.data, context.getResources().
+                    getDisplayMetrics());
+        }
+        Log.d(LOG_TAG, "Toolbar height = " + heightToolbar);
+    }
+
+    private void getHeightNotificationBar(Context context){
+        int heightNotificationBar = 0;
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen",
+                "android");
+        if (resourceId > 0) {
+            heightNotificationBar = context.getResources().getDimensionPixelSize(resourceId);
+        }
+
+        Log.d(LOG_TAG, "NotificationBar height = " + heightNotificationBar);
+
     }
 }
