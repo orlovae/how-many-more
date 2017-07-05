@@ -74,7 +74,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
             try {
                 copyDBFile();
-            } catch (IOException mIOExeption) {
+            } catch (IOException e) {
                 throw new Error("ErrorCopyingDataBase");
             }
         }
