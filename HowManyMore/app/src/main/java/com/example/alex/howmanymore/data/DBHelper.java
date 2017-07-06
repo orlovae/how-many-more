@@ -25,21 +25,12 @@ public class DBHelper extends SQLiteOpenHelper {
     private final Context mContext;
     private boolean mNeedUpdate = false;
 
-    private final String SQL_CREATE_LIVECOUNTRY_TABLE = "CREATE TABLE "
-            + Contract.LiveCountry.TABLE_NAME + " ("
-            + Contract.LiveCountry.COLUMN_ID + " integer primary key autoincrement,"
-            + Contract.LiveCountry.COLUMN_COUNTRY_RU + " text,"
-            + Contract.LiveCountry.COLUMN_COUNTRY_EN + " text,"
-            + Contract.LiveCountry.COLUMN_SEXES_LIFE + " integer,"
-            + Contract.LiveCountry.COLUMN_FEMALE_LIFE + " integer,"
-            + Contract.LiveCountry.COLUMN_MALE_LIFE + " integer);";
-
     public DBHelper(Context context){
         super(context, DB_NAME, null, DB_VERSION);
         if (Build.VERSION.SDK_INT >= 17) {
             DB_PATH = context.getApplicationInfo().dataDir + "/databases/";
         } else {
-            DB_PATH = "/data/data" + context.getPackageName() + "/databases/";
+            DB_PATH = "/data/data/" + context.getPackageName() + "/databases/";
         }
 
         this.mContext = context;
@@ -110,7 +101,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SQL_CREATE_LIVECOUNTRY_TABLE);
     }
 
     @Override

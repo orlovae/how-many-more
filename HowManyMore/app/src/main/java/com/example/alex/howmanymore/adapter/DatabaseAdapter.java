@@ -112,7 +112,7 @@ public class DatabaseAdapter implements Constants {
         return countryAnotherLanguage;
     }
 
-    private float getYearLifeExpectancy (String country, String codeLanguage, String sex) {
+    private float getYearLifeExpectancy (String country, String sex) {
         float yearLifeExpectancy = 0;
 
         String[] columns = new String[1];
