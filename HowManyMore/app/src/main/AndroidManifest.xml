@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/MyTheme"
         android:name=".App">>
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.InputScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

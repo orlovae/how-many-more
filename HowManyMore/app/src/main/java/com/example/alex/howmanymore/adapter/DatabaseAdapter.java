@@ -34,16 +34,16 @@ public class DatabaseAdapter implements Constants {
         switch (codeLanguage) {
             case Constants.EN:
                 columns[0] = Contract.LiveCountry.COLUMN_COUNTRY_EN;
-                columnSortOrder = Contract.LiveCountry.COLUMN_COUNTRY_EN;
+                columnSortOrder = Contract.LiveCountry.COLUMN_COUNTRY_EN + " ASC";
                 break;
             case Constants.RU:
                 columns[0] = Contract.LiveCountry.COLUMN_COUNTRY_RU;
-                columnSortOrder = Contract.LiveCountry.COLUMN_COUNTRY_RU;
+                columnSortOrder = Contract.LiveCountry.COLUMN_COUNTRY_RU + " ASC";
                 break;
         }
 
         Cursor cursor = query(Contract.LiveCountry.TABLE_NAME, columns, null, null,
-                columnSortOrder + " ASC");
+                null, null, columnSortOrder);
 
         try {
             if (cursor != null && cursor.moveToFirst()){
@@ -81,7 +81,7 @@ public class DatabaseAdapter implements Constants {
         }
 
         Cursor cursor = query(Contract.LiveCountry.TABLE_NAME, columns, selection, selectionArgs,
-                null);
+                null, null, null);
 
         try {
             if (cursor != null && cursor.moveToFirst()){
@@ -135,7 +135,7 @@ public class DatabaseAdapter implements Constants {
         }
 
         Cursor cursor = query(Contract.LiveCountry.TABLE_NAME, columns, selection, selectionArgs,
-                null);
+                null, null, null);
 
         try {
             if (cursor != null && cursor.moveToFirst()){
@@ -154,7 +154,7 @@ public class DatabaseAdapter implements Constants {
     }
 
     private Cursor query(String table_name, String[] columns, String selection,
-                        String[] selectionArgs, String sortOrder) {
+                        String[] selectionArgs, String groupBy, String having, String sortOrder) {
         Cursor cursor = null;
         try {
             mDataBase = mDBHelper.getReadableDatabase();
@@ -162,8 +162,6 @@ public class DatabaseAdapter implements Constants {
                     selectionArgs, null, null, sortOrder);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            mDataBase.close();
         }
         return cursor;
     }
