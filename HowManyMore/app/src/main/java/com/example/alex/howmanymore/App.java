@@ -16,12 +16,14 @@ public class App extends Application {
         super.onCreate();
 
         init();
+
     }
 
-    private void init() {
+    private DatabaseAdapter init() {
         if (mDBAdapter == null){
             mDBAdapter = new DatabaseAdapter(this);
         }
-
+        return mDBAdapter;
     }
+
 }

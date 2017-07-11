@@ -1,4 +1,4 @@
-package com.example.alex.howmanymore;
+package com.example.alex.howmanymore.activity;
 
 import android.content.Context;
 import android.graphics.Point;
@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.WindowManager;
+
+import com.example.alex.howmanymore.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

@@ -1,4 +1,4 @@
-package com.example.alex.howmanymore;
+package com.example.alex.howmanymore.activity;
 
 import android.content.Context;
 import android.graphics.Canvas;

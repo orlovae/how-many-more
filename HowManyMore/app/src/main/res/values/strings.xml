@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">How Many More</string>
+
+    <!-- Activity InputScreen start -->
+    <string name="input_screen_birthday">Введите Ваш День рожденья</string>
 </resources>

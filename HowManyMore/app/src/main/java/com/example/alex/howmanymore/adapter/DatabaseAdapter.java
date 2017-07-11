@@ -25,7 +25,7 @@ public class DatabaseAdapter implements Constants {
         mDBHelper.udateDataBase();
     }
 
-    private List<String> getListCountry(String codeLanguage) {
+    public List<String> getListCountry(String codeLanguage) {
         List<String> listCountry = new ArrayList<>();
 
         String[] columns = new String[1];
