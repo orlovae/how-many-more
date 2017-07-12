@@ -9,4 +9,5 @@ import java.util.List;
 public interface IInputScreenView {
     void showListCountry(List<String> listCountry);
     void showListSex(List<String> listSex);
+    void showDateInTextView(long birthday);
 }

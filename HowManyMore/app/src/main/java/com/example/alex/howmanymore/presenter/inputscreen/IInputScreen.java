@@ -10,4 +10,6 @@ public interface IInputScreen extends IBasePresenter {
     void setListCountryToView();
     void setListSexToView();
     void setSpinnerItemSelected(String itemSelected, String flag);
+    void setBirthday(long birthday);
+    void ;
 }

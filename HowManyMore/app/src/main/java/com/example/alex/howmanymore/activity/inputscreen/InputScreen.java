@@ -1,27 +1,24 @@
 package com.example.alex.howmanymore.activity.inputscreen;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.alex.howmanymore.Constants;
 import com.example.alex.howmanymore.R;
-import com.example.alex.howmanymore.adapter.IOnSelectedDateListener;
+import com.example.alex.howmanymore.fragments.IOnSelectedDateListener;
 import com.example.alex.howmanymore.fragments.DatePickerFragment;
 import com.example.alex.howmanymore.presenter.inputscreen.IInputScreen;
-import com.example.alex.howmanymore.presenter.inputscreen.presenterInputScreenImpl;
+import com.example.alex.howmanymore.presenter.inputscreen.PresenterInputScreenImpl;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -35,9 +32,11 @@ public class InputScreen extends AppCompatActivity implements IInputScreenView,
 
     private TextView textViewBirthday;
     private Spinner spinnerCountry, spinnerSex;
+    private Button button;
+
     private List<String> listCountry, listSex;
 
-    private IInputScreen presenter = new presenterInputScreenImpl(this, this);
+    private IInputScreen presenter = new PresenterInputScreenImpl(this, this);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,7 +45,7 @@ public class InputScreen extends AppCompatActivity implements IInputScreenView,
 
         initView();
 
-        textViewBirthdayBehavior();
+        buttonBehavior();
 
         presenter.setListSexToView();
         presenter.setListCountryToView();
@@ -62,10 +61,12 @@ public class InputScreen extends AppCompatActivity implements IInputScreenView,
         textViewBirthday = (TextView) findViewById(R.id.text_view_birthday);
         spinnerCountry = (Spinner)findViewById(R.id.spinner_country);
         spinnerSex = (Spinner)findViewById(R.id.spinner_sex);
+        button = (Button)findViewById(R.id.button);
     }
 
-    private void textViewBirthdayBehavior() {
+    private void buttonBehavior() {
         textViewBirthday.setOnClickListener(this);
+        button.setOnClickListener(this);
     }
 
     @Override
@@ -73,6 +74,9 @@ public class InputScreen extends AppCompatActivity implements IInputScreenView,
         switch (view.getId()) {
             case R.id.text_view_birthday:
                 startDatePickerDialog();
+                break;
+            case R.id.button:
+
                 break;
         }
     }
@@ -134,12 +138,16 @@ public class InputScreen extends AppCompatActivity implements IInputScreenView,
     }
 
     @Override
-    public void onChoose(long dateFromDatePicker) {
-        Date birthday = new Date();
-        birthday.setTime(dateFromDatePicker);
-
+    public void showDateInTextView(long birthday) {
+        Date date = new Date();
+        date.setTime(birthday);
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-        textViewBirthday.setText(sdf.format(birthday));
+        textViewBirthday.setText(sdf.format(date));
+    }
+
+    @Override
+    public void onChoose(long dateFromDatePicker) {
+        presenter.setBirthday(dateFromDatePicker);
 
 //        Log.d(LOG_TAG, "birthday = " + birthday.toString());
     }

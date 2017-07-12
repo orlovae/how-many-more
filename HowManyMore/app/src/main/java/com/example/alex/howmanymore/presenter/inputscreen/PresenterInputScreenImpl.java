@@ -8,20 +8,22 @@ import com.example.alex.howmanymore.activity.inputscreen.IInputScreenView;
 import com.example.alex.howmanymore.adapter.DatabaseAdapter;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by alex on 10.07.17.
  */
 
-public class presenterInputScreenImpl implements IInputScreen {
+public class PresenterInputScreenImpl implements IInputScreen {
     private final String LOG_TAG = this.getClass().getSimpleName();
     private IInputScreenView view;
     private Context context;
 
     private String itemSelectedSpinnerSex, itemSelectedSpinnerCountry;
+    private long birthday;
 
-    public presenterInputScreenImpl(IInputScreenView view, Context context) {
+    public PresenterInputScreenImpl(IInputScreenView view, Context context) {
         Log.d(LOG_TAG, "create construtor");
         this.view = view;
         this.context = context;
@@ -54,6 +56,13 @@ public class presenterInputScreenImpl implements IInputScreen {
         }
 //        Log.d(LOG_TAG, "presenter itemSelectedSpinnerSex = " + itemSelectedSpinnerSex);
 //        Log.d(LOG_TAG, "presenter itemSelectedSpinnerCountry = " + itemSelectedSpinnerCountry);
+    }
+
+    @Override
+    public void setBirthday(long birthday) {
+        this.birthday = birthday;
+        view.showDateInTextView(birthday);
+//        Log.d(LOG_TAG, "birthday = " + new Date(birthday).toString());
     }
 
 

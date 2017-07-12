@@ -1,15 +1,11 @@
 package com.example.alex.howmanymore.fragments;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.app.DatePickerDialog;
 import android.widget.DatePicker;
-
-import com.example.alex.howmanymore.adapter.IOnSelectedDateListener;
 
 import java.util.Calendar;
 
