@@ -37,11 +37,7 @@ public class InputScreen extends AppCompatActivity implements IInputScreenView,
     private Spinner spinnerCountry, spinnerSex;
     private List<String> listCountry, listSex;
 
-    private Date birthday;
-
     private IInputScreen presenter = new presenterInputScreenImpl(this, this);
-
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,21 +82,6 @@ public class InputScreen extends AppCompatActivity implements IInputScreenView,
         changeDate.show(getSupportFragmentManager(), Constants.DATE_PICKER_NAME);
 
     }
-
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (data == null || resultCode != Activity.RESULT_OK) return;
-//
-//        switch (requestCode) {
-//            case DATE_SELECTED_REQUEST_CODE:
-//                birthday = Calendar.getInstance();
-//                long dataLongExtra = data.getLongExtra(DATE_SELECTED, 0);
-//                birthday.setTimeInMillis(dataLongExtra);
-//                break;
-//        }
-//    }
 
     private void initSpinner(List<String> arrayList, Spinner spinner){
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
@@ -154,11 +135,12 @@ public class InputScreen extends AppCompatActivity implements IInputScreenView,
 
     @Override
     public void onChoose(long dateFromDatePicker) {
-        birthday = new Date();
+        Date birthday = new Date();
         birthday.setTime(dateFromDatePicker);
 
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
         textViewBirthday.setText(sdf.format(birthday));
 
-        Log.d(LOG_TAG, "birthday = " + birthday.toString());
+//        Log.d(LOG_TAG, "birthday = " + birthday.toString());
     }
 }
