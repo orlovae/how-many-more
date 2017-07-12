@@ -18,4 +18,9 @@ public class Constants {
     //Flag Spinner
     public static final String SPINNER_COUNTRY = "country";
     public static final String SPINNER_SEX = "sex";
+
+    //DatePickerFragment
+    public static final String DATE_SELECTED = "date";
+    public static final String DATE_PICKER_NAME = "datePicker";
+    public static final int DATE_SELECTED_REQUEST_CODE = 1;
 }

@@ -44,14 +44,16 @@ public class presenterInputScreenImpl implements IInputScreen {
 
     @Override
     public void setSpinnerItemSelected(String itemSelected, String flag) {
-        if (flag.equals(Constants.SPINNER_SEX)) {
-            itemSelectedSpinnerSex = itemSelected;
-        }
-        if (flag.equals(Constants.SPINNER_COUNTRY)) {
+        switch (flag) {
+            case Constants.SPINNER_SEX:
+                itemSelectedSpinnerSex = itemSelected;
+                break;
+            case Constants.SPINNER_COUNTRY:
                 itemSelectedSpinnerCountry = itemSelected;
+                break;
         }
-        Log.d(LOG_TAG, "presenter itemSelectedSpinnerSex = " + itemSelectedSpinnerSex);
-        Log.d(LOG_TAG, "presenter itemSelectedSpinnerCountry = " + itemSelectedSpinnerCountry);
+//        Log.d(LOG_TAG, "presenter itemSelectedSpinnerSex = " + itemSelectedSpinnerSex);
+//        Log.d(LOG_TAG, "presenter itemSelectedSpinnerCountry = " + itemSelectedSpinnerCountry);
     }
 
 
