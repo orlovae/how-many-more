@@ -1,4 +1,4 @@
-package com.example.alex.howmanymore.activity;
+package com.example.alex.howmanymore.activity.inputscreen;
 
 import java.util.List;
 

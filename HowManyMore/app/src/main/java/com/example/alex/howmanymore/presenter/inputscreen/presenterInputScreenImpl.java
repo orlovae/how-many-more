@@ -1,10 +1,10 @@
-package com.example.alex.howmanymore.presenter;
+package com.example.alex.howmanymore.presenter.inputscreen;
 
 import android.content.Context;
 import android.util.Log;
 
 import com.example.alex.howmanymore.Constants;
-import com.example.alex.howmanymore.activity.IInputScreenView;
+import com.example.alex.howmanymore.activity.inputscreen.IInputScreenView;
 import com.example.alex.howmanymore.adapter.DatabaseAdapter;
 
 import java.util.ArrayList;
@@ -14,12 +14,14 @@ import java.util.List;
  * Created by alex on 10.07.17.
  */
 
-public class PresenterInputScreen implements IInputScreen {
+public class presenterInputScreenImpl implements IInputScreen {
     private final String LOG_TAG = this.getClass().getSimpleName();
     private IInputScreenView view;
     private Context context;
 
-    public PresenterInputScreen(IInputScreenView view, Context context) {
+    private String itemSelectedSpinnerSex, itemSelectedSpinnerCountry;
+
+    public presenterInputScreenImpl(IInputScreenView view, Context context) {
         Log.d(LOG_TAG, "create construtor");
         this.view = view;
         this.context = context;
@@ -39,6 +41,19 @@ public class PresenterInputScreen implements IInputScreen {
     public void setListSexToView() {
         view.showListSex(getListSex());
     }
+
+    @Override
+    public void setSpinnerItemSelected(String itemSelected, String flag) {
+        if (flag.equals(Constants.SPINNER_SEX)) {
+            itemSelectedSpinnerSex = itemSelected;
+        }
+        if (flag.equals(Constants.SPINNER_COUNTRY)) {
+                itemSelectedSpinnerCountry = itemSelected;
+        }
+        Log.d(LOG_TAG, "presenter itemSelectedSpinnerSex = " + itemSelectedSpinnerSex);
+        Log.d(LOG_TAG, "presenter itemSelectedSpinnerCountry = " + itemSelectedSpinnerCountry);
+    }
+
 
     private List<String> getListSex() {
         List<String> sexes = new ArrayList<String>();

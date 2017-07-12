@@ -3,4 +3,6 @@
 
     <!-- Activity InputScreen start -->
     <string name="input_screen_birthday">Введите Ваш День рожденья</string>
+    <string name="input_screen_country">Выберете страну проживания</string>
+    <string name="input_screen_sex">Выберете Ваш пол</string>
 </resources>

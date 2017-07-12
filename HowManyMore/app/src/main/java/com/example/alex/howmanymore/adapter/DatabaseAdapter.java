@@ -15,7 +15,7 @@ import java.util.List;
  * Created by alex on 05.07.17.
  */
 
-public class DatabaseAdapter implements Constants {
+public class DatabaseAdapter {
 
     private DBHelper mDBHelper;
     private SQLiteDatabase mDataBase;
