@@ -1,4 +1,4 @@
-package com.example.alex.howmanymore.activity;
+package com.example.alex.howmanymore.activity.mainactivity;
 
 import android.content.Context;
 import android.graphics.Point;
@@ -10,16 +10,21 @@ import android.util.TypedValue;
 import android.view.WindowManager;
 
 import com.example.alex.howmanymore.R;
+import com.example.alex.howmanymore.activity.Draw;
+import com.example.alex.howmanymore.presenter.mainactivity.IMainActivity;
+import com.example.alex.howmanymore.presenter.mainactivity.PresenterMainActivityImpl;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IMainActivityView {
     private final String LOG_TAG = this.getClass().getSimpleName();
 
     private Toolbar toolbar;
+
+    private IMainActivity presenter = new PresenterMainActivityImpl(this, this);
 
     private int widthScreen, heightScreen, heightToolbar, heightNotificationBar;
 

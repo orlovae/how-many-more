@@ -5,5 +5,6 @@ package com.example.alex.howmanymore.presenter;
  */
 
 public interface IBasePresenter {
-
+    void detachView();
+    void destroy();
 }

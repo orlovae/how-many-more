@@ -1,18 +1,22 @@
 package com.example.alex.howmanymore.activity.inputscreen;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.alex.howmanymore.Constants;
 import com.example.alex.howmanymore.R;
+import com.example.alex.howmanymore.activity.mainactivity.MainActivity;
 import com.example.alex.howmanymore.fragments.IOnSelectedDateListener;
 import com.example.alex.howmanymore.fragments.DatePickerFragment;
 import com.example.alex.howmanymore.presenter.inputscreen.IInputScreen;
@@ -76,7 +80,7 @@ public class InputScreen extends AppCompatActivity implements IInputScreenView,
                 startDatePickerDialog();
                 break;
             case R.id.button:
-
+                presenter.buttonOnClick();
                 break;
         }
     }
@@ -94,6 +98,7 @@ public class InputScreen extends AppCompatActivity implements IInputScreenView,
     }
 
     private void spinnerItemSelected(final Spinner spinner, final List<String> list) {
+//        Log.d(LOG_TAG, "start spinnerItemSelected ");
         spinner.post(new Runnable() {
             @Override
             public void run() {
@@ -102,7 +107,7 @@ public class InputScreen extends AppCompatActivity implements IInputScreenView,
                     public void onItemSelected(AdapterView<?> parent, View view, int position,
                                                long id) {
 //                        Log.d(LOG_TAG, "choose = " + list.get(position));
-                        switch (view.getId()) {
+                        switch (spinner.getId()) {
                             case R.id.spinner_country:
                                 presenter.setSpinnerItemSelected(list.get(position),
                                         Constants.SPINNER_COUNTRY);
@@ -115,11 +120,13 @@ public class InputScreen extends AppCompatActivity implements IInputScreenView,
                     }
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {
-                        if (spinner.getId() == spinnerCountry.getId()) {
-                            presenter.setSpinnerItemSelected(null, Constants.SPINNER_COUNTRY);
-                        }
-                        if (spinner.getId() == spinnerSex.getId()){
-                            presenter.setSpinnerItemSelected(null, Constants.SPINNER_SEX);
+                        switch (spinner.getId()) {
+                            case R.id.spinner_country:
+                                presenter.setSpinnerItemSelected(null, Constants.SPINNER_COUNTRY);
+                                break;
+                            case R.id.spinner_sex:
+                                presenter.setSpinnerItemSelected(null, Constants.SPINNER_SEX);
+                                break;
                         }
                     }
                 });
@@ -146,9 +153,29 @@ public class InputScreen extends AppCompatActivity implements IInputScreenView,
     }
 
     @Override
+    public void showToast() {
+        Toast.makeText(this, R.string.input_screen_toast, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void nextActivity() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+
+    @Override
     public void onChoose(long dateFromDatePicker) {
         presenter.setBirthday(dateFromDatePicker);
 
 //        Log.d(LOG_TAG, "birthday = " + birthday.toString());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.detachView();
+        if (isFinishing()) {
+            presenter.destroy();
+        }
     }
 }
