@@ -1,7 +1,5 @@
 package com.example.alex.howmanymore.model;
 
-import java.util.Calendar;
-
 /**
  * Created by alex on 03.07.17.
  */
@@ -9,11 +7,11 @@ import java.util.Calendar;
 public class Model {
     private float yearLifeExpectancy;
 
-    private Calendar birthday;
+    private long birthday;
 
     private String country, sex;
 
-    public Model(float yearLifeExpectancy, Calendar birthday, String country, String sex) {
+    public Model(float yearLifeExpectancy, long birthday, String country, String sex) {
         this.yearLifeExpectancy = yearLifeExpectancy;
         this.birthday = birthday;
         this.country = country;
@@ -28,11 +26,11 @@ public class Model {
         this.yearLifeExpectancy = yearLifeExpectancy;
     }
 
-    public Calendar getBirthday() {
+    public long getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Calendar birthday) {
+    public void setBirthday(long birthday) {
         this.birthday = birthday;
     }
 

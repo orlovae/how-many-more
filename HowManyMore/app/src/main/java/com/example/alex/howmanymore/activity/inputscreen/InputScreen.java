@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.alex.howmanymore.App;
 import com.example.alex.howmanymore.Constants;
 import com.example.alex.howmanymore.R;
 import com.example.alex.howmanymore.activity.mainactivity.MainActivity;
@@ -40,7 +41,7 @@ public class InputScreen extends AppCompatActivity implements IInputScreenView,
 
     private List<String> listCountry, listSex;
 
-    private IInputScreen presenter = new PresenterInputScreenImpl(this, this);
+    private IInputScreen presenter = new PresenterInputScreenImpl(this);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

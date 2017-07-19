@@ -1,6 +1,7 @@
 package com.example.alex.howmanymore;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.example.alex.howmanymore.adapter.DatabaseAdapter;
 
@@ -11,10 +12,16 @@ import com.example.alex.howmanymore.adapter.DatabaseAdapter;
 public class App extends Application {
     private DatabaseAdapter mDBAdapter;
 
+    private static Context context;
+
+    public static Context getAppContext() {
+        return App.context;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
-
+        App.context = getApplicationContext();
         init();
 
     }

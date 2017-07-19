@@ -1,5 +1,6 @@
 package com.example.alex.howmanymore.adapter;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,8 +8,10 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.alex.howmanymore.Constants;
 import com.example.alex.howmanymore.data.Contract;
 import com.example.alex.howmanymore.data.DBHelper;
+import com.example.alex.howmanymore.model.Model;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -21,7 +24,7 @@ public class DatabaseAdapter {
     private SQLiteDatabase mDataBase;
 
     public DatabaseAdapter (Context context) {
-        mDBHelper = new DBHelper(context.getApplicationContext());
+        mDBHelper = new DBHelper(context);
         mDBHelper.udateDataBase();
     }
 
@@ -112,16 +115,10 @@ public class DatabaseAdapter {
         return countryAnotherLanguage;
     }
 
-    private float getYearLifeExpectancy (String country, String sex) {
+    public float getYearLifeExpectancy (String country, String sex) {
         float yearLifeExpectancy = 0;
 
         String[] columns = new String[1];
-        String selection = Contract.LiveCountry.COLUMN_COUNTRY_EN
-                         + " = ? OR "
-                         + Contract.LiveCountry.COLUMN_COUNTRY_RU
-                         + " = ?";
-        String[] selectionArgs = {country};
-
         switch (sex) {
             case Constants.SEXES:
                 columns[0] = Contract.LiveCountry.COLUMN_SEXES_LIFE;
@@ -133,6 +130,13 @@ public class DatabaseAdapter {
                 columns[0] = Contract.LiveCountry.COLUMN_MALE_LIFE;
                 break;
         }
+
+        String selection = Contract.LiveCountry.COLUMN_COUNTRY_EN
+                + " = ? OR "
+                + Contract.LiveCountry.COLUMN_COUNTRY_RU
+                + " = ?";
+        String[] selectionArgs = {country, country};
+
 
         Cursor cursor = query(Contract.LiveCountry.TABLE_NAME, columns, selection, selectionArgs,
                 null, null, null);
@@ -151,6 +155,21 @@ public class DatabaseAdapter {
             }
         }
         return yearLifeExpectancy;
+    }
+
+    public void insertInTableUserRequests (Model model){
+        ContentValues cv = new ContentValues();
+        float yearLifeExpectancy = model.getYearLifeExpectancy();
+        long birthday = model.getBirthday();
+        String country = model.getCountry();
+        String sex = model.getSex();
+
+        cv.put("yearLifeExpectancy", yearLifeExpectancy);
+        cv.put("birthday", birthday);
+        cv.put("country", country);
+        cv.put("sex", sex);
+
+        mDataBase.insert(Contract.UserRequests.TABLE_NAME, null, cv);
     }
 
     private Cursor query(String table_name, String[] columns, String selection,

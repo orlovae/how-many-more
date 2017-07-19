@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import static com.example.alex.howmanymore.data.Contract.UserRequests.SQL_CREATE_USER_REQUESTS_TABLE;
+
 /**
  * Created by alex on 03.07.17.
  */
@@ -101,6 +103,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL(SQL_CREATE_USER_REQUESTS_TABLE);
     }
 
     @Override
