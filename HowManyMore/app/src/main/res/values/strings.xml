@@ -6,4 +6,8 @@
     <string name="input_screen_toast">Не все данные введены. Заполните все поля.</string>
     <string name="input_screen_country">Выберете страну проживания</string>
     <string name="input_screen_sex">Выберете Ваш пол</string>
+
+    <!-- Draw -->
+    <string name="draw_lived">ПРОЖИТО</string>
+    <string name="draw_remained">ОСТАЛОСЬ</string>
 </resources>

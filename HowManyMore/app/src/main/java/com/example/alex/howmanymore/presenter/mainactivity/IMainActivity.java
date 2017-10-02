@@ -5,4 +5,5 @@ package com.example.alex.howmanymore.presenter.mainactivity;
  */
 
 public interface IMainActivity {
+    void prepareInputDate(String lifeExpectancy, String birthday);
 }

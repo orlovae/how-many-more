@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
+import com.example.alex.howmanymore.R;
+
 
 /**
  * Created by alex on 02.07.17.
@@ -83,10 +85,12 @@ public class Draw extends View {
         mPaint.setTextSize(32);
         mPaint.setTextAlign(Paint.Align.CENTER);
 
-        canvas.drawText("ПРОЖИТО", widthScreen/2, heightBlackDraw/2, mPaint);
+        canvas.drawText(getResources().getString(R.string.draw_lived), widthScreen/2,
+                heightBlackDraw/2, mPaint);
 
         mPaint.setColor(Color.BLACK);
-        canvas.drawText("ОСТАЛОСЬ", widthScreen/2, heightBlackDraw + 1 + heightWhiteDraw/2, mPaint);
+        canvas.drawText(getResources().getString(R.string.draw_remained), widthScreen/2,
+                heightBlackDraw + 1 + heightWhiteDraw/2, mPaint);
     }
 
 }

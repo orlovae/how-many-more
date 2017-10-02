@@ -9,6 +9,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.WindowManager;
 
+import com.example.alex.howmanymore.Constants;
 import com.example.alex.howmanymore.R;
 import com.example.alex.howmanymore.activity.Draw;
 import com.example.alex.howmanymore.presenter.mainactivity.IMainActivity;
@@ -59,20 +60,19 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
         /**это входные значения, их нужно поставить в аргументы**/
 
         yearLifeExpectancy = Float.parseFloat(lifeExpectancy);
-        float oneYear = 365.2425f;//Константу вынести в класс констант
-        float dayLifeExpectancy = yearLifeExpectancy * oneYear;
+        float dayLifeExpectancy = yearLifeExpectancy * Constants.ONE_YEAR;
         /**Вынести в отдельный метод prepareLifeExpectancy который будет возвращать int
          * dayLifeExpectancy**/
 
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat format = new SimpleDateFormat(Constants.DATE_FORMAT);
         Date dateTwo = null;
         Calendar toDay = GregorianCalendar.getInstance();
 
         try {
             dateTwo = format.parse(birthday);
             long difference = toDay.getTimeInMillis() - dateTwo.getTime();
-            int daysLived = (int)(difference / (24 * 60 * 60 * 1000));
-            yearLived = daysLived/oneYear;
+            int daysLived = (int)(difference / (Constants.ONE_DAY_IN_MILLISECONDS));
+            yearLived = daysLived/Constants.ONE_YEAR;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -109,8 +109,10 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
 
     private void getHeightNotificationBar(Context context){
 
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen",
-                "android");
+        int resourceId = context.getResources().getIdentifier(
+                Constants.NAME_NOTIFICATION_BAR_1,
+                Constants.NAME_NOTIFICATION_BAR_2,
+                Constants.NAME_NOTIFICATION_BAR_3);
         if (resourceId > 0) {
             heightNotificationBar = context.getResources().getDimensionPixelSize(resourceId);
         }
@@ -122,9 +124,10 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
     private void prepareSizeDraw(){
         //Убрать метод либо в application либо в presenter
         heightAllDraw = heightScreen - heightNotificationBar - heightToolbar;
-        heightBlackDraw = (int) ((yearLived * heightAllDraw)/yearLifeExpectancy) - 10;
-        heightWhiteDraw = heightAllDraw - heightBlackDraw - 20; /** 20 - это линия, дробной части
-         прожитого года**/
+        heightBlackDraw = (int) ((yearLived * heightAllDraw)/yearLifeExpectancy)
+                - Constants.SIZE_BLACK_LINE;
+        heightWhiteDraw = heightAllDraw - heightBlackDraw
+                - Constants.SIZE_FRACTIONAL_LINE;
 
         int percentBlackLine = (int) ((yearLived % 1) * 100);
 

@@ -1,7 +1,5 @@
 package com.example.alex.howmanymore.presenter.inputscreen;
 
-import android.content.Context;
-
 import com.example.alex.howmanymore.App;
 import com.example.alex.howmanymore.Constants;
 import com.example.alex.howmanymore.activity.inputscreen.IInputScreenView;

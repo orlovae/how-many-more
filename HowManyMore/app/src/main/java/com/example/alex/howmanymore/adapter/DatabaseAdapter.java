@@ -164,10 +164,10 @@ public class DatabaseAdapter {
         String country = model.getCountry();
         String sex = model.getSex();
 
-        cv.put("yearLifeExpectancy", yearLifeExpectancy);
-        cv.put("birthday", birthday);
-        cv.put("country", country);
-        cv.put("sex", sex);
+        cv.put(Contract.UserRequests.COLUMN_YEAR_LIFE_EXPECTANCY, yearLifeExpectancy);
+        cv.put(Contract.UserRequests.COLUMN_BIRTHDAY, birthday);
+        cv.put(Contract.UserRequests.COLUMN_COUNTRY, country);
+        cv.put(Contract.UserRequests.COLUMN_SEX, sex);
 
         mDataBase.insert(Contract.UserRequests.TABLE_NAME, null, cv);
     }

@@ -149,7 +149,7 @@ public class InputScreen extends AppCompatActivity implements IInputScreenView,
     public void showDateInTextView(long birthday) {
         Date date = new Date();
         date.setTime(birthday);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT);
         textViewBirthday.setText(sdf.format(date));
     }
 
