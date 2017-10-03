@@ -5,4 +5,5 @@ package com.example.alex.howmanymore.activity.mainactivity;
  */
 
 public interface IMainActivityView {
+    void draw(int widthScreen, int heightBlackDraw, int heightWhiteDraw, int widthBlackLine);
 }

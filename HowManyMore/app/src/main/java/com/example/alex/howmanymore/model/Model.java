@@ -129,7 +129,7 @@ public class Model implements Parcelable {
         }
     };
 
-    protected Model(Parcel in) {
+    private Model(Parcel in) {
         this.id = in.readInt();
         this.yearLifeExpectancy = in.readFloat();
         this.birthday = in.readLong();
