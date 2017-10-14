@@ -1,4 +1,4 @@
-package com.example.alex.howmanymore.presenter.mainactivity;
+package com.example.alex.howmanymore.presenter;
 
 import android.content.Context;
 import android.graphics.Point;
@@ -7,7 +7,7 @@ import android.util.TypedValue;
 import android.view.WindowManager;
 
 import com.example.alex.howmanymore.Constants;
-import com.example.alex.howmanymore.activity.mainactivity.IMainActivityView;
+import com.example.alex.howmanymore.contract.MainActivityContract;
 import com.example.alex.howmanymore.model.Model;
 
 import java.text.SimpleDateFormat;
@@ -21,27 +21,25 @@ import static android.content.Context.WINDOW_SERVICE;
  * Created by alex on 13.07.17.
  */
 
-public class PresenterMainActivityImpl implements IMainActivity {
+public class MainActivityPresenter extends PresenterBase<MainActivityContract.View>
+        implements MainActivityContract.Presenter {
     private final String LOG_TAG = this.getClass().getSimpleName();
-    private IMainActivityView view;
     private Context context;
 
     private int widthScreen, heightScreen;
     private int heightBlackDraw, heightWhiteDraw, widthBlackLine;
     private float yearLifeExpectancy, yearLived;
 
-    public PresenterMainActivityImpl(IMainActivityView view, Context context) {
-        this.view = view;
+    @Override
+    public void viewIsReady(Context context) {
         this.context = context;
+        getScreenSize();
+        getYearLived(null);
+        prepareSizeDraw();
+        getView().draw(widthScreen, heightBlackDraw, heightWhiteDraw, widthBlackLine);
     }
 
-    @Override
-    public void preparationForPainting(Model model) {
-        getScreenSize();
-        getYearLived(model);
-        prepareSizeDraw();
-        view.draw(widthScreen, heightBlackDraw, heightWhiteDraw, widthBlackLine);
-    }
+
 
     private void getYearLived(Model model) {
         String lifeExpectancy = "50.0";
@@ -116,15 +114,5 @@ public class PresenterMainActivityImpl implements IMainActivity {
 
         Log.d(LOG_TAG, "heightAllDraw = " + heightAllDraw + "; heightBlackDraw = " +
                 heightBlackDraw + "; heightWhiteDraw = " + heightWhiteDraw);
-    }
-
-    @Override
-    public void detachView() {
-        view = null;
-        context = null;
-    }
-
-    @Override
-    public void destroy() {
     }
 }

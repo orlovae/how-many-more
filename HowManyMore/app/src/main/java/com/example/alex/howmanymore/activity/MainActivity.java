@@ -1,19 +1,17 @@
-package com.example.alex.howmanymore.activity.mainactivity;
+package com.example.alex.howmanymore.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 
 import com.example.alex.howmanymore.R;
-import com.example.alex.howmanymore.activity.Draw;
-import com.example.alex.howmanymore.presenter.mainactivity.IMainActivity;
-import com.example.alex.howmanymore.presenter.mainactivity.PresenterMainActivityImpl;
+import com.example.alex.howmanymore.contract.MainActivityContract;
+import com.example.alex.howmanymore.presenter.MainActivityPresenter;
 
-public class MainActivity extends AppCompatActivity implements IMainActivityView {
+public class MainActivity extends AppCompatActivity implements MainActivityContract.View {
     private final String LOG_TAG = this.getClass().getSimpleName();
     private Toolbar toolbar;
-    private IMainActivity presenter = new PresenterMainActivityImpl(this, this);
+    private MainActivityContract.Presenter presenter = new MainActivityPresenter();
 
 
     @Override
@@ -23,7 +21,8 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
 
         iniToolbar();
 
-        presenter.preparationForPainting(null);
+        presenter.attachView(this);
+        presenter.viewIsReady(getApplicationContext());
     }
 
      private void iniToolbar(){
@@ -39,5 +38,14 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
         draw.setHeightBlackDraw(heightBlackDraw);
         draw.setHeightWhiteDraw(heightWhiteDraw);
         draw.setWidthBlackLine(widthBlackLine);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.detachView();
+        if (isFinishing()) {
+            presenter.destroy();
+        }
     }
 }

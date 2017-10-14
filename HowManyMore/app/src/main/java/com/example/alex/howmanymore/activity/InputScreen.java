@@ -1,11 +1,10 @@
-package com.example.alex.howmanymore.activity.inputscreen;
+package com.example.alex.howmanymore.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,14 +13,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.alex.howmanymore.App;
 import com.example.alex.howmanymore.Constants;
 import com.example.alex.howmanymore.R;
-import com.example.alex.howmanymore.activity.mainactivity.MainActivity;
+import com.example.alex.howmanymore.contract.InputScreenContract;
 import com.example.alex.howmanymore.fragments.IOnSelectedDateListener;
 import com.example.alex.howmanymore.fragments.DatePickerFragment;
-import com.example.alex.howmanymore.presenter.inputscreen.IInputScreen;
-import com.example.alex.howmanymore.presenter.inputscreen.PresenterInputScreenImpl;
+import com.example.alex.howmanymore.presenter.InputScreenPresenter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,7 +28,7 @@ import java.util.List;
  * Created by alex on 10.07.17.
  */
 
-public class InputScreen extends AppCompatActivity implements IInputScreenView,
+public class InputScreen extends AppCompatActivity implements InputScreenContract.View,
         View.OnClickListener, IOnSelectedDateListener {
     private final String LOG_TAG = this.getClass().getSimpleName();
 
@@ -41,7 +38,7 @@ public class InputScreen extends AppCompatActivity implements IInputScreenView,
 
     private List<String> listCountry, listSex;
 
-    private IInputScreen presenter = new PresenterInputScreenImpl(this);
+    private InputScreenContract.Presenter presenter = new InputScreenPresenter();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,6 +48,9 @@ public class InputScreen extends AppCompatActivity implements IInputScreenView,
         initView();
 
         buttonBehavior();
+
+        presenter.attachView(this);
+        presenter.viewIsReady(getApplicationContext());
 
         presenter.setListSexToView();
         presenter.setListCountryToView();

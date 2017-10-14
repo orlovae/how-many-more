@@ -19,15 +19,13 @@ public class Constants {
     public static final String SPINNER_COUNTRY = "country";
     public static final String SPINNER_SEX = "sex";
 
-    //DatePickerFragment
+    /** InputScreen **/
     public static final String DATE_SELECTED = "date";
     public static final String DATE_PICKER_NAME = "datePicker";
     public static final int DATE_SELECTED_REQUEST_CODE = 1;
-
-    /** InputScreenView, MainActivity **/
     public static final String DATE_FORMAT = "dd.MM.yyyy";
 
-    /** MainActivity **/
+    /** MainActivityPresenter **/
     public static final float ONE_YEAR = 365.2425f;
     public static final int ONE_DAY_IN_MILLISECONDS = 24 * 60 * 60 * 1000;
     public static final String NAME_NOTIFICATION_BAR_1 = "status_bar_height";

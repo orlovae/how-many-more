@@ -1,9 +1,11 @@
-package com.example.alex.howmanymore.presenter.inputscreen;
+package com.example.alex.howmanymore.presenter;
+
+import android.content.Context;
 
 import com.example.alex.howmanymore.App;
 import com.example.alex.howmanymore.Constants;
-import com.example.alex.howmanymore.activity.inputscreen.IInputScreenView;
 import com.example.alex.howmanymore.adapter.DatabaseAdapter;
+import com.example.alex.howmanymore.contract.InputScreenContract;
 import com.example.alex.howmanymore.model.Model;
 
 import java.util.ArrayList;
@@ -13,25 +15,28 @@ import java.util.List;
  * Created by alex on 10.07.17.
  */
 
-public class PresenterInputScreenImpl implements IInputScreen {
+public class InputScreenPresenter extends PresenterBase<InputScreenContract.View>
+        implements InputScreenContract.Presenter {
     private final String LOG_TAG = this.getClass().getSimpleName();
-    private IInputScreenView view;
     private DatabaseAdapter databaseAdapter = null;
 
     private String itemSelectedSpinnerSex = null;
     private String itemSelectedSpinnerCountry = null;
     private long birthday = 0;
 
-    public PresenterInputScreenImpl(IInputScreenView view) {
-//        Log.d(LOG_TAG, "create construtor");
-        this.view = view;
+    public InputScreenPresenter() {
         databaseAdapter = new DatabaseAdapter(App.getAppContext());
+    }
+
+    @Override
+    public void viewIsReady(Context context) {
+
     }
 
     @Override
     public void setListCountryToView() {
 //        Log.d(LOG_TAG, "create setListCountryToView");
-        view.showListCountry(getListCountry());
+        getView().showListCountry(getListCountry());
     }
 
     private List<String> getListCountry() {
@@ -40,7 +45,7 @@ public class PresenterInputScreenImpl implements IInputScreen {
 
     @Override
     public void setListSexToView() {
-        view.showListSex(getListSex());
+        getView().showListSex(getListSex());
     }
 
     @Override
@@ -61,14 +66,14 @@ public class PresenterInputScreenImpl implements IInputScreen {
     @Override
     public void setBirthday(long birthday) {
         this.birthday = birthday;
-        view.showDateInTextView(birthday);
+        getView().showDateInTextView(birthday);
 //        Log.d(LOG_TAG, "birthday = " + new Date(birthday).toString());
     }
 
     @Override
     public void buttonOnClick() {
         if (checkInputData()) {
-            view.nextActivity();
+            getView().nextActivity();
         }
     }
 
@@ -78,7 +83,7 @@ public class PresenterInputScreenImpl implements IInputScreen {
             createNewModel(itemSelectedSpinnerCountry, itemSelectedSpinnerSex, birthday);
             return true;
         } else {
-            view.showToast();
+            getView().showToast();
             return false;
         }
     }
@@ -88,7 +93,6 @@ public class PresenterInputScreenImpl implements IInputScreen {
         Model model = new Model(yearLifeExpectancy, birthday, country, sex);
         databaseAdapter.insertInTableUserRequests(model);
     }
-
 
     private List<String> getListSex() {
         List<String> sexes = new ArrayList<String>();
@@ -100,14 +104,4 @@ public class PresenterInputScreenImpl implements IInputScreen {
         //TODO как-то через жопу, вдруг я захочу 1 пол оставить?. М.Б. через ENUM?
     }
 
-    @Override
-    public void detachView() {
-        view = null;
-    }
-
-    @Override
-    public void destroy() {
-        itemSelectedSpinnerCountry = null;
-        itemSelectedSpinnerSex = null;
-    }
 }
