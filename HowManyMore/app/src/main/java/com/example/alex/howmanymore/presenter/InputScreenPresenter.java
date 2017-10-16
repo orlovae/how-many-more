@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.alex.howmanymore.App;
 import com.example.alex.howmanymore.Constants;
+import com.example.alex.howmanymore.R;
 import com.example.alex.howmanymore.adapter.DatabaseAdapter;
 import com.example.alex.howmanymore.contract.InputScreenContract;
 import com.example.alex.howmanymore.model.Model;
@@ -83,7 +84,7 @@ public class InputScreenPresenter extends PresenterBase<InputScreenContract.View
             createNewModel(itemSelectedSpinnerCountry, itemSelectedSpinnerSex, birthday);
             return true;
         } else {
-            getView().showToast();
+            getView().showMessage(R.string.input_screen_toast);
             return false;
         }
     }

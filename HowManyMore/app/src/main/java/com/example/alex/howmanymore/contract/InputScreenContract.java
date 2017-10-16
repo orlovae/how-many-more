@@ -15,7 +15,7 @@ public interface InputScreenContract {
         void showListCountry(List<String> listCountry);
         void showListSex(List<String> listSex);
         void showDateInTextView(long birthday);
-        void showToast();
+        void showMessage(int messageResId);
         void nextActivity();
     }
 

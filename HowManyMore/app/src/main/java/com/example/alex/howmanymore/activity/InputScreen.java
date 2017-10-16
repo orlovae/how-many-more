@@ -154,8 +154,8 @@ public class InputScreen extends AppCompatActivity implements InputScreenContrac
     }
 
     @Override
-    public void showToast() {
-        Toast.makeText(this, R.string.input_screen_toast, Toast.LENGTH_SHORT).show();
+    public void showMessage(int messageResId) {
+        Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show();
     }
 
     @Override
