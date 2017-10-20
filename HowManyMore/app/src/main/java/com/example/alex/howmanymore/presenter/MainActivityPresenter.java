@@ -35,6 +35,8 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
     private int heightBlackDraw, heightWhiteDraw, widthBlackLine;
     private float yearLifeExpectancy, yearLived;
 
+    private long birthday;
+
     public MainActivityPresenter(){
         App.getComponent().injectsPresenter(this);
     }
@@ -42,13 +44,15 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
     @Override
     public void viewIsReady(Context context) {
         this.context = context;
-        getScreenSize();
-        getYearLived(getView().getModel());
-        prepareSizeDraw();
+        prepareOnDraw();
         getView().draw(widthScreen, heightBlackDraw, heightWhiteDraw, widthBlackLine);
     }
 
-
+    private void prepareOnDraw() {
+        getScreenSize();
+        getYearLived(getView().getModel());
+        prepareSizeDraw();
+    }
 
     private void getYearLived(Model model) {
         yearLifeExpectancy = model.getYearLifeExpectancy();
@@ -56,10 +60,11 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
         Calendar toDay = GregorianCalendar.getInstance();
 
         try {
-            long dateTwo = model.getBirthday();
-            long difference = toDay.getTimeInMillis() - dateTwo;
+            long birthday = this.birthday;
+            long difference = toDay.getTimeInMillis() - birthday;
             int daysLived = (int)(difference / (Constants.ONE_DAY_IN_MILLISECONDS));
             yearLived = daysLived/Constants.ONE_YEAR;
+            Log.d(LOG_TAG, "yearLived = " + yearLived);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -115,5 +120,12 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
 
         Log.d(LOG_TAG, "heightAllDraw = " + heightAllDraw + "; heightBlackDraw = " +
                 heightBlackDraw + "; heightWhiteDraw = " + heightWhiteDraw);
+    }
+
+    @Override
+    public void setBirthday(long birthday) {
+        this.birthday = birthday;
+        prepareOnDraw();
+        getView().draw(widthScreen, heightBlackDraw, heightWhiteDraw, widthBlackLine);
     }
 }

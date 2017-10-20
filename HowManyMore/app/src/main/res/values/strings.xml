@@ -10,4 +10,9 @@
     <!-- Draw -->
     <string name="draw_lived">ПРОЖИТО</string>
     <string name="draw_remained">ОСТАЛОСЬ</string>
+
+    <!-- Toolbar -->
+    <string name="toolbar_birthday">День рожденья</string>
+    <string name="toolbar_country">Страна</string>
+    <string name="toolbar_sex">Пол</string>
 </resources>
