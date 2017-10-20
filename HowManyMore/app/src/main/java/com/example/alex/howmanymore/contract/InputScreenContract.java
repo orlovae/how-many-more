@@ -1,9 +1,12 @@
 package com.example.alex.howmanymore.contract;
 
 import com.example.alex.howmanymore.activity.IView;
+import com.example.alex.howmanymore.model.Model;
 import com.example.alex.howmanymore.presenter.IPresenter;
 
 import java.util.List;
+
+import dagger.Provides;
 
 /**
  * Created by alex on 14.10.17.
@@ -16,7 +19,7 @@ public interface InputScreenContract {
         void showListSex(List<String> listSex);
         void showDateInTextView(long birthday);
         void showMessage(int messageResId);
-        void nextActivity();
+        void nextActivity(Model model);
     }
 
     interface Presenter extends IPresenter<View> {

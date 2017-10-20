@@ -2,7 +2,7 @@ package com.example.alex.howmanymore.presenter;
 
 import android.content.Context;
 
-import com.example.alex.howmanymore.App;
+import com.example.alex.howmanymore.app.App;
 import com.example.alex.howmanymore.Constants;
 import com.example.alex.howmanymore.R;
 import com.example.alex.howmanymore.adapter.DatabaseAdapter;
@@ -12,6 +12,8 @@ import com.example.alex.howmanymore.model.Model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * Created by alex on 10.07.17.
  */
@@ -19,19 +21,20 @@ import java.util.List;
 public class InputScreenPresenter extends PresenterBase<InputScreenContract.View>
         implements InputScreenContract.Presenter {
     private final String LOG_TAG = this.getClass().getSimpleName();
-    private DatabaseAdapter databaseAdapter = null;
+
+    @Inject
+    protected DatabaseAdapter databaseAdapter;
 
     private String itemSelectedSpinnerSex = null;
     private String itemSelectedSpinnerCountry = null;
     private long birthday = 0;
 
     public InputScreenPresenter() {
-        databaseAdapter = new DatabaseAdapter(App.getAppContext());
+        App.getComponent().injectsPresenter(this);
     }
 
     @Override
     public void viewIsReady(Context context) {
-
     }
 
     @Override
@@ -74,14 +77,14 @@ public class InputScreenPresenter extends PresenterBase<InputScreenContract.View
     @Override
     public void buttonOnClick() {
         if (checkInputData()) {
-            getView().nextActivity();
+            getView().nextActivity(createNewModel(itemSelectedSpinnerCountry,
+                    itemSelectedSpinnerSex, birthday));
         }
     }
 
     private boolean checkInputData() {
         if (itemSelectedSpinnerSex != null && itemSelectedSpinnerCountry != null &&
                 birthday > 0) {
-            createNewModel(itemSelectedSpinnerCountry, itemSelectedSpinnerSex, birthday);
             return true;
         } else {
             getView().showMessage(R.string.input_screen_toast);
@@ -89,10 +92,11 @@ public class InputScreenPresenter extends PresenterBase<InputScreenContract.View
         }
     }
 
-    private void createNewModel(String country, String sex, long birthday){
+    private Model createNewModel(String country, String sex, long birthday){
         float yearLifeExpectancy = databaseAdapter.getYearLifeExpectancy(country, sex);
         Model model = new Model(yearLifeExpectancy, birthday, country, sex);
         databaseAdapter.insertInTableUserRequests(model);
+        return model;
     }
 
     private List<String> getListSex() {

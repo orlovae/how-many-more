@@ -24,6 +24,7 @@ public class Constants {
     public static final String DATE_PICKER_NAME = "datePicker";
     public static final int DATE_SELECTED_REQUEST_CODE = 1;
     public static final String DATE_FORMAT = "dd.MM.yyyy";
+    public static final String INTENT_MODEL = "model";
 
     /** MainActivityPresenter **/
     public static final float ONE_YEAR = 365.2425f;

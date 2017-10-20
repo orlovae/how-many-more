@@ -15,14 +15,20 @@ import android.widget.Toast;
 
 import com.example.alex.howmanymore.Constants;
 import com.example.alex.howmanymore.R;
+import com.example.alex.howmanymore.app.App;
 import com.example.alex.howmanymore.contract.InputScreenContract;
 import com.example.alex.howmanymore.fragments.IOnSelectedDateListener;
 import com.example.alex.howmanymore.fragments.DatePickerFragment;
+import com.example.alex.howmanymore.model.Model;
 import com.example.alex.howmanymore.presenter.InputScreenPresenter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import javax.inject.Inject;
+
+import static com.example.alex.howmanymore.Constants.INTENT_MODEL;
 
 /**
  * Created by alex on 10.07.17.
@@ -38,12 +44,15 @@ public class InputScreen extends AppCompatActivity implements InputScreenContrac
 
     private List<String> listCountry, listSex;
 
-    private InputScreenContract.Presenter presenter = new InputScreenPresenter();
+    @Inject
+    InputScreenPresenter presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_screen);
+
+        App.getComponent().injectsActivity(this);
 
         initView();
 
@@ -159,8 +168,10 @@ public class InputScreen extends AppCompatActivity implements InputScreenContrac
     }
 
     @Override
-    public void nextActivity() {
-        startActivity(new Intent(this, MainActivity.class));
+    public void nextActivity(Model model) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(INTENT_MODEL, model);
+        startActivity(intent);
         finish();
     }
 

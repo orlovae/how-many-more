@@ -7,6 +7,7 @@ import android.util.TypedValue;
 import android.view.WindowManager;
 
 import com.example.alex.howmanymore.Constants;
+import com.example.alex.howmanymore.app.App;
 import com.example.alex.howmanymore.contract.MainActivityContract;
 import com.example.alex.howmanymore.model.Model;
 
@@ -14,6 +15,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
+import javax.inject.Inject;
 
 import static android.content.Context.WINDOW_SERVICE;
 
@@ -24,17 +27,23 @@ import static android.content.Context.WINDOW_SERVICE;
 public class MainActivityPresenter extends PresenterBase<MainActivityContract.View>
         implements MainActivityContract.Presenter {
     private final String LOG_TAG = this.getClass().getSimpleName();
-    private Context context;
+
+    @Inject
+    protected Context context;
 
     private int widthScreen, heightScreen;
     private int heightBlackDraw, heightWhiteDraw, widthBlackLine;
     private float yearLifeExpectancy, yearLived;
 
+    public MainActivityPresenter(){
+        App.getComponent().injectsPresenter(this);
+    }
+
     @Override
     public void viewIsReady(Context context) {
         this.context = context;
         getScreenSize();
-        getYearLived(null);
+        getYearLived(getView().getModel());
         prepareSizeDraw();
         getView().draw(widthScreen, heightBlackDraw, heightWhiteDraw, widthBlackLine);
     }
@@ -42,21 +51,13 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
 
 
     private void getYearLived(Model model) {
-        String lifeExpectancy = "50.0";
-        String birthday = "03.07.1992";
-        /**это входные значения, их нужно поставить в аргументы**/
-
-        yearLifeExpectancy = Float.parseFloat(lifeExpectancy);
+        yearLifeExpectancy = model.getYearLifeExpectancy();
         float dayLifeExpectancy = yearLifeExpectancy * Constants.ONE_YEAR;
-        /**Вынести в отдельный метод prepareLifeExpectancy который будет возвращать int
-         * dayLifeExpectancy**/
-
-        SimpleDateFormat format = new SimpleDateFormat(Constants.DATE_FORMAT);
         Calendar toDay = GregorianCalendar.getInstance();
 
         try {
-            Date dateTwo = format.parse(birthday);
-            long difference = toDay.getTimeInMillis() - dateTwo.getTime();
+            long dateTwo = model.getBirthday();
+            long difference = toDay.getTimeInMillis() - dateTwo;
             int daysLived = (int)(difference / (Constants.ONE_DAY_IN_MILLISECONDS));
             yearLived = daysLived/Constants.ONE_YEAR;
         } catch (Exception e) {
