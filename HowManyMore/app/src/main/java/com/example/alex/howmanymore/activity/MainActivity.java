@@ -1,12 +1,8 @@
 package com.example.alex.howmanymore.activity;
 
-import android.app.SearchManager;
-import android.content.Context;
-import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,7 +14,8 @@ import com.example.alex.howmanymore.app.App;
 import com.example.alex.howmanymore.contract.MainActivityContract;
 import com.example.alex.howmanymore.fragments.DatePickerFragment;
 import com.example.alex.howmanymore.fragments.IOnSelectedDateListener;
-import com.example.alex.howmanymore.model.Model;
+import com.example.alex.howmanymore.model.Country;
+import com.example.alex.howmanymore.model.User;
 import com.example.alex.howmanymore.presenter.MainActivityPresenter;
 
 import javax.inject.Inject;
@@ -32,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
 
     @Inject
     MainActivityPresenter presenter;
-    private Model model;
+    private User user;
 
 
     @Override
@@ -41,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
         setContentView(R.layout.activity_main);
         App.getComponent().injectsActivity(this);
 
-        model = (Model)getIntent().getParcelableExtra(INTENT_MODEL);
+        user = (User) getIntent().getParcelableExtra(INTENT_MODEL);
 
         iniToolbar();
 
@@ -96,8 +93,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     }
 
     @Override
-    public Model getModel() {
-        return model;
+    public User getUser() {
+        return user;
     }
 
     @Override

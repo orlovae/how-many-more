@@ -1,7 +1,8 @@
 package com.example.alex.howmanymore.contract;
 
 import com.example.alex.howmanymore.activity.IView;
-import com.example.alex.howmanymore.model.Model;
+import com.example.alex.howmanymore.model.Country;
+import com.example.alex.howmanymore.model.User;
 import com.example.alex.howmanymore.presenter.IPresenter;
 
 /**
@@ -12,7 +13,7 @@ public interface MainActivityContract {
 
     interface View extends IView {
         void draw(int widthScreen, int heightBlackDraw, int heightWhiteDraw, int widthBlackLine);
-        Model getModel();
+        User getUser();
     }
 
     interface Presenter extends IPresenter<View> {

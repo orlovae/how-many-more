@@ -9,11 +9,10 @@ import android.view.WindowManager;
 import com.example.alex.howmanymore.Constants;
 import com.example.alex.howmanymore.app.App;
 import com.example.alex.howmanymore.contract.MainActivityContract;
-import com.example.alex.howmanymore.model.Model;
+import com.example.alex.howmanymore.model.Country;
+import com.example.alex.howmanymore.model.User;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.inject.Inject;
@@ -50,12 +49,12 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
 
     private void prepareOnDraw() {
         getScreenSize();
-        getYearLived(getView().getModel());
+        getYearLived(getView().getUser());
         prepareSizeDraw();
     }
 
-    private void getYearLived(Model model) {
-        yearLifeExpectancy = model.getYearLifeExpectancy();
+    private void getYearLived(User user) {
+        yearLifeExpectancy = user.getYearLifeExpectancy();
         float dayLifeExpectancy = yearLifeExpectancy * Constants.ONE_YEAR;
         Calendar toDay = GregorianCalendar.getInstance();
 

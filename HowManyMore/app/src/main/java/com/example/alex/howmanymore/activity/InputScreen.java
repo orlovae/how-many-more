@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,11 +16,13 @@ import android.widget.Toast;
 
 import com.example.alex.howmanymore.Constants;
 import com.example.alex.howmanymore.R;
+import com.example.alex.howmanymore.adapter.CountryAdapter;
 import com.example.alex.howmanymore.app.App;
 import com.example.alex.howmanymore.contract.InputScreenContract;
 import com.example.alex.howmanymore.fragments.IOnSelectedDateListener;
 import com.example.alex.howmanymore.fragments.DatePickerFragment;
-import com.example.alex.howmanymore.model.Model;
+import com.example.alex.howmanymore.model.Country;
+import com.example.alex.howmanymore.model.User;
 import com.example.alex.howmanymore.presenter.InputScreenPresenter;
 
 import java.text.SimpleDateFormat;
@@ -36,13 +39,15 @@ import static com.example.alex.howmanymore.Constants.INTENT_MODEL;
 
 public class InputScreen extends AppCompatActivity implements InputScreenContract.View,
         View.OnClickListener, IOnSelectedDateListener {
-    private final String LOG_TAG = this.getClass().getSimpleName();
+    private final String TAG = this.getClass().getSimpleName();
 
-    private TextView textViewBirthday;
-    private Spinner spinnerCountry, spinnerSex;
-    private Button button;
+    private TextView mTextViewBirthday;
+    private Spinner mSpinnerCountry, mSpinnerSex;
+    private Button mButton;
 
-    private List<String> listCountry, listSex;
+    private List<Country> countries;
+
+    private List<String> mListNameCountry, mListSex;
 
     @Inject
     InputScreenPresenter presenter;
@@ -63,24 +68,25 @@ public class InputScreen extends AppCompatActivity implements InputScreenContrac
 
         presenter.setListSexToView();
         presenter.setListCountryToView();
+        presenter.setListNameCountryToView();
 
-        initSpinner(listCountry, spinnerCountry);
-        spinnerItemSelected(spinnerCountry, listCountry);
+        initSpinnerCountries(countries, mSpinnerCountry);
+        spinnerItemSelected(mSpinnerCountry, mListNameCountry);
 
-        initSpinner(listSex, spinnerSex);
-        spinnerItemSelected(spinnerSex, listSex);
+        initSpinner(mListSex, mSpinnerSex);
+        spinnerItemSelected(mSpinnerSex, mListSex);
     }
 
     private void initView() {
-        textViewBirthday = (TextView) findViewById(R.id.text_view_birthday);
-        spinnerCountry = (Spinner)findViewById(R.id.spinner_country);
-        spinnerSex = (Spinner)findViewById(R.id.spinner_sex);
-        button = (Button)findViewById(R.id.button);
+        mTextViewBirthday = (TextView) findViewById(R.id.text_view_birthday);
+        mSpinnerCountry = (Spinner)findViewById(R.id.spinner_country);
+        mSpinnerSex = (Spinner)findViewById(R.id.spinner_sex);
+        mButton = (Button)findViewById(R.id.button);
     }
 
     private void buttonBehavior() {
-        textViewBirthday.setOnClickListener(this);
-        button.setOnClickListener(this);
+        mTextViewBirthday.setOnClickListener(this);
+        mButton.setOnClickListener(this);
     }
 
     @Override
@@ -101,9 +107,16 @@ public class InputScreen extends AppCompatActivity implements InputScreenContrac
 
     }
 
-    private void initSpinner(List<String> arrayList, Spinner spinner){
+    private void initSpinnerCountries(List<Country> countries, Spinner spinner){
+        Log.d(TAG, "initSpinnerCountries: countries.size=" + countries.size());
+        CountryAdapter adapter = new CountryAdapter(this, countries);
+        spinner.setAdapter(adapter);
+        spinner.setSelection(presenter.getPositionSpinner());
+    }
+
+    private void initSpinner(List<String> listSex, Spinner spinner){
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                R.layout.support_simple_spinner_dropdown_item, arrayList);
+                R.layout.support_simple_spinner_dropdown_item, listSex);
         spinner.setAdapter(adapter);
     }
 
@@ -145,13 +158,18 @@ public class InputScreen extends AppCompatActivity implements InputScreenContrac
     }
 
     @Override
-    public void showListCountry(List<String> listCountry) {
-        this.listCountry = listCountry;
+    public void showListCountry(List<Country> countries) {
+        this.countries = countries;
+    }
+
+    @Override
+    public void showListNameCountry(List<String> listNameCountry) {
+        this.mListNameCountry = listNameCountry;
     }
 
     @Override
     public void showListSex(List<String> listSex) {
-        this.listSex = listSex;
+        this.mListSex = listSex;
     }
 
     @Override
@@ -159,7 +177,7 @@ public class InputScreen extends AppCompatActivity implements InputScreenContrac
         Date date = new Date();
         date.setTime(birthday);
         SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT);
-        textViewBirthday.setText(sdf.format(date));
+        mTextViewBirthday.setText(sdf.format(date));
     }
 
     @Override
@@ -168,9 +186,9 @@ public class InputScreen extends AppCompatActivity implements InputScreenContrac
     }
 
     @Override
-    public void nextActivity(Model model) {
+    public void nextActivity(User user) {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(INTENT_MODEL, model);
+        intent.putExtra(INTENT_MODEL, user);
         startActivity(intent);
         finish();
     }

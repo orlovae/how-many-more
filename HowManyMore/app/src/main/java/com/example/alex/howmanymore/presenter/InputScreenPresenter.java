@@ -7,12 +7,15 @@ import com.example.alex.howmanymore.Constants;
 import com.example.alex.howmanymore.R;
 import com.example.alex.howmanymore.adapter.DatabaseAdapter;
 import com.example.alex.howmanymore.contract.InputScreenContract;
-import com.example.alex.howmanymore.model.Model;
+import com.example.alex.howmanymore.model.Country;
+import com.example.alex.howmanymore.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import static com.example.alex.howmanymore.Constants.RU;
 
 /**
  * Created by alex on 10.07.17.
@@ -23,7 +26,10 @@ public class InputScreenPresenter extends PresenterBase<InputScreenContract.View
     private final String LOG_TAG = this.getClass().getSimpleName();
 
     @Inject
-    protected DatabaseAdapter databaseAdapter;
+    protected DatabaseAdapter mDatabaseAdapter;
+
+    @Inject
+    protected List<Country> mCountries;
 
     private String itemSelectedSpinnerSex = null;
     private String itemSelectedSpinnerCountry = null;
@@ -40,16 +46,36 @@ public class InputScreenPresenter extends PresenterBase<InputScreenContract.View
     @Override
     public void setListCountryToView() {
 //        Log.d(LOG_TAG, "create setListCountryToView");
-        getView().showListCountry(getListCountry());
+        getView().showListCountry(mCountries);
     }
 
-    private List<String> getListCountry() {
-        return databaseAdapter.getListCountry(Constants.RU);
+    @Override
+    public void setListNameCountryToView() {
+        getView().showListNameCountry(getListNameCountry());
+    }
+
+    private List<String> getListNameCountry() {
+        return mDatabaseAdapter.getNameCountry(RU);
     }
 
     @Override
     public void setListSexToView() {
         getView().showListSex(getListSex());
+    }
+
+    @Override
+    public int getPositionSpinner() {
+        int position = -1;
+        boolean done = false;
+
+        for (int i = 0; !done; i++) {
+            if(mCountries.get(i).getNameISO().equalsIgnoreCase(Constants.RU)) {
+                done = true;
+                return i;
+            }
+        }
+        return position;
+        //TODO посмотреть локаль, попробовать в зависимости от языка ставить по умолчанию страну.
     }
 
     @Override
@@ -77,7 +103,7 @@ public class InputScreenPresenter extends PresenterBase<InputScreenContract.View
     @Override
     public void buttonOnClick() {
         if (checkInputData()) {
-            getView().nextActivity(createNewModel(itemSelectedSpinnerCountry,
+            getView().nextActivity(createNewUser(itemSelectedSpinnerCountry,
                     itemSelectedSpinnerSex, birthday));
         }
     }
@@ -92,11 +118,11 @@ public class InputScreenPresenter extends PresenterBase<InputScreenContract.View
         }
     }
 
-    private Model createNewModel(String country, String sex, long birthday){
-        float yearLifeExpectancy = databaseAdapter.getYearLifeExpectancy(country, sex);
-        Model model = new Model(yearLifeExpectancy, birthday, country, sex);
-        databaseAdapter.insertInTableUserRequests(model);
-        return model;
+    private User createNewUser(String nameCountry, String sex, long birthday){
+        float yearLifeExpectancy = mDatabaseAdapter.getYearLifeExpectancy(nameCountry, sex);
+        User user = new User(yearLifeExpectancy, birthday, nameCountry, sex);
+        mDatabaseAdapter.insertInTableUserRequests(user);
+        return user;
     }
 
     private List<String> getListSex() {

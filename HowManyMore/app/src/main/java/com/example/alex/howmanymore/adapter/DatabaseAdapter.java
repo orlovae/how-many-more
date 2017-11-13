@@ -4,56 +4,72 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.alex.howmanymore.Constants;
 import com.example.alex.howmanymore.data.Contract;
 import com.example.alex.howmanymore.data.DBHelper;
-import com.example.alex.howmanymore.model.Model;
+import com.example.alex.howmanymore.model.Country;
+import com.example.alex.howmanymore.model.User;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
+
+import static com.example.alex.howmanymore.Constants.EN;
+import static com.example.alex.howmanymore.Constants.RU;
 
 /**
  * Created by alex on 05.07.17.
  */
 
 public class DatabaseAdapter {
-
+    private Context mContext;
     private DBHelper mDBHelper;
     private SQLiteDatabase mDataBase;
+    private List<Country> mCountries;
 
-    public DatabaseAdapter (Context context) {
+    private final String TAG = this.getClass().getSimpleName();
+
+    public DatabaseAdapter (Context context, String codeLanguage) {
+        mContext = context;
         mDBHelper = new DBHelper(context);
         mDBHelper.udateDataBase();
+        mCountries = getListCountry(codeLanguage);
     }
 
-    public List<String> getListCountry(String codeLanguage) {
-        List<String> listCountry = new ArrayList<>();
+    public List<Country> getmCountries() {
+        return mCountries;
+    }
 
-        String[] columns = new String[1];
-        String columnSortOrder = null;
+    public List<Country> getListCountry(String сodeLanguage) {
+        Log.d(TAG, "getListCountry: " + сodeLanguage);
+        mCountries = new ArrayList<Country>();
 
-        switch (codeLanguage) {
-            case Constants.EN:
-                columns[0] = Contract.LiveCountry.COLUMN_COUNTRY_EN;
-                columnSortOrder = Contract.LiveCountry.COLUMN_COUNTRY_EN + " ASC";
-                break;
-            case Constants.RU:
-                columns[0] = Contract.LiveCountry.COLUMN_COUNTRY_RU;
-                columnSortOrder = Contract.LiveCountry.COLUMN_COUNTRY_RU + " ASC";
-                break;
-        }
+        String sortOrder = getColumns(сodeLanguage) + " ASC";
+        Log.d(TAG, "getListCountry: " + sortOrder);
 
-        Cursor cursor = query(Contract.LiveCountry.TABLE_NAME, columns, null, null,
-                null, null, columnSortOrder);
+        Cursor cursor = query(Contract.LiveCountry.TABLE_NAME, null, null,
+                null, null, null,
+                sortOrder);
 
         try {
             if (cursor != null && cursor.moveToFirst()){
+                int nameISOColIndex = cursor.getColumnIndex(Contract.LiveCountry.COLUMN_COUNTRY_NAME_ISO);
+                int nameENGColIndex = cursor.getColumnIndex(Contract.LiveCountry.COLUMN_COUNTRY_NAME_ENG);
+                int nameRUSColIndex = cursor.getColumnIndex(Contract.LiveCountry.COLUMN_COUNTRY_NAME_RUS);
                 do {
-                    String country = cursor.getString(0);
-                    /**Так как в cursor всего 1 столбец, то хардкорим "0" **/
-                    listCountry.add(country);
+                    String nameISOFromCursor = cursor.getString(nameISOColIndex);
+                    String nameENGFromCursor = cursor.getString(nameENGColIndex);
+                    String nameRUSFromCursor = cursor.getString(nameRUSColIndex);
+
+                    int flag =  loadFlagByCode(mContext, nameISOFromCursor);
+
+                    Country country = new Country(nameISOFromCursor, nameENGFromCursor,
+                            nameRUSFromCursor, flag);
+
+                    mCountries.add(country);
+
                 } while (cursor.moveToNext());
             }
         } catch (Exception e) {
@@ -63,56 +79,53 @@ public class DatabaseAdapter {
                 cursor.close();
             }
         }
-        return listCountry;
+
+        Log.d(TAG, "getListCountry.size = " + mCountries.size());
+        return mCountries;
     }
 
-    private String getCountryAnotherLanguage(String country, String codeLanguage) {
-        String countryAnotherLanguage = null;
+    private String getColumns(String codeLanguage) {
+        String сolumns = null;
+        switch (codeLanguage) {
+            case EN:
+                сolumns = Contract.LiveCountry.COLUMN_COUNTRY_NAME_ENG;
+                break;
+            case RU:
+                сolumns = Contract.LiveCountry.COLUMN_COUNTRY_NAME_RUS;
+                break;
+        }
+        return сolumns;
+    }
 
-        String[] columns = {Contract.LiveCountry.COLUMN_COUNTRY_EN,
-                Contract.LiveCountry.COLUMN_COUNTRY_RU};
-        String selection = null;
-        String[] selectionArgs = {country};
+    public List<String> getNameCountry(String codeLanguage) {
+        List<String> nameCountry = new ArrayList<String>();
 
         switch (codeLanguage) {
-            case Constants.EN:
-                selection = Contract.LiveCountry.COLUMN_COUNTRY_EN + " = ?";
+            case EN:
+                for (Country item: mCountries
+                     ) {
+                    nameCountry.add(item.getNameENG());
+                }
                 break;
-            case Constants.RU:
-                selection = Contract.LiveCountry.COLUMN_COUNTRY_RU + " = ?";
+            case RU:
+                for (Country item: mCountries
+                        ) {
+                    nameCountry.add(item.getNameRUS());
+                }
                 break;
         }
+        return nameCountry;
+    }
 
-        Cursor cursor = query(Contract.LiveCountry.TABLE_NAME, columns, selection, selectionArgs,
-                null, null, null);
-
+    private int loadFlagByCode(Context context, String nameISO) {
         try {
-            if (cursor != null && cursor.moveToFirst()){
-                do {
-                    int countryColIndex = 0;
-
-                    switch (codeLanguage) {
-                        case Constants.EN:
-                            countryColIndex = cursor.getColumnIndex(Contract.LiveCountry.
-                                    COLUMN_COUNTRY_EN);
-                            break;
-                        case Constants.RU:
-                            countryColIndex = cursor.getColumnIndex(Contract.LiveCountry.
-                                    COLUMN_COUNTRY_RU);
-                            break;
-                    }
-
-                    countryAnotherLanguage = cursor.getString(countryColIndex);
-                } while (cursor.moveToNext());
-            }
+            return context.getResources()
+                    .getIdentifier("flag_" + nameISO.toLowerCase(Locale.ENGLISH), "drawable",
+                            context.getPackageName());
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
+            return -1;
         }
-        return countryAnotherLanguage;
     }
 
     public float getYearLifeExpectancy (String country, String sex) {
@@ -131,9 +144,9 @@ public class DatabaseAdapter {
                 break;
         }
 
-        String selection = Contract.LiveCountry.COLUMN_COUNTRY_EN
+        String selection = Contract.LiveCountry.COLUMN_COUNTRY_NAME_ENG
                 + " = ? OR "
-                + Contract.LiveCountry.COLUMN_COUNTRY_RU
+                + Contract.LiveCountry.COLUMN_COUNTRY_NAME_RUS
                 + " = ?";
         String[] selectionArgs = {country, country};
 
@@ -157,16 +170,16 @@ public class DatabaseAdapter {
         return yearLifeExpectancy;
     }
 
-    public void insertInTableUserRequests (Model model){
+    public void insertInTableUserRequests (User user){
         ContentValues cv = new ContentValues();
-        float yearLifeExpectancy = model.getYearLifeExpectancy();
-        long birthday = model.getBirthday();
-        String country = model.getCountry();
-        String sex = model.getSex();
+        float yearLifeExpectancy = user.getYearLifeExpectancy();
+        long birthday = user.getBirthday();
+        String nameCountry = user.getNameCountry();
+        String sex = user.getSex();
 
         cv.put(Contract.UserRequests.COLUMN_YEAR_LIFE_EXPECTANCY, yearLifeExpectancy);
         cv.put(Contract.UserRequests.COLUMN_BIRTHDAY, birthday);
-        cv.put(Contract.UserRequests.COLUMN_COUNTRY, country);
+        cv.put(Contract.UserRequests.COLUMN_COUNTRY, nameCountry);
         cv.put(Contract.UserRequests.COLUMN_SEX, sex);
 
         mDataBase.insert(Contract.UserRequests.TABLE_NAME, null, cv);

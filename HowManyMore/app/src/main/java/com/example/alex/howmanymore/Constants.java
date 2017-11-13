@@ -12,8 +12,8 @@ public class Constants {
     public static final String MALE = "male";
 
     //Code Language
-    public static final String EN = "en";
-    public static final String RU = "ru";
+    public static final String EN = "EN";
+    public static final String RU = "RU";
 
     //Flag Spinner
     public static final String SPINNER_COUNTRY = "country";
