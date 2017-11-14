@@ -38,7 +38,7 @@ public class DatabaseAdapter {
         mCountries = getListCountry(codeLanguage);
     }
 
-    public List<Country> getmCountries() {
+    public List<Country> getCountries() {
         return mCountries;
     }
 

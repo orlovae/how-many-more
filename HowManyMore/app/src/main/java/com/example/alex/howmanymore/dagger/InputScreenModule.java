@@ -38,6 +38,6 @@ public class InputScreenModule {
     @Singleton
     @Provides
     List<Country> provideListCountry() {
-        return mDataBaseAdapter.getmCountries();
+        return mDataBaseAdapter.getCountries();
     }
 }

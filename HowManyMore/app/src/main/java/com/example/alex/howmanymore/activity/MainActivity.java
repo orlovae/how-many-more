@@ -1,22 +1,28 @@
 package com.example.alex.howmanymore.activity;
 
 import android.support.v4.app.DialogFragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Spinner;
 
 import com.example.alex.howmanymore.Constants;
 import com.example.alex.howmanymore.R;
+import com.example.alex.howmanymore.adapter.CountryAdapter;
 import com.example.alex.howmanymore.app.App;
 import com.example.alex.howmanymore.contract.MainActivityContract;
 import com.example.alex.howmanymore.fragments.DatePickerFragment;
+import com.example.alex.howmanymore.fragments.DialogCountryFragment;
 import com.example.alex.howmanymore.fragments.IOnSelectedDateListener;
 import com.example.alex.howmanymore.model.Country;
 import com.example.alex.howmanymore.model.User;
 import com.example.alex.howmanymore.presenter.MainActivityPresenter;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -25,11 +31,15 @@ import static com.example.alex.howmanymore.Constants.INTENT_MODEL;
 public class MainActivity extends AppCompatActivity implements MainActivityContract.View,
         IOnSelectedDateListener {
     private final String LOG_TAG = this.getClass().getSimpleName();
-    private Toolbar toolbar;
+    private Toolbar mToolbar;
+    private Spinner mSpinner;
 
     @Inject
-    MainActivityPresenter presenter;
-    private User user;
+    MainActivityPresenter mPresenter;
+
+    private List<String> mListNameCountry, mListSex;
+
+    private User mUser;
 
 
     @Override
@@ -38,25 +48,24 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
         setContentView(R.layout.activity_main);
         App.getComponent().injectsActivity(this);
 
-        user = (User) getIntent().getParcelableExtra(INTENT_MODEL);
+        mUser = (User) getIntent().getParcelableExtra(INTENT_MODEL);
 
         iniToolbar();
 
-        presenter.attachView(this);
-        presenter.viewIsReady(getApplicationContext());
+        mPresenter.attachView(this);
+        mPresenter.viewIsReady(getApplicationContext());
     }
 
      private void iniToolbar(){
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        mToolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
-        return true;
+         getMenuInflater().inflate(R.menu.main, menu);
+         return true;
     }
 
     @Override
@@ -67,6 +76,15 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
                 startDatePickerDialog();
                 return true;
             case R.id.menu_item_country:
+                sterCountryDialog();
+
+//                mSpinner = new Spinner(this, Spinner.MODE_DROPDOWN);
+////                mSpinner = (Spinner) mToolbar.findViewById(R.id.menu_item_country);
+////                mSpinner = (Spinner) MenuItemCompat.getActionView(item);
+//                CountryAdapter adapter = new CountryAdapter(this, mPresenter.getCountries());
+//                mSpinner.setAdapter(adapter);
+//
+//                item.setActionView(mSpinner);
 
                 return true;
             case R.id.menu_item_sex:
@@ -79,7 +97,14 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     private void startDatePickerDialog() {
         DialogFragment changeDate = new DatePickerFragment();
         changeDate.show(getSupportFragmentManager(), Constants.DATE_PICKER_NAME);
+    }
 
+    private void sterCountryDialog() {
+        DialogCountryFragment dialogCountry = new DialogCountryFragment();
+        Bundle args = new Bundle();
+        args.putParcelable("country", mPresenter.getCountries());
+        dialogCountry.setArguments(args);
+        dialogCountry.show(getSupportFragmentManager(), null);
     }
 
     @Override
@@ -94,20 +119,20 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
 
     @Override
     public User getUser() {
-        return user;
+        return mUser;
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.detachView();
+        mPresenter.detachView();
         if (isFinishing()) {
-            presenter.destroy();
+            mPresenter.destroy();
         }
     }
 
     @Override
     public void onChoose(long dateFromDatePicker) {
-        presenter.setBirthday(dateFromDatePicker);
+        mPresenter.setBirthday(dateFromDatePicker);
     }
 }

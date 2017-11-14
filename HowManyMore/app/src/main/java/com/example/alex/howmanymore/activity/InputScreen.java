@@ -45,7 +45,7 @@ public class InputScreen extends AppCompatActivity implements InputScreenContrac
     private Spinner mSpinnerCountry, mSpinnerSex;
     private Button mButton;
 
-    private List<Country> countries;
+    private List<Country> mCountries;
 
     private List<String> mListNameCountry, mListSex;
 
@@ -57,7 +57,7 @@ public class InputScreen extends AppCompatActivity implements InputScreenContrac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_screen);
 
-        App.getComponent().injectsActivity(this);
+//        App.getComponent().injectsActivity(this);
 
         initView();
 
@@ -70,7 +70,7 @@ public class InputScreen extends AppCompatActivity implements InputScreenContrac
         presenter.setListCountryToView();
         presenter.setListNameCountryToView();
 
-        initSpinnerCountries(countries, mSpinnerCountry);
+        initSpinnerCountries(mCountries, mSpinnerCountry);
         spinnerItemSelected(mSpinnerCountry, mListNameCountry);
 
         initSpinner(mListSex, mSpinnerSex);
@@ -159,17 +159,17 @@ public class InputScreen extends AppCompatActivity implements InputScreenContrac
 
     @Override
     public void showListCountry(List<Country> countries) {
-        this.countries = countries;
+        mCountries = countries;
     }
 
     @Override
     public void showListNameCountry(List<String> listNameCountry) {
-        this.mListNameCountry = listNameCountry;
+        mListNameCountry = listNameCountry;
     }
 
     @Override
     public void showListSex(List<String> listSex) {
-        this.mListSex = listSex;
+        mListSex = listSex;
     }
 
     @Override

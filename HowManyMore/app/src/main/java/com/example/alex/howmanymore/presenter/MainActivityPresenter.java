@@ -7,6 +7,7 @@ import android.util.TypedValue;
 import android.view.WindowManager;
 
 import com.example.alex.howmanymore.Constants;
+import com.example.alex.howmanymore.adapter.DatabaseAdapter;
 import com.example.alex.howmanymore.app.App;
 import com.example.alex.howmanymore.contract.MainActivityContract;
 import com.example.alex.howmanymore.model.Country;
@@ -14,6 +15,7 @@ import com.example.alex.howmanymore.model.User;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -28,23 +30,33 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
     private final String LOG_TAG = this.getClass().getSimpleName();
 
     @Inject
-    protected Context context;
+    protected Context mContext;
 
-    private int widthScreen, heightScreen;
-    private int heightBlackDraw, heightWhiteDraw, widthBlackLine;
-    private float yearLifeExpectancy, yearLived;
+    @Inject
+    protected DatabaseAdapter mDatabaseAdapter;
 
-    private long birthday;
+    @Inject
+    protected List<Country> mCountries;
+
+    private int mWidthScreen, mHeightScreen;
+    private int mHeightBlackDraw, mHeightWhiteDraw, mWidthBlackLine;
+    private float mYearLifeExpectancy, mYearLived;
+
+    private long mBirthday;
 
     public MainActivityPresenter(){
         App.getComponent().injectsPresenter(this);
     }
 
+    public List<Country> getCountries() {
+        return mCountries;
+    }
+
     @Override
     public void viewIsReady(Context context) {
-        this.context = context;
+        mContext = context;
         prepareOnDraw();
-        getView().draw(widthScreen, heightBlackDraw, heightWhiteDraw, widthBlackLine);
+        getView().draw(mWidthScreen, mHeightBlackDraw, mHeightWhiteDraw, mWidthBlackLine);
     }
 
     private void prepareOnDraw() {
@@ -54,16 +66,17 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
     }
 
     private void getYearLived(User user) {
-        yearLifeExpectancy = user.getYearLifeExpectancy();
-        float dayLifeExpectancy = yearLifeExpectancy * Constants.ONE_YEAR;
+//        mYearLifeExpectancy = user.getYearLifeExpectancy();
+        mYearLifeExpectancy = 0;
+        float dayLifeExpectancy = mYearLifeExpectancy * Constants.ONE_YEAR;
         Calendar toDay = GregorianCalendar.getInstance();
 
         try {
-            long birthday = this.birthday;
+            long birthday = mBirthday;
             long difference = toDay.getTimeInMillis() - birthday;
             int daysLived = (int)(difference / (Constants.ONE_DAY_IN_MILLISECONDS));
-            yearLived = daysLived/Constants.ONE_YEAR;
-            Log.d(LOG_TAG, "yearLived = " + yearLived);
+            mYearLived = daysLived/Constants.ONE_YEAR;
+            Log.d(LOG_TAG, "yearLived = " + mYearLived);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,10 +84,10 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
 
     private void getScreenSize() {
         Point size = new Point();
-        WindowManager windowManager = (WindowManager)context.getSystemService(WINDOW_SERVICE);
+        WindowManager windowManager = (WindowManager) mContext.getSystemService(WINDOW_SERVICE);
         windowManager.getDefaultDisplay().getSize(size);
-        widthScreen = size.x;
-        heightScreen = size.y;
+        mWidthScreen = size.x;
+        mHeightScreen = size.y;
     }
 
     private int getHeightToolbar(Context context){
@@ -105,26 +118,26 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
     }
 
     private void prepareSizeDraw(){
-        int heightAllDraw = heightScreen
-                - getHeightNotificationBar(context)
-                - getHeightToolbar(context);
-        heightBlackDraw = (int) ((yearLived * heightAllDraw)/yearLifeExpectancy)
+        int heightAllDraw = mHeightScreen
+                - getHeightNotificationBar(mContext)
+                - getHeightToolbar(mContext);
+        mHeightBlackDraw = (int) ((mYearLived * heightAllDraw)/mYearLifeExpectancy)
                 - Constants.SIZE_BLACK_LINE;
-        heightWhiteDraw = heightAllDraw - heightBlackDraw
+        mHeightWhiteDraw = heightAllDraw - mHeightBlackDraw
                 - Constants.SIZE_FRACTIONAL_LINE;
 
-        int percentBlackLine = (int) ((yearLived % 1) * 100);
+        int percentBlackLine = (int) ((mYearLived % 1) * 100);
 
-        widthBlackLine = (percentBlackLine * widthScreen) / 100;
+        mWidthBlackLine = (percentBlackLine * mWidthScreen) / 100;
 
         Log.d(LOG_TAG, "heightAllDraw = " + heightAllDraw + "; heightBlackDraw = " +
-                heightBlackDraw + "; heightWhiteDraw = " + heightWhiteDraw);
+                mHeightBlackDraw + "; heightWhiteDraw = " + mHeightWhiteDraw);
     }
 
     @Override
     public void setBirthday(long birthday) {
-        this.birthday = birthday;
+        mBirthday = birthday;
         prepareOnDraw();
-        getView().draw(widthScreen, heightBlackDraw, heightWhiteDraw, widthBlackLine);
+        getView().draw(mWidthScreen, mHeightBlackDraw, mHeightWhiteDraw, mWidthBlackLine);
     }
 }

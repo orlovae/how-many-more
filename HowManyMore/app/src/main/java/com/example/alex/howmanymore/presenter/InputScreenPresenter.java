@@ -35,9 +35,9 @@ public class InputScreenPresenter extends PresenterBase<InputScreenContract.View
     private String itemSelectedSpinnerCountry = null;
     private long birthday = 0;
 
-    public InputScreenPresenter() {
-        App.getComponent().injectsPresenter(this);
-    }
+//    public InputScreenPresenter() {
+//        App.getComponent().injectsPresenter(this);
+//    }
 
     @Override
     public void viewIsReady(Context context) {

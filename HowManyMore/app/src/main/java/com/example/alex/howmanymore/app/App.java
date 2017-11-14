@@ -23,7 +23,6 @@ public class App extends Application {
         super.onCreate();
         component = DaggerAppComponent.builder().
                 appModule(new AppModule(getBaseContext(), getCodeLanguage())).
-                inputScreenModule(new InputScreenModule()).
                 mainActivityModule(new MainActivityModule()).
                 build();
     }

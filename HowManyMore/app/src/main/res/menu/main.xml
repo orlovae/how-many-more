@@ -13,7 +13,7 @@
         android:id="@+id/menu_item_country"
         android:orderInCategory="20"
         android:icon="@drawable/ic_country_black_24dp"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         android:title="@string/toolbar_country" />
 
     <item

@@ -16,10 +16,10 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {AppModule.class, InputScreenModule.class, MainActivityModule.class})
+@Component(modules = {AppModule.class, MainActivityModule.class})
 public interface AppComponent {
-    void injectsActivity(InputScreen inputScreen);
+//    void injectsActivity(InputScreen inputScreen);
     void injectsActivity(MainActivity mainActivity);
-    void injectsPresenter(InputScreenPresenter inputScreenPresenter);
+//    void injectsPresenter(InputScreenPresenter inputScreenPresenter);
     void injectsPresenter(MainActivityPresenter mainActivityPresenter);
 }
