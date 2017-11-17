@@ -16,8 +16,6 @@ import android.widget.Toast;
 
 import com.example.alex.howmanymore.Constants;
 import com.example.alex.howmanymore.R;
-import com.example.alex.howmanymore.adapter.CountryAdapter;
-import com.example.alex.howmanymore.app.App;
 import com.example.alex.howmanymore.contract.InputScreenContract;
 import com.example.alex.howmanymore.fragments.IOnSelectedDateListener;
 import com.example.alex.howmanymore.fragments.DatePickerFragment;
@@ -109,8 +107,7 @@ public class InputScreen extends AppCompatActivity implements InputScreenContrac
 
     private void initSpinnerCountries(List<Country> countries, Spinner spinner){
         Log.d(TAG, "initSpinnerCountries: countries.size=" + countries.size());
-        CountryAdapter adapter = new CountryAdapter(this, countries);
-        spinner.setAdapter(adapter);
+
         spinner.setSelection(presenter.getPositionSpinner());
     }
 

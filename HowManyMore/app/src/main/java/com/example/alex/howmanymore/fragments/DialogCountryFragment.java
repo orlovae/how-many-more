@@ -1,30 +1,47 @@
 package com.example.alex.howmanymore.fragments;
 
-import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.alex.howmanymore.R;
+import com.example.alex.howmanymore.adapter.RecyclerViewDialogFragment;
+import com.example.alex.howmanymore.model.Country;
+
+import java.util.List;
 
 /**
  * Created by alex on 14.11.17.
  */
 
 public class DialogCountryFragment extends DialogFragment {
+    private List<Country> mCountries;
 
-    @NonNull
+    private final String TAG = this.getClass().getSimpleName();
+
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return super.onCreateDialog(savedInstanceState);
+    public void onAttach(Context context) {
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            mCountries = bundle.getParcelableArrayList("country");
+        }
+        Log.d(TAG, "onAttach: " + mCountries.size());
+        super.onAttach(context);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        setStyle(STYLE_NO_TITLE, 0);
+        super.onCreate(savedInstanceState);
     }
 
     @Nullable
@@ -33,11 +50,18 @@ public class DialogCountryFragment extends DialogFragment {
                              @Nullable Bundle savedInstanceState) {
         getDialog();
         View view = inflater.inflate(R.layout.dialog_fragment_country, null);
-        ImageView countryFlag = (ImageView) view.findViewById(R.id.country_flag);
-        TextView countryName = (TextView) view.findViewById(R.id.country_name);
 
-        countryFlag.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.flag_ac));
-        countryName.setText("Bretan");
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_country);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
+                DividerItemDecoration.VERTICAL));
+
+        RecyclerViewDialogFragment adapter = new RecyclerViewDialogFragment(getActivity(), mCountries);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(layoutManager);
+
+//        spinner.setSelection(presenter.getPositionSpinner());
 
         return view;
     }

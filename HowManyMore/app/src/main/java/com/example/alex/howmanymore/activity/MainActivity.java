@@ -1,27 +1,25 @@
 package com.example.alex.howmanymore.activity;
 
+import android.os.Parcelable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Spinner;
 
 import com.example.alex.howmanymore.Constants;
 import com.example.alex.howmanymore.R;
-import com.example.alex.howmanymore.adapter.CountryAdapter;
 import com.example.alex.howmanymore.app.App;
 import com.example.alex.howmanymore.contract.MainActivityContract;
 import com.example.alex.howmanymore.fragments.DatePickerFragment;
 import com.example.alex.howmanymore.fragments.DialogCountryFragment;
 import com.example.alex.howmanymore.fragments.IOnSelectedDateListener;
-import com.example.alex.howmanymore.model.Country;
 import com.example.alex.howmanymore.model.User;
 import com.example.alex.howmanymore.presenter.MainActivityPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -32,7 +30,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
         IOnSelectedDateListener {
     private final String LOG_TAG = this.getClass().getSimpleName();
     private Toolbar mToolbar;
-    private Spinner mSpinner;
 
     @Inject
     MainActivityPresenter mPresenter;
@@ -76,16 +73,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
                 startDatePickerDialog();
                 return true;
             case R.id.menu_item_country:
-                sterCountryDialog();
-
-//                mSpinner = new Spinner(this, Spinner.MODE_DROPDOWN);
-////                mSpinner = (Spinner) mToolbar.findViewById(R.id.menu_item_country);
-////                mSpinner = (Spinner) MenuItemCompat.getActionView(item);
-//                CountryAdapter adapter = new CountryAdapter(this, mPresenter.getCountries());
-//                mSpinner.setAdapter(adapter);
-//
-//                item.setActionView(mSpinner);
-
+                startCountryDialog();
                 return true;
             case R.id.menu_item_sex:
 
@@ -99,10 +87,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
         changeDate.show(getSupportFragmentManager(), Constants.DATE_PICKER_NAME);
     }
 
-    private void sterCountryDialog() {
+    private void startCountryDialog() {
         DialogCountryFragment dialogCountry = new DialogCountryFragment();
         Bundle args = new Bundle();
-        args.putParcelable("country", mPresenter.getCountries());
+        args.putParcelableArrayList("country", (ArrayList<? extends Parcelable>) mPresenter.getCountries());
         dialogCountry.setArguments(args);
         dialogCountry.show(getSupportFragmentManager(), null);
     }
