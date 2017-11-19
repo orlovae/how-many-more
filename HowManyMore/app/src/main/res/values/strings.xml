@@ -15,4 +15,8 @@
     <string name="toolbar_birthday">День рожденья</string>
     <string name="toolbar_country">Страна</string>
     <string name="toolbar_sex">Пол</string>
+
+    <string name="sexes">Без выбора</string>
+    <string name="female">Женский</string>
+    <string name="male">Мужской</string>
 </resources>

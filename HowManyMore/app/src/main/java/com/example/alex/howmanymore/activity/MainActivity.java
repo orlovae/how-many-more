@@ -14,9 +14,11 @@ import com.example.alex.howmanymore.R;
 import com.example.alex.howmanymore.app.App;
 import com.example.alex.howmanymore.contract.MainActivityContract;
 import com.example.alex.howmanymore.fragments.DatePickerFragment;
-import com.example.alex.howmanymore.fragments.DialogCountryFragment;
+import com.example.alex.howmanymore.fragments.CountryPickerFragment;
 import com.example.alex.howmanymore.fragments.IOnSelectedCountryListener;
 import com.example.alex.howmanymore.fragments.IOnSelectedDateListener;
+import com.example.alex.howmanymore.fragments.IOnSelectedSexListener;
+import com.example.alex.howmanymore.fragments.SexPickerFragment;
 import com.example.alex.howmanymore.model.User;
 import com.example.alex.howmanymore.presenter.MainActivityPresenter;
 
@@ -28,11 +30,11 @@ import javax.inject.Inject;
 import static com.example.alex.howmanymore.Constants.INTENT_MODEL;
 
 public class MainActivity extends AppCompatActivity implements MainActivityContract.View,
-        IOnSelectedDateListener, IOnSelectedCountryListener {
+        IOnSelectedDateListener, IOnSelectedCountryListener, IOnSelectedSexListener {
     private final String TAG = this.getClass().getSimpleName();
     private Toolbar mToolbar;
 
-    private MenuItem mItemCountry;
+    private MenuItem mItemCountry, mItemSex;
 
     @Inject
     MainActivityPresenter mPresenter;
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     public boolean onCreateOptionsMenu(Menu menu) {
          getMenuInflater().inflate(R.menu.main, menu);
          mItemCountry = menu.findItem(R.id.menu_item_country);
+         mItemSex = menu.findItem(R.id.menu_item_sex);
          return true;
     }
 
@@ -80,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
                 startCountryDialog();
                 return true;
             case R.id.menu_item_sex:
-
+                startSexPickerDialog();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -92,11 +95,16 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     }
 
     private void startCountryDialog() {
-        DialogCountryFragment dialogCountry = new DialogCountryFragment();
+        CountryPickerFragment dialogCountry = new CountryPickerFragment();
         Bundle args = new Bundle();
         args.putParcelableArrayList("country", (ArrayList<? extends Parcelable>) mPresenter.getCountries());
         dialogCountry.setArguments(args);
         dialogCountry.show(getSupportFragmentManager(), null);
+    }
+
+    private void startSexPickerDialog() {
+        SexPickerFragment dialogSex = new SexPickerFragment();
+        dialogSex.show(getSupportFragmentManager(), null);
     }
 
     @Override
@@ -131,5 +139,21 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     @Override
     public void onChooseCountry(int flag) {
         mItemCountry.setIcon(ContextCompat.getDrawable(this, flag));
+    }
+
+    @Override
+    public void onChooseSex(String sex) {
+         switch (sex) {
+             case Constants.SEXES:
+                 mItemSex.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_human_male_female));
+                 break;
+             case Constants.FEMALE:
+                 mItemSex.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_human_female));
+                 break;
+             case Constants.MALE:
+                 mItemSex.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_human_male));
+                 break;
+         }
+
     }
 }

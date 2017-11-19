@@ -21,6 +21,6 @@
         android:orderInCategory="30"
         app:showAsAction="ifRoom"
         android:title="@string/toolbar_sex"
-        android:icon="@drawable/ic_sex_black_24dp"/>
+        android:icon="@drawable/ic_human_male_female"/>
 
 </menu>

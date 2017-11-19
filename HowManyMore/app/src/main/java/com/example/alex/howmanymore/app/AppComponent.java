@@ -4,6 +4,8 @@ import com.example.alex.howmanymore.activity.InputScreen;
 import com.example.alex.howmanymore.activity.MainActivity;
 import com.example.alex.howmanymore.dagger.InputScreenModule;
 import com.example.alex.howmanymore.dagger.MainActivityModule;
+import com.example.alex.howmanymore.dagger.SexPickerModule;
+import com.example.alex.howmanymore.fragments.SexPickerFragment;
 import com.example.alex.howmanymore.presenter.InputScreenPresenter;
 import com.example.alex.howmanymore.presenter.MainActivityPresenter;
 
@@ -16,10 +18,9 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {AppModule.class, MainActivityModule.class})
+@Component(modules = {AppModule.class, MainActivityModule.class, SexPickerModule.class})
 public interface AppComponent {
-//    void injectsActivity(InputScreen inputScreen);
     void injectsActivity(MainActivity mainActivity);
-//    void injectsPresenter(InputScreenPresenter inputScreenPresenter);
     void injectsPresenter(MainActivityPresenter mainActivityPresenter);
+    void injectsSexPicker(SexPickerFragment sexPickerFragment);
 }

@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.alex.howmanymore.Constants;
 import com.example.alex.howmanymore.dagger.InputScreenModule;
 import com.example.alex.howmanymore.dagger.MainActivityModule;
+import com.example.alex.howmanymore.dagger.SexPickerModule;
 
 import java.util.Locale;
 
@@ -24,6 +25,7 @@ public class App extends Application {
         component = DaggerAppComponent.builder().
                 appModule(new AppModule(getBaseContext(), getCodeLanguage())).
                 mainActivityModule(new MainActivityModule()).
+                sexPickerModule(new SexPickerModule()).
                 build();
     }
 
