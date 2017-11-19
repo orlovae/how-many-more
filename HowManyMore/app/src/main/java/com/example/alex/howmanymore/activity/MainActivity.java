@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     }
 
     @Override
-    public void onChoose(long dateFromDatePicker) {
+    public void onChooseDate(long dateFromDatePicker) {
         mPresenter.setBirthday(dateFromDatePicker);
     }
 }

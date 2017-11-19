@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.example.alex.howmanymore.R;
 import com.example.alex.howmanymore.adapter.RecyclerViewDialogFragment;
+import com.example.alex.howmanymore.adapter.RecyclerViewTouchListener;
 import com.example.alex.howmanymore.model.Country;
 
 import java.util.List;
@@ -25,6 +26,8 @@ import java.util.List;
 
 public class DialogCountryFragment extends DialogFragment {
     private List<Country> mCountries;
+    private RecyclerView mRVCountry;
+    private RecyclerViewDialogFragment mAdapter;
 
     private final String TAG = this.getClass().getSimpleName();
 
@@ -34,6 +37,7 @@ public class DialogCountryFragment extends DialogFragment {
         if (bundle != null) {
             mCountries = bundle.getParcelableArrayList("country");
         }
+
         Log.d(TAG, "onAttach: " + mCountries.size());
         super.onAttach(context);
     }
@@ -48,22 +52,41 @@ public class DialogCountryFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        getDialog();
         View view = inflater.inflate(R.layout.dialog_fragment_country, null);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_country);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
-                DividerItemDecoration.VERTICAL));
+        initViews(view);
 
-        RecyclerViewDialogFragment adapter = new RecyclerViewDialogFragment(getActivity(), mCountries);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(layoutManager);
-
-//        spinner.setSelection(presenter.getPositionSpinner());
+        initRecyclerView();
 
         return view;
+    }
+
+    private void initViews(View view) {
+        mRVCountry = (RecyclerView) view.findViewById(R.id.recycler_view_country);
+    }
+
+    private void initRecyclerView() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRVCountry.addItemDecoration(new DividerItemDecoration(getActivity(),
+                DividerItemDecoration.VERTICAL));
+
+        mAdapter = new RecyclerViewDialogFragment(getActivity(), mCountries);
+        mRVCountry.setAdapter(mAdapter);
+        mRVCountry.setLayoutManager(layoutManager);
+
+        mRVCountry.addOnItemTouchListener(new RecyclerViewTouchListener(getActivity(), mRVCountry,
+                new IRecyclerViewClickListener() {
+                    @Override
+                    public void onClick(View view, int position) {
+                        Log.d(TAG, "onClick: " + mCountries.get(position).getNameRUS());
+                    }
+
+                    @Override
+                    public void onLongClick(View view, int position) {
+
+                    }
+                }));
     }
 
     @Override

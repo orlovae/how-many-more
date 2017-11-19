@@ -191,7 +191,7 @@ public class InputScreen extends AppCompatActivity implements InputScreenContrac
     }
 
     @Override
-    public void onChoose(long dateFromDatePicker) {
+    public void onChooseDate(long dateFromDatePicker) {
         presenter.setBirthday(dateFromDatePicker);
 
 //        Log.d(LOG_TAG, "birthday = " + birthday.toString());

@@ -46,6 +46,6 @@ public class DatePickerFragment extends DialogFragment
 
         long date = calendar.getTimeInMillis();
 
-        mListener.onChoose(date);
+        mListener.onChooseDate(date);
     }
 }

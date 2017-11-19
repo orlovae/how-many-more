@@ -3,6 +3,7 @@ package com.example.alex.howmanymore.adapter;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,8 @@ import java.util.List;
  * Created by alex on 15.11.17.
  */
 
-public class RecyclerViewDialogFragment extends RecyclerView.Adapter<RecyclerViewDialogFragment.ViewHolder> {
+public class RecyclerViewDialogFragment extends RecyclerView.Adapter<RecyclerViewDialogFragment.ViewHolder>
+{
     private Context mContext;
     private List<Country> mCountries;
 
@@ -38,7 +40,9 @@ public class RecyclerViewDialogFragment extends RecyclerView.Adapter<RecyclerVie
     public void onBindViewHolder(ViewHolder holder, int position) {
         Country itemCountry = mCountries.get(position);
 
-        holder.countryFlag.setImageDrawable(ContextCompat.getDrawable(mContext, itemCountry.getFlag()));
+        final int flag = itemCountry.getFlag();
+
+        holder.countryFlag.setImageDrawable(ContextCompat.getDrawable(mContext, flag));
         holder.countryName.setText(itemCountry.getNameRUS());
     }
 

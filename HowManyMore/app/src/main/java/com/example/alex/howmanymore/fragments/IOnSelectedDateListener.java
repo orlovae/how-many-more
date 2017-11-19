@@ -5,5 +5,5 @@ package com.example.alex.howmanymore.fragments;
  */
 
 public interface IOnSelectedDateListener {
-    void onChoose(long date);
+    void onChooseDate(long date);
 }
