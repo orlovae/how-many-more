@@ -18,6 +18,5 @@ public interface MainActivityContract {
 
     interface Presenter extends IPresenter<View> {
         void setBirthday(long birthday);
-
     }
 }

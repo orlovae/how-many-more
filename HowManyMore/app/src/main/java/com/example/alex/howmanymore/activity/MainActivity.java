@@ -2,12 +2,12 @@ package com.example.alex.howmanymore.activity;
 
 import android.os.Parcelable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Spinner;
 
 import com.example.alex.howmanymore.Constants;
 import com.example.alex.howmanymore.R;
@@ -15,6 +15,7 @@ import com.example.alex.howmanymore.app.App;
 import com.example.alex.howmanymore.contract.MainActivityContract;
 import com.example.alex.howmanymore.fragments.DatePickerFragment;
 import com.example.alex.howmanymore.fragments.DialogCountryFragment;
+import com.example.alex.howmanymore.fragments.IOnSelectedCountryListener;
 import com.example.alex.howmanymore.fragments.IOnSelectedDateListener;
 import com.example.alex.howmanymore.model.User;
 import com.example.alex.howmanymore.presenter.MainActivityPresenter;
@@ -27,9 +28,11 @@ import javax.inject.Inject;
 import static com.example.alex.howmanymore.Constants.INTENT_MODEL;
 
 public class MainActivity extends AppCompatActivity implements MainActivityContract.View,
-        IOnSelectedDateListener {
-    private final String LOG_TAG = this.getClass().getSimpleName();
+        IOnSelectedDateListener, IOnSelectedCountryListener {
+    private final String TAG = this.getClass().getSimpleName();
     private Toolbar mToolbar;
+
+    private MenuItem mItemCountry;
 
     @Inject
     MainActivityPresenter mPresenter;
@@ -62,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
          getMenuInflater().inflate(R.menu.main, menu);
+         mItemCountry = menu.findItem(R.id.menu_item_country);
          return true;
     }
 
@@ -122,5 +126,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     @Override
     public void onChooseDate(long dateFromDatePicker) {
         mPresenter.setBirthday(dateFromDatePicker);
+    }
+
+    @Override
+    public void onChooseCountry(int flag) {
+        mItemCountry.setIcon(ContextCompat.getDrawable(this, flag));
     }
 }

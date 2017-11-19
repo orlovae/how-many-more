@@ -29,6 +29,8 @@ public class DialogCountryFragment extends DialogFragment {
     private RecyclerView mRVCountry;
     private RecyclerViewDialogFragment mAdapter;
 
+    private IOnSelectedCountryListener mListener;
+
     private final String TAG = this.getClass().getSimpleName();
 
     @Override
@@ -37,6 +39,8 @@ public class DialogCountryFragment extends DialogFragment {
         if (bundle != null) {
             mCountries = bundle.getParcelableArrayList("country");
         }
+
+        mListener = (IOnSelectedCountryListener) context;
 
         Log.d(TAG, "onAttach: " + mCountries.size());
         super.onAttach(context);
@@ -79,7 +83,8 @@ public class DialogCountryFragment extends DialogFragment {
                 new IRecyclerViewClickListener() {
                     @Override
                     public void onClick(View view, int position) {
-                        Log.d(TAG, "onClick: " + mCountries.get(position).getNameRUS());
+                        mListener.onChooseCountry(mCountries.get(position).getFlag());
+                        dismiss();
                     }
 
                     @Override
@@ -92,10 +97,12 @@ public class DialogCountryFragment extends DialogFragment {
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
+        mListener = null;
     }
 
     @Override
     public void onCancel(DialogInterface dialog) {
         super.onCancel(dialog);
+        mListener = null;
     }
 }
