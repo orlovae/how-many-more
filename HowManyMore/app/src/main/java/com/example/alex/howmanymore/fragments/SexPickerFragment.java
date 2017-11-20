@@ -58,14 +58,15 @@ public class SexPickerFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
         dialog.setTitle(getString(R.string.input_screen_sex));
-        dialog.setSingleChoiceItems(
-                new ArrayAdapter<String>(getActivity(), android.R.layout.select_dialog_singlechoice,
+        dialog.setAdapter(
+                new ArrayAdapter<String>(getActivity(), android.R.layout.select_dialog_item,
                         mSexesMapValue),
-                -1,
+                //TODO Попробовать изменить разметку
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mListener.onChooseSex(mSexesMapKey.get(which));
+                        dismiss();
                     }
                 });
         return dialog.create();
