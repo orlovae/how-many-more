@@ -1,5 +1,6 @@
 package com.example.alex.howmanymore.activity;
 
+import android.content.SharedPreferences;
 import android.os.Parcelable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
@@ -27,6 +28,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import static com.example.alex.howmanymore.Constants.APP_PREFERENCES;
+import static com.example.alex.howmanymore.Constants.APP_PREFERENCES_BIRTHDAY;
+import static com.example.alex.howmanymore.Constants.APP_PREFERENCES_COUNTRY_FLAG;
+import static com.example.alex.howmanymore.Constants.APP_PREFERENCES_SEX;
 import static com.example.alex.howmanymore.Constants.INTENT_MODEL;
 
 public class MainActivity extends AppCompatActivity implements MainActivityContract.View,
@@ -39,14 +44,21 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     @Inject
     MainActivityPresenter mPresenter;
 
+    private SharedPreferences mSetting;
+
     private List<String> mListNameCountry, mListSex;
 
     private User mUser;
+
+    private long mBirthday;
+    private int mFlagCountry;
+    private String mSex;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mSetting = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
         setContentView(R.layout.activity_main);
         App.getComponent().injectsActivity(this);
 
@@ -56,6 +68,22 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
 
         mPresenter.attachView(this);
         mPresenter.viewIsReady(getApplicationContext());
+    }
+
+    private void loadPreferences() {
+        if (mSetting.contains(APP_PREFERENCES_BIRTHDAY)) {
+            mBirthday = mSetting.getLong(APP_PREFERENCES_BIRTHDAY, -1);
+        }
+
+        if (mSetting.contains(APP_PREFERENCES_COUNTRY_FLAG)) {
+            mFlagCountry = mSetting.getInt(APP_PREFERENCES_COUNTRY_FLAG, -1);
+            onChooseCountry(mFlagCountry);
+        }
+
+        if (mSetting.contains(APP_PREFERENCES_SEX)) {
+            mSex = mSetting.getString(APP_PREFERENCES_SEX, null);
+            onChooseSex(mSex);
+        }
     }
 
      private void iniToolbar(){
@@ -69,6 +97,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
          getMenuInflater().inflate(R.menu.main, menu);
          mItemCountry = menu.findItem(R.id.menu_item_country);
          mItemSex = menu.findItem(R.id.menu_item_sex);
+
+         loadPreferences();
+
          return true;
     }
 
@@ -125,6 +156,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        savePreferences();
+
         mPresenter.detachView();
         if (isFinishing()) {
             mPresenter.destroy();
@@ -132,18 +166,41 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        savePreferences();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        savePreferences();
+    }
+
+    private void savePreferences() {
+        SharedPreferences.Editor editor = mSetting.edit();
+        editor.putLong(APP_PREFERENCES_BIRTHDAY, mBirthday);
+        editor.putInt(APP_PREFERENCES_COUNTRY_FLAG, mFlagCountry);
+        editor.putString(APP_PREFERENCES_SEX, mSex);
+        editor.apply();
+    }
+
+    @Override
     public void onChooseDate(long dateFromDatePicker) {
         mPresenter.setBirthday(dateFromDatePicker);
+        mBirthday = dateFromDatePicker;
     }
 
     @Override
     public void onChooseCountry(int flag) {
         mItemCountry.setIcon(ContextCompat.getDrawable(this, flag));
+        mFlagCountry = flag;
     }
 
     @Override
     public void onChooseSex(String sex) {
-         switch (sex) {
+        mSex = sex;
+        switch (sex) {
              case Constants.SEXES:
                  mItemSex.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_human_male_female));
                  break;
@@ -154,6 +211,5 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
                  mItemSex.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_human_male));
                  break;
          }
-
     }
 }

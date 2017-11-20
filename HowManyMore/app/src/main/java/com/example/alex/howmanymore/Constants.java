@@ -13,6 +13,12 @@ public class Constants {
     public static final String FEMALE = "female";
     public static final String MALE = "male";
 
+    //Key name to SharedPreferences
+    public static final String APP_PREFERENCES = "mysettings";
+    public static final String APP_PREFERENCES_BIRTHDAY = "birthday";
+    public static final String APP_PREFERENCES_COUNTRY_FLAG = "country flag";
+    public static final String APP_PREFERENCES_SEX = "sex";
+
     //Code Language
     public static final String EN = "EN";
     public static final String RU = "RU";
