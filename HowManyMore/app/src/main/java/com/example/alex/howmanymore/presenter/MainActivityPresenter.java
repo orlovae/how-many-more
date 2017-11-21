@@ -7,6 +7,7 @@ import android.util.TypedValue;
 import android.view.WindowManager;
 
 import com.example.alex.howmanymore.Constants;
+import com.example.alex.howmanymore.R;
 import com.example.alex.howmanymore.adapter.DatabaseAdapter;
 import com.example.alex.howmanymore.app.App;
 import com.example.alex.howmanymore.contract.MainActivityContract;
@@ -42,7 +43,7 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
     private int mHeightBlackDraw, mHeightWhiteDraw, mWidthBlackLine;
     private float mYearLifeExpectancy, mYearLived;
 
-    private long mBirthday;
+    private User mUser;
 
     public MainActivityPresenter(){
         App.getComponent().injectsPresenter(this);
@@ -55,8 +56,20 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
     @Override
     public void viewIsReady(Context context) {
         mContext = context;
-        prepareOnDraw();
-        getView().draw(mWidthScreen, mHeightBlackDraw, mHeightWhiteDraw, mWidthBlackLine);
+        mUser = getView().getUser();
+        if (checkInputData()) {
+            prepareOnDraw();
+            getView().draw(mWidthScreen, mHeightBlackDraw, mHeightWhiteDraw, mWidthBlackLine);
+        }
+    }
+
+    private boolean checkInputData() {
+        if (mUser.getBirthday() > 0 && mUser.getCountryFlag() > 0 && mUser.getSex() != null) {
+            return true;
+        } else {
+            getView().showMessage(R.string.input_screen_toast);
+            return false;
+        }
     }
 
     private void prepareOnDraw() {
@@ -67,12 +80,12 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
 
     private void getYearLived(User user) {
 //        mYearLifeExpectancy = user.getYearLifeExpectancy();
-        mYearLifeExpectancy = 0;
+        mYearLifeExpectancy = 54;
         float dayLifeExpectancy = mYearLifeExpectancy * Constants.ONE_YEAR;
         Calendar toDay = GregorianCalendar.getInstance();
 
         try {
-            long birthday = mBirthday;
+            long birthday = mUser.getBirthday();
             long difference = toDay.getTimeInMillis() - birthday;
             int daysLived = (int)(difference / (Constants.ONE_DAY_IN_MILLISECONDS));
             mYearLived = daysLived/Constants.ONE_YEAR;
@@ -136,8 +149,18 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
 
     @Override
     public void setBirthday(long birthday) {
-        mBirthday = birthday;
+        mUser.setBirthday(birthday);
         prepareOnDraw();
         getView().draw(mWidthScreen, mHeightBlackDraw, mHeightWhiteDraw, mWidthBlackLine);
+    }
+
+    @Override
+    public void setCountryFlag(int countryFlag) {
+        mUser.setCountryFlag(countryFlag);
+    }
+
+    @Override
+    public void setSex(String sex) {
+        mUser.setSex(sex);
     }
 }

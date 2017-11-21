@@ -11,48 +11,51 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  */
 
 public class User implements Parcelable {
-    private float yearLifeExpectancy;
-    private long birthday;
-    private String nameCountry;
-    private String sex;
+    private float mYearLifeExpectancy;
+    private long mBirthday;
+    private int mCountryFlag;
+    private String mSex;
 
-    public User(float yearLifeExpectancy, long birthday, String nameCountry, String sex) {
-        this.yearLifeExpectancy = yearLifeExpectancy;
-        this.birthday = birthday;
-        this.nameCountry = nameCountry;
-        this.sex = sex;
+    public User(float yearLifeExpectancy, long birthday, int countryFlag, String sex) {
+        mYearLifeExpectancy = yearLifeExpectancy;
+        mBirthday = birthday;
+        mCountryFlag = countryFlag;
+        mSex = sex;
+    }
+
+    public User() {
     }
 
     public float getYearLifeExpectancy() {
-        return yearLifeExpectancy;
+        return mYearLifeExpectancy;
     }
 
     public void setYearLifeExpectancy(float yearLifeExpectancy) {
-        this.yearLifeExpectancy = yearLifeExpectancy;
+        mYearLifeExpectancy = yearLifeExpectancy;
     }
 
     public long getBirthday() {
-        return birthday;
+        return mBirthday;
     }
 
     public void setBirthday(long birthday) {
-        this.birthday = birthday;
+        mBirthday = birthday;
     }
 
-    public String getNameCountry() {
-        return nameCountry;
+    public int getCountryFlag() {
+        return mCountryFlag;
     }
 
-    public void setNameCountry(String nameCountry) {
-        this.nameCountry = nameCountry;
+    public void setCountryFlag(int countryFlag) {
+        mCountryFlag = countryFlag;
     }
 
     public String getSex() {
-        return sex;
+        return mSex;
     }
 
     public void setSex(String sex) {
-        this.sex = sex;
+        mSex = sex;
     }
 
 
@@ -68,7 +71,7 @@ public class User implements Parcelable {
         return new EqualsBuilder()
                 .append(getYearLifeExpectancy(), user.getYearLifeExpectancy())
                 .append(getBirthday(), user.getBirthday())
-                .append(getNameCountry(), user.getNameCountry())
+                .append(getCountryFlag(), user.getCountryFlag())
                 .append(getSex(), user.getSex())
                 .isEquals();
     }
@@ -78,7 +81,7 @@ public class User implements Parcelable {
         return new HashCodeBuilder(17, 37)
                 .append(getYearLifeExpectancy())
                 .append(getBirthday())
-                .append(getNameCountry())
+                .append(getCountryFlag())
                 .append(getSex())
                 .toHashCode();
     }
@@ -95,13 +98,10 @@ public class User implements Parcelable {
     };
 
     private User(Parcel in) {
-        this.yearLifeExpectancy = in.readFloat();
-        this.birthday = in.readLong();
-
-        String[] strings = new String[2];
-        in.readStringArray(strings);
-        this.nameCountry = strings[0];
-        this.sex = strings[1];
+        mYearLifeExpectancy = in.readFloat();
+        mBirthday = in.readLong();
+        mCountryFlag = in.readInt();
+        mSex = in.readString();
     }
 
     @Override
@@ -111,8 +111,9 @@ public class User implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeFloat(yearLifeExpectancy);
-        dest.writeLong(birthday);
-        dest.writeStringArray(new String[] {nameCountry, sex});
+        dest.writeFloat(mYearLifeExpectancy);
+        dest.writeLong(mBirthday);
+        dest.writeInt(mCountryFlag);
+        dest.writeString(mSex);
     }
 }

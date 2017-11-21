@@ -32,7 +32,7 @@ public class InputScreenPresenter extends PresenterBase<InputScreenContract.View
     protected List<Country> mCountries;
 
     private String itemSelectedSpinnerSex = null;
-    private String itemSelectedSpinnerCountry = null;
+    private int itemSelectedSpinnerCountry;
     private long birthday = 0;
 
 //    public InputScreenPresenter() {
@@ -81,14 +81,14 @@ public class InputScreenPresenter extends PresenterBase<InputScreenContract.View
     @Override
     public void setSpinnerItemSelected(String itemSelected, String flag) {
 //        Log.d(LOG_TAG, "start setSpinnerItemSelected");
-        switch (flag) {
-            case Constants.SPINNER_SEX:
-                this.itemSelectedSpinnerSex = itemSelected;
-                break;
-            case Constants.SPINNER_COUNTRY:
-                this.itemSelectedSpinnerCountry = itemSelected;
-                break;
-        }
+//        switch (flag) {
+//            case Constants.SPINNER_SEX:
+//                this.itemSelectedSpinnerSex = itemSelected;
+//                break;
+//            case Constants.SPINNER_COUNTRY:
+//                this.itemSelectedSpinnerCountry = itemSelected;
+//                break;
+//        }
 //        Log.d(LOG_TAG, "presenter itemSelectedSpinnerSex = " + itemSelectedSpinnerSex);
 //        Log.d(LOG_TAG, "presenter itemSelectedSpinnerCountry = " + itemSelectedSpinnerCountry);
     }
@@ -109,7 +109,7 @@ public class InputScreenPresenter extends PresenterBase<InputScreenContract.View
     }
 
     private boolean checkInputData() {
-        if (itemSelectedSpinnerSex != null && itemSelectedSpinnerCountry != null &&
+        if (itemSelectedSpinnerSex != null && itemSelectedSpinnerCountry > 0 &&
                 birthday > 0) {
             return true;
         } else {
@@ -118,9 +118,16 @@ public class InputScreenPresenter extends PresenterBase<InputScreenContract.View
         }
     }
 
-    private User createNewUser(String nameCountry, String sex, long birthday){
-        float yearLifeExpectancy = mDatabaseAdapter.getYearLifeExpectancy(nameCountry, sex);
-        User user = new User(yearLifeExpectancy, birthday, nameCountry, sex);
+    private User createNewUser(int countryFlag, String sex, long birthday){
+        String countryName = null;
+        for (Country item:mCountries
+             ) {
+            if (item.getFlag() == countryFlag) {
+                countryName = item.getNameISO();
+            }
+        }
+        float yearLifeExpectancy = mDatabaseAdapter.getYearLifeExpectancy(countryName, sex);
+        User user = new User(yearLifeExpectancy, birthday, countryFlag, sex);
         mDatabaseAdapter.insertInTableUserRequests(user);
         return user;
     }

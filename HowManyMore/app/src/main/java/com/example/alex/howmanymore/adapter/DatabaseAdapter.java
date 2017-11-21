@@ -174,7 +174,7 @@ public class DatabaseAdapter {
         ContentValues cv = new ContentValues();
         float yearLifeExpectancy = user.getYearLifeExpectancy();
         long birthday = user.getBirthday();
-        String nameCountry = user.getNameCountry();
+        int nameCountry = user.getCountryFlag();
         String sex = user.getSex();
 
         cv.put(Contract.UserRequests.COLUMN_YEAR_LIFE_EXPECTANCY, yearLifeExpectancy);

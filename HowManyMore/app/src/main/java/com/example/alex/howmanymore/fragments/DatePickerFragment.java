@@ -17,9 +17,15 @@ public class DatePickerFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
 
     private IOnSelectedDateListener mListener;
+    private long mBirthday;
 
     @Override
     public void onAttach(Context context) {
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            mBirthday = bundle.getLong("Birthday");
+        }
+
         mListener = (IOnSelectedDateListener)context;
         super.onAttach(context);
     }
@@ -33,6 +39,10 @@ public class DatePickerFragment extends DialogFragment
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final Calendar c = Calendar.getInstance();
+        if (mBirthday > 0) {
+            c.setTimeInMillis(mBirthday);
+        }
+
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);

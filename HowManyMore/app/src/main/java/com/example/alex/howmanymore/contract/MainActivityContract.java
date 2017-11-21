@@ -13,10 +13,13 @@ public interface MainActivityContract {
 
     interface View extends IView {
         void draw(int widthScreen, int heightBlackDraw, int heightWhiteDraw, int widthBlackLine);
+        void showMessage(int messageResId);
         User getUser();
     }
 
     interface Presenter extends IPresenter<View> {
         void setBirthday(long birthday);
+        void setCountryFlag(int countryFlag);
+        void setSex(String sex);
     }
 }

@@ -7,8 +7,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.alex.howmanymore.Constants;
 import com.example.alex.howmanymore.R;
@@ -31,8 +33,8 @@ import javax.inject.Inject;
 import static com.example.alex.howmanymore.Constants.APP_PREFERENCES;
 import static com.example.alex.howmanymore.Constants.APP_PREFERENCES_BIRTHDAY;
 import static com.example.alex.howmanymore.Constants.APP_PREFERENCES_COUNTRY_FLAG;
+import static com.example.alex.howmanymore.Constants.APP_PREFERENCES_IS_INITIAL;
 import static com.example.alex.howmanymore.Constants.APP_PREFERENCES_SEX;
-import static com.example.alex.howmanymore.Constants.INTENT_MODEL;
 
 public class MainActivity extends AppCompatActivity implements MainActivityContract.View,
         IOnSelectedDateListener, IOnSelectedCountryListener, IOnSelectedSexListener {
@@ -48,12 +50,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
 
     private List<String> mListNameCountry, mListSex;
 
-    private User mUser;
+    private User mUser = new User();
 
-    private long mBirthday;
-    private int mFlagCountry;
-    private String mSex;
-
+    boolean isInitial = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,31 +61,45 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
         setContentView(R.layout.activity_main);
         App.getComponent().injectsActivity(this);
 
-        mUser = (User) getIntent().getParcelableExtra(INTENT_MODEL);
-
-        iniToolbar();
+        initToolbar();
+        loadPreferences();
 
         mPresenter.attachView(this);
         mPresenter.viewIsReady(getApplicationContext());
+
+
+//        initialConfiguration();
+    }
+
+    private void initialConfiguration() {
+        isInitial = mSetting.getBoolean(APP_PREFERENCES_IS_INITIAL, false);
+        if (!isInitial) {
+            SharedPreferences.Editor editor = mSetting.edit();
+            editor.putBoolean(APP_PREFERENCES_IS_INITIAL, true);
+            isInitial = true;
+            editor.apply();
+        }
+        Log.d(TAG, "initialConfiguration: " + isInitial);
     }
 
     private void loadPreferences() {
         if (mSetting.contains(APP_PREFERENCES_BIRTHDAY)) {
-            mBirthday = mSetting.getLong(APP_PREFERENCES_BIRTHDAY, -1);
+            mUser.setBirthday(mSetting.getLong(APP_PREFERENCES_BIRTHDAY, -1));
+            mPresenter.setBirthday(mUser.getBirthday());
         }
 
         if (mSetting.contains(APP_PREFERENCES_COUNTRY_FLAG)) {
-            mFlagCountry = mSetting.getInt(APP_PREFERENCES_COUNTRY_FLAG, -1);
-            onChooseCountry(mFlagCountry);
+            mUser.setCountryFlag(mSetting.getInt(APP_PREFERENCES_COUNTRY_FLAG, -1));
+            mPresenter.setCountryFlag(mUser.getCountryFlag());
         }
 
         if (mSetting.contains(APP_PREFERENCES_SEX)) {
-            mSex = mSetting.getString(APP_PREFERENCES_SEX, null);
-            onChooseSex(mSex);
+            mUser.setSex(mSetting.getString(APP_PREFERENCES_SEX, null));
+            mPresenter.setSex(mUser.getSex());
         }
     }
 
-     private void iniToolbar(){
+     private void initToolbar(){
         mToolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
@@ -98,9 +111,24 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
          mItemCountry = menu.findItem(R.id.menu_item_country);
          mItemSex = menu.findItem(R.id.menu_item_sex);
 
-         loadPreferences();
+         initIconMenu();
 
          return true;
+    }
+
+    private void initIconMenu() {
+         if (isUserNotNull()) {
+             mItemCountry.setIcon(ContextCompat.getDrawable(this, mUser.getCountryFlag()));
+             setIconMenuSex(mUser.getSex());
+         }
+    }
+
+    private boolean isUserNotNull() {
+         if (mUser.getBirthday() > 0 && mUser.getCountryFlag() > 0 && mUser.getSex() != null) {
+             return true;
+         } else {
+             return false;
+         }
     }
 
     @Override
@@ -122,6 +150,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
 
     private void startDatePickerDialog() {
         DialogFragment changeDate = new DatePickerFragment();
+        if (mUser.getBirthday() > 0) {
+            Bundle args = new Bundle();
+            args.putLong("Birthday" , mUser.getBirthday());
+            changeDate.setArguments(args);
+        }
         changeDate.show(getSupportFragmentManager(), Constants.DATE_PICKER_NAME);
     }
 
@@ -146,6 +179,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
         draw.setHeightBlackDraw(heightBlackDraw);
         draw.setHeightWhiteDraw(heightWhiteDraw);
         draw.setWidthBlackLine(widthBlackLine);
+    }
+
+    @Override
+    public void showMessage(int messageResId) {
+        Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -179,37 +217,43 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
 
     private void savePreferences() {
         SharedPreferences.Editor editor = mSetting.edit();
-        editor.putLong(APP_PREFERENCES_BIRTHDAY, mBirthday);
-        editor.putInt(APP_PREFERENCES_COUNTRY_FLAG, mFlagCountry);
-        editor.putString(APP_PREFERENCES_SEX, mSex);
+        editor.putLong(APP_PREFERENCES_BIRTHDAY, mUser.getBirthday());
+        editor.putInt(APP_PREFERENCES_COUNTRY_FLAG, mUser.getCountryFlag());
+        editor.putString(APP_PREFERENCES_SEX, mUser.getSex());
         editor.apply();
     }
 
     @Override
     public void onChooseDate(long dateFromDatePicker) {
         mPresenter.setBirthday(dateFromDatePicker);
-        mBirthday = dateFromDatePicker;
+        mUser.setBirthday(dateFromDatePicker);
     }
 
     @Override
     public void onChooseCountry(int flag) {
+        mPresenter.setCountryFlag(flag);
         mItemCountry.setIcon(ContextCompat.getDrawable(this, flag));
-        mFlagCountry = flag;
+        mUser.setCountryFlag(flag);
     }
 
     @Override
     public void onChooseSex(String sex) {
-        mSex = sex;
+        mPresenter.setSex(sex);
+        mUser.setSex(sex);
+        setIconMenuSex(sex);
+    }
+
+    private void setIconMenuSex(String sex) {
         switch (sex) {
-             case Constants.SEXES:
-                 mItemSex.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_human_male_female));
-                 break;
-             case Constants.FEMALE:
-                 mItemSex.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_human_female));
-                 break;
-             case Constants.MALE:
-                 mItemSex.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_human_male));
-                 break;
-         }
+            case Constants.SEXES:
+                mItemSex.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_human_male_female));
+                break;
+            case Constants.FEMALE:
+                mItemSex.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_human_female));
+                break;
+            case Constants.MALE:
+                mItemSex.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_human_male));
+                break;
+        }
     }
 }
