@@ -128,7 +128,7 @@ public class DatabaseAdapter {
         }
     }
 
-    public float getYearLifeExpectancy (String country, String sex) {
+    public float getYearLifeExpectancy (String countryNameISO, String sex) {
         float yearLifeExpectancy = 0;
 
         String[] columns = new String[1];
@@ -144,11 +144,8 @@ public class DatabaseAdapter {
                 break;
         }
 
-        String selection = Contract.LiveCountry.COLUMN_COUNTRY_NAME_ENG
-                + " = ? OR "
-                + Contract.LiveCountry.COLUMN_COUNTRY_NAME_RUS
-                + " = ?";
-        String[] selectionArgs = {country, country};
+        String selection = Contract.LiveCountry.COLUMN_COUNTRY_NAME_ISO + " = ?";
+        String[] selectionArgs = {countryNameISO};
 
 
         Cursor cursor = query(Contract.LiveCountry.TABLE_NAME, columns, selection, selectionArgs,

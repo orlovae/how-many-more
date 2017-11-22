@@ -28,7 +28,7 @@ import static android.content.Context.WINDOW_SERVICE;
 
 public class MainActivityPresenter extends PresenterBase<MainActivityContract.View>
         implements MainActivityContract.Presenter {
-    private final String LOG_TAG = this.getClass().getSimpleName();
+    private final String TAG = this.getClass().getSimpleName();
 
     @Inject
     protected Context mContext;
@@ -57,6 +57,10 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
     public void viewIsReady(Context context) {
         mContext = context;
         mUser = getView().getUser();
+        onDraw();
+    }
+
+    private void onDraw() {
         if (checkInputData()) {
             prepareOnDraw();
             getView().draw(mWidthScreen, mHeightBlackDraw, mHeightWhiteDraw, mWidthBlackLine);
@@ -79,8 +83,10 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
     }
 
     private void getYearLived(User user) {
-//        mYearLifeExpectancy = user.getYearLifeExpectancy();
-        mYearLifeExpectancy = 54;
+
+        mYearLifeExpectancy = mDatabaseAdapter.getYearLifeExpectancy(
+                getCountryNameISO(user.getCountryFlag()),
+                user.getSex());
         float dayLifeExpectancy = mYearLifeExpectancy * Constants.ONE_YEAR;
         Calendar toDay = GregorianCalendar.getInstance();
 
@@ -89,10 +95,23 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
             long difference = toDay.getTimeInMillis() - birthday;
             int daysLived = (int)(difference / (Constants.ONE_DAY_IN_MILLISECONDS));
             mYearLived = daysLived/Constants.ONE_YEAR;
-            Log.d(LOG_TAG, "yearLived = " + mYearLived);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        Log.d(TAG, "getYearLived: mYearLived =" + mYearLived);
+        Log.d(TAG, "getYearLived: mYearLifeExpectancy = " + mYearLifeExpectancy);
+    }
+
+    private String getCountryNameISO(int countryFlag) {
+        String countryNameISO = null;
+        for (Country item:mCountries
+                ) {
+            if (item.getFlag() == countryFlag) {
+                countryNameISO = item.getNameISO();
+            }
+        }
+        return countryNameISO;
     }
 
     private void getScreenSize() {
@@ -104,7 +123,7 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
     }
 
     private int getHeightToolbar(Context context){
-        Log.d(LOG_TAG, "Start getWidthToolbar");
+        Log.d(TAG, "Start getWidthToolbar");
 
         int heightToolbar = 0;
         TypedValue tv = new TypedValue();
@@ -112,7 +131,7 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
             heightToolbar = TypedValue.complexToDimensionPixelSize(tv.data, context.getResources().
                     getDisplayMetrics());
         }
-        Log.d(LOG_TAG, "Toolbar height = " + heightToolbar);
+        Log.d(TAG, "Toolbar height = " + heightToolbar);
         return heightToolbar;
     }
 
@@ -126,7 +145,7 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
             heightNotificationBar = context.getResources().getDimensionPixelSize(resourceId);
         }
 
-        Log.d(LOG_TAG, "NotificationBar height = " + heightNotificationBar);
+        Log.d(TAG, "NotificationBar height = " + heightNotificationBar);
         return heightNotificationBar;
     }
 
@@ -143,24 +162,25 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
 
         mWidthBlackLine = (percentBlackLine * mWidthScreen) / 100;
 
-        Log.d(LOG_TAG, "heightAllDraw = " + heightAllDraw + "; heightBlackDraw = " +
+        Log.d(TAG, "heightAllDraw = " + heightAllDraw + "; heightBlackDraw = " +
                 mHeightBlackDraw + "; heightWhiteDraw = " + mHeightWhiteDraw);
     }
 
     @Override
     public void setBirthday(long birthday) {
         mUser.setBirthday(birthday);
-        prepareOnDraw();
-        getView().draw(mWidthScreen, mHeightBlackDraw, mHeightWhiteDraw, mWidthBlackLine);
+        onDraw();
     }
 
     @Override
     public void setCountryFlag(int countryFlag) {
         mUser.setCountryFlag(countryFlag);
+        onDraw();
     }
 
     @Override
     public void setSex(String sex) {
         mUser.setSex(sex);
+        onDraw();
     }
 }

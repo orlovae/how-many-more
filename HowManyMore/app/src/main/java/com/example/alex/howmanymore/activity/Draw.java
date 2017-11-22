@@ -16,37 +16,34 @@ import com.example.alex.howmanymore.R;
  */
 
 public class Draw extends View {
-    private final String LOG_TAG = this.getClass().getSimpleName();
+    private final String TAG = this.getClass().getSimpleName();
 
     private Paint mPaint = new Paint();
 
-    private int widthScreen, heightBlackDraw, heightWhiteDraw, widthBlackLine;
+    private int mWidthScreen, mHeightBlackDraw, mHeightWhiteDraw, mWidthBlackLine;
 
     public void setWidthScreen(int widthScreen) {
-        this.widthScreen = widthScreen;
+        mWidthScreen = widthScreen;
     }
 
     public void setHeightBlackDraw(int heightBlackDraw) {
-        this.heightBlackDraw = heightBlackDraw;
+        mHeightBlackDraw = heightBlackDraw;
     }
 
     public void setHeightWhiteDraw(int heightWhiteDraw) {
-        this.heightWhiteDraw = heightWhiteDraw;
+        mHeightWhiteDraw = heightWhiteDraw;
     }
 
     public void setWidthBlackLine(int widthBlackLine) {
-        this.widthBlackLine = widthBlackLine;
+        mWidthBlackLine = widthBlackLine;
     }
 
     public Draw(Context context, AttributeSet attrs){
         super(context, attrs);
-        Log.d(LOG_TAG, "Start constructor Draw");
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        Log.d(LOG_TAG, "Start onDraw");
-
         init(canvas);
 
         paintBlackRect(canvas);
@@ -54,43 +51,41 @@ public class Draw extends View {
         paintBlackLine(canvas);
 
         paintText(canvas);
-
     }
 
     private void init(Canvas canvas){
-        Log.d(LOG_TAG, "Start init");
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setColor(Color.WHITE);
         canvas.drawPaint(mPaint);
     }
 
     private void paintBlackRect(Canvas canvas){
-        Log.d(LOG_TAG, "Start paintBlackRect");
         mPaint.setColor(Color.BLACK);
-        canvas.drawRect(0, 0, widthScreen, heightBlackDraw, mPaint);
-        Log.d(LOG_TAG, "widthScreen = " + widthScreen);
+        canvas.drawRect(0, 0, mWidthScreen, mHeightBlackDraw, mPaint);
     }
 
     private void paintBlackLine(Canvas canvas){
-        Log.d(LOG_TAG, "Start paintBlackLine");
         mPaint.setColor(Color.BLACK);
-        canvas.drawRect(0, heightBlackDraw, widthBlackLine, heightBlackDraw + 20, mPaint);
+        canvas.drawRect(0, mHeightBlackDraw, mWidthBlackLine, mHeightBlackDraw + 20,
+                mPaint);
     }
 
     private void paintText(Canvas canvas){
-        Log.d(LOG_TAG, "Start paintText");
         mPaint.setColor(Color.WHITE);
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setAntiAlias(true);
         mPaint.setTextSize(32);
         mPaint.setTextAlign(Paint.Align.CENTER);
 
-        canvas.drawText(getResources().getString(R.string.draw_lived), widthScreen/2,
-                heightBlackDraw/2, mPaint);
+        String textWhite = getResources().getString(R.string.draw_lived);
+
+        String textBlack = getResources().getString(R.string.draw_remained);
+
+        canvas.drawText(textWhite, mWidthScreen/2,
+                mHeightBlackDraw/2, mPaint);
 
         mPaint.setColor(Color.BLACK);
-        canvas.drawText(getResources().getString(R.string.draw_remained), widthScreen/2,
-                heightBlackDraw + 1 + heightWhiteDraw/2, mPaint);
+        canvas.drawText(textBlack, mWidthScreen/2,
+                mHeightBlackDraw + 1 + mHeightWhiteDraw/2, mPaint);
     }
-
 }

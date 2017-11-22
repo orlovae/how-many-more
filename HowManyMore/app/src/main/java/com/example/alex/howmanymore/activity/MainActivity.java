@@ -85,17 +85,17 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     private void loadPreferences() {
         if (mSetting.contains(APP_PREFERENCES_BIRTHDAY)) {
             mUser.setBirthday(mSetting.getLong(APP_PREFERENCES_BIRTHDAY, -1));
-            mPresenter.setBirthday(mUser.getBirthday());
+//            mPresenter.setBirthday(mUser.getBirthday());
         }
 
         if (mSetting.contains(APP_PREFERENCES_COUNTRY_FLAG)) {
             mUser.setCountryFlag(mSetting.getInt(APP_PREFERENCES_COUNTRY_FLAG, -1));
-            mPresenter.setCountryFlag(mUser.getCountryFlag());
+//            mPresenter.setCountryFlag(mUser.getCountryFlag());
         }
 
         if (mSetting.contains(APP_PREFERENCES_SEX)) {
             mUser.setSex(mSetting.getString(APP_PREFERENCES_SEX, null));
-            mPresenter.setSex(mUser.getSex());
+//            mPresenter.setSex(mUser.getSex());
         }
     }
 
