@@ -12,7 +12,8 @@ import com.example.alex.howmanymore.presenter.IPresenter;
 public interface MainActivityContract {
 
     interface View extends IView {
-        void draw(int widthScreen, int heightBlackDraw, int heightWhiteDraw, int widthBlackLine);
+        void draw(int widthScreen, int heightBlackDraw, int heightWhiteDraw, int widthBlackLine,
+                  float yearLivedPercent);
         void showMessage(int messageResId);
         User getUser();
     }

@@ -48,8 +48,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
 
     private SharedPreferences mSetting;
 
-    private List<String> mListNameCountry, mListSex;
-
     private User mUser = new User();
 
     boolean isInitial = false;
@@ -85,17 +83,14 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     private void loadPreferences() {
         if (mSetting.contains(APP_PREFERENCES_BIRTHDAY)) {
             mUser.setBirthday(mSetting.getLong(APP_PREFERENCES_BIRTHDAY, -1));
-//            mPresenter.setBirthday(mUser.getBirthday());
         }
 
         if (mSetting.contains(APP_PREFERENCES_COUNTRY_FLAG)) {
             mUser.setCountryFlag(mSetting.getInt(APP_PREFERENCES_COUNTRY_FLAG, -1));
-//            mPresenter.setCountryFlag(mUser.getCountryFlag());
         }
 
         if (mSetting.contains(APP_PREFERENCES_SEX)) {
             mUser.setSex(mSetting.getString(APP_PREFERENCES_SEX, null));
-//            mPresenter.setSex(mUser.getSex());
         }
     }
 
@@ -172,13 +167,15 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     }
 
     @Override
-    public void draw(int widthScreen, int heightBlackDraw, int heightWhiteDraw, int widthBlackLine) {
+    public void draw(int widthScreen, int heightBlackDraw, int heightWhiteDraw, int widthBlackLine,
+                     float yearLivedPercent) {
         Draw draw = (Draw)findViewById(R.id.draw);
         draw.invalidate();
         draw.setWidthScreen(widthScreen);
         draw.setHeightBlackDraw(heightBlackDraw);
         draw.setHeightWhiteDraw(heightWhiteDraw);
         draw.setWidthBlackLine(widthBlackLine);
+        draw.setmYearLivedPercent(yearLivedPercent);
     }
 
     @Override
@@ -213,6 +210,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     protected void onStop() {
         super.onStop();
         savePreferences();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadPreferences();
     }
 
     private void savePreferences() {

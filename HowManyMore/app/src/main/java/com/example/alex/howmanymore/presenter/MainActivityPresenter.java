@@ -41,7 +41,7 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
 
     private int mWidthScreen, mHeightScreen;
     private int mHeightBlackDraw, mHeightWhiteDraw, mWidthBlackLine;
-    private float mYearLifeExpectancy, mYearLived;
+    private float mYearLifeExpectancy, mYearLived, mYearLivedPercent;
 
     private User mUser;
 
@@ -63,7 +63,8 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
     private void onDraw() {
         if (checkInputData()) {
             prepareOnDraw();
-            getView().draw(mWidthScreen, mHeightBlackDraw, mHeightWhiteDraw, mWidthBlackLine);
+            getView().draw(mWidthScreen, mHeightBlackDraw, mHeightWhiteDraw, mWidthBlackLine,
+                    mYearLivedPercent);
         }
     }
 
@@ -95,6 +96,7 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
             long difference = toDay.getTimeInMillis() - birthday;
             int daysLived = (int)(difference / (Constants.ONE_DAY_IN_MILLISECONDS));
             mYearLived = daysLived/Constants.ONE_YEAR;
+            mYearLivedPercent = (mYearLived / mYearLifeExpectancy) * 100;
         } catch (Exception e) {
             e.printStackTrace();
         }
