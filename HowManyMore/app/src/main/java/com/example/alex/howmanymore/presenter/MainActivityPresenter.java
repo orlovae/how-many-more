@@ -6,15 +6,19 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.WindowManager;
 
-import com.example.alex.howmanymore.Constants;
+import com.example.alex.howmanymore.constants.DayRus;
+import com.example.alex.howmanymore.constants.Keys;
 import com.example.alex.howmanymore.R;
 import com.example.alex.howmanymore.adapter.DatabaseAdapter;
 import com.example.alex.howmanymore.app.App;
+import com.example.alex.howmanymore.constants.MountRus;
+import com.example.alex.howmanymore.constants.YearsRus;
 import com.example.alex.howmanymore.contract.MainActivityContract;
 import com.example.alex.howmanymore.model.Country;
 import com.example.alex.howmanymore.model.User;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -84,25 +88,74 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
     }
 
     private void getYearLived(User user) {
+        String textWhite = null;
+        String textBlack = null;
 
         mYearLifeExpectancy = mDatabaseAdapter.getYearLifeExpectancy(
                 getCountryNameISO(user.getCountryFlag()),
                 user.getSex());
-        float dayLifeExpectancy = mYearLifeExpectancy * Constants.ONE_YEAR;
         Calendar toDay = GregorianCalendar.getInstance();
 
         try {
             long birthday = mUser.getBirthday();
-            long difference = toDay.getTimeInMillis() - birthday;
-            int daysLived = (int)(difference / (Constants.ONE_DAY_IN_MILLISECONDS));
-            mYearLived = daysLived/Constants.ONE_YEAR;
+            long lived = toDay.getTimeInMillis() - birthday;
+            int daysLived = (int)(lived / (Keys.ONE_DAY_IN_MILLISECONDS));
+            mYearLived = daysLived/Keys.ONE_YEAR;
             mYearLivedPercent = (mYearLived / mYearLifeExpectancy) * 100;
+
+            Calendar calendar = new GregorianCalendar();
+            calendar.setTimeInMillis(birthday);
+            int mountLived = calendar.get(Calendar.MONTH);
+            int dayLived = calendar.get(Calendar.DATE);
+
+            float yearRemained = mYearLifeExpectancy - mYearLived;
+            float mountRemained = (yearRemained - (int)yearRemained) * 12;
+            float dayRemained = (mountRemained - (int)mountRemained) * Keys.ONE_MOUNT;
+
+            textWhite = mContext.getResources().getString(R.string.draw_lived)
+                    + " - "
+                    + String.format("%(.2f", mYearLivedPercent)
+                    + " %. "
+                    + (int)mYearLived
+                    + " "
+                    + YearsRus.getNameYearsRus((int)mYearLived)
+                    + ", "
+                    + mountLived
+                    + " "
+                    + MountRus.getNameMountsRus(mountLived)
+                    + ", "
+                    + dayLived
+                    + " "
+                    + DayRus.getNameDaysRus(dayLived)
+                    + ".";
+
+            textBlack = mContext.getResources().getString(R.string.draw_remained)
+                    + " - "
+                    + String.format("%(.2f", 100 - mYearLivedPercent)
+                    + " %. "
+                    + (int)yearRemained
+                    + " "
+                    + YearsRus.getNameYearsRus((int)yearRemained)
+                    + ", "
+                    + (int)mountRemained
+                    + " "
+                    + MountRus.getNameMountsRus((int)mountRemained)
+                    + ", "
+                    + (int)dayRemained
+                    + " "
+                    + DayRus.getNameDaysRus((int)dayRemained)
+                    + ".";
+
+
+            Log.d(TAG, textWhite);
+            Log.d(TAG, textBlack);
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        Log.d(TAG, "getYearLived: mYearLived =" + mYearLived);
-        Log.d(TAG, "getYearLived: mYearLifeExpectancy = " + mYearLifeExpectancy);
+
     }
 
     private String getCountryNameISO(int countryFlag) {
@@ -140,9 +193,9 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
     private int getHeightNotificationBar(Context context){
         int heightNotificationBar = 0;
         int resourceId = context.getResources().getIdentifier(
-                Constants.NAME_NOTIFICATION_BAR_1,
-                Constants.NAME_NOTIFICATION_BAR_2,
-                Constants.NAME_NOTIFICATION_BAR_3);
+                Keys.NAME_NOTIFICATION_BAR_1,
+                Keys.NAME_NOTIFICATION_BAR_2,
+                Keys.NAME_NOTIFICATION_BAR_3);
         if (resourceId > 0) {
             heightNotificationBar = context.getResources().getDimensionPixelSize(resourceId);
         }
@@ -156,9 +209,9 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
                 - getHeightNotificationBar(mContext)
                 - getHeightToolbar(mContext);
         mHeightBlackDraw = (int) ((mYearLived * heightAllDraw)/mYearLifeExpectancy)
-                - Constants.SIZE_BLACK_LINE;
+                - Keys.SIZE_BLACK_LINE;
         mHeightWhiteDraw = heightAllDraw - mHeightBlackDraw
-                - Constants.SIZE_FRACTIONAL_LINE;
+                - Keys.SIZE_FRACTIONAL_LINE;
 
         int percentBlackLine = (int) ((mYearLived % 1) * 100);
 

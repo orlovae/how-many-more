@@ -2,7 +2,7 @@ package com.example.alex.howmanymore.dagger;
 
 import android.content.Context;
 
-import com.example.alex.howmanymore.Constants;
+import com.example.alex.howmanymore.constants.Keys;
 import com.example.alex.howmanymore.R;
 
 import java.util.TreeMap;
@@ -22,9 +22,9 @@ public class SexPickerModule {
     @Provides
     TreeMap<String, String> provideSexMap(Context context) {
         TreeMap<String, String> treeMapSex = new TreeMap<String, String>();
-        treeMapSex.put(Constants.SEXES, context.getString(R.string.sexes));
-        treeMapSex.put(Constants.FEMALE, context.getString(R.string.female));
-        treeMapSex.put(Constants.MALE, context.getString(R.string.male));
+        treeMapSex.put(Keys.SEXES, context.getString(R.string.sexes));
+        treeMapSex.put(Keys.FEMALE, context.getString(R.string.female));
+        treeMapSex.put(Keys.MALE, context.getString(R.string.male));
         return treeMapSex;
     }
 }

@@ -14,7 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.alex.howmanymore.Constants;
+import com.example.alex.howmanymore.constants.Keys;
 import com.example.alex.howmanymore.R;
 import com.example.alex.howmanymore.contract.InputScreenContract;
 import com.example.alex.howmanymore.fragments.IOnSelectedDateListener;
@@ -29,7 +29,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import static com.example.alex.howmanymore.Constants.INTENT_MODEL;
+import static com.example.alex.howmanymore.constants.Keys.INTENT_MODEL;
 
 /**
  * Created by alex on 10.07.17.
@@ -101,7 +101,7 @@ public class InputScreen extends AppCompatActivity implements InputScreenContrac
 
     private void startDatePickerDialog() {
         DialogFragment changeDate = new DatePickerFragment();
-        changeDate.show(getSupportFragmentManager(), Constants.DATE_PICKER_NAME);
+        changeDate.show(getSupportFragmentManager(), Keys.DATE_PICKER_NAME);
 
     }
 
@@ -130,11 +130,11 @@ public class InputScreen extends AppCompatActivity implements InputScreenContrac
                         switch (spinner.getId()) {
                             case R.id.spinner_country:
                                 presenter.setSpinnerItemSelected(list.get(position),
-                                        Constants.SPINNER_COUNTRY);
+                                        Keys.SPINNER_COUNTRY);
                                 break;
                             case R.id.spinner_sex:
                                 presenter.setSpinnerItemSelected(list.get(position),
-                                        Constants.SPINNER_SEX);
+                                        Keys.SPINNER_SEX);
                                 break;
                         }
                     }
@@ -142,10 +142,10 @@ public class InputScreen extends AppCompatActivity implements InputScreenContrac
                     public void onNothingSelected(AdapterView<?> parent) {
                         switch (spinner.getId()) {
                             case R.id.spinner_country:
-                                presenter.setSpinnerItemSelected(null, Constants.SPINNER_COUNTRY);
+                                presenter.setSpinnerItemSelected(null, Keys.SPINNER_COUNTRY);
                                 break;
                             case R.id.spinner_sex:
-                                presenter.setSpinnerItemSelected(null, Constants.SPINNER_SEX);
+                                presenter.setSpinnerItemSelected(null, Keys.SPINNER_SEX);
                                 break;
                         }
                     }
@@ -173,7 +173,7 @@ public class InputScreen extends AppCompatActivity implements InputScreenContrac
     public void showDateInTextView(long birthday) {
         Date date = new Date();
         date.setTime(birthday);
-        SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT);
+        SimpleDateFormat sdf = new SimpleDateFormat(Keys.DATE_FORMAT);
         mTextViewBirthday.setText(sdf.format(date));
     }
 

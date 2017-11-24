@@ -86,7 +86,8 @@ public class Draw extends View {
         String textWhite = getResources().getString(R.string.draw_lived)
                 + " - "
                 + String.format("%(.2f", mYearLivedPercent)
-                + " %";
+                + " %."
+                + "";
 
         String textBlack = getResources().getString(R.string.draw_remained)
                 + " - "

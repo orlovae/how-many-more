@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.example.alex.howmanymore.Constants;
+import com.example.alex.howmanymore.constants.Keys;
 import com.example.alex.howmanymore.data.Contract;
 import com.example.alex.howmanymore.data.DBHelper;
 import com.example.alex.howmanymore.model.Country;
@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import static com.example.alex.howmanymore.Constants.EN;
-import static com.example.alex.howmanymore.Constants.RU;
+import static com.example.alex.howmanymore.constants.Keys.EN;
+import static com.example.alex.howmanymore.constants.Keys.RU;
 
 /**
  * Created by alex on 05.07.17.
@@ -133,13 +133,13 @@ public class DatabaseAdapter {
 
         String[] columns = new String[1];
         switch (sex) {
-            case Constants.SEXES:
+            case Keys.SEXES:
                 columns[0] = Contract.LiveCountry.COLUMN_SEXES_LIFE;
                 break;
-            case Constants.FEMALE:
+            case Keys.FEMALE:
                 columns[0] = Contract.LiveCountry.COLUMN_FEMALE_LIFE;
                 break;
-            case Constants.MALE:
+            case Keys.MALE:
                 columns[0] = Contract.LiveCountry.COLUMN_MALE_LIFE;
                 break;
         }

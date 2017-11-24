@@ -3,8 +3,7 @@ package com.example.alex.howmanymore.app;
 import android.app.Application;
 import android.util.Log;
 
-import com.example.alex.howmanymore.Constants;
-import com.example.alex.howmanymore.dagger.InputScreenModule;
+import com.example.alex.howmanymore.constants.Keys;
 import com.example.alex.howmanymore.dagger.MainActivityModule;
 import com.example.alex.howmanymore.dagger.SexPickerModule;
 
@@ -38,11 +37,11 @@ public class App extends Application {
         String codeLanguage = null;
 
         switch (Locale.getDefault().getLanguage().toUpperCase()) {
-            case Constants.RU:
-                codeLanguage =Constants.RU;
+            case Keys.RU:
+                codeLanguage =Keys.RU;
                 break;
-            case Constants.EN:
-                codeLanguage = Constants.EN;
+            case Keys.EN:
+                codeLanguage = Keys.EN;
                 break;
         }
         Log.d(TAG, "codeLanguage: " + codeLanguage);

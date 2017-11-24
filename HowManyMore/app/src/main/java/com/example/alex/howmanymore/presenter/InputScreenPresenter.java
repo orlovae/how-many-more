@@ -2,8 +2,7 @@ package com.example.alex.howmanymore.presenter;
 
 import android.content.Context;
 
-import com.example.alex.howmanymore.app.App;
-import com.example.alex.howmanymore.Constants;
+import com.example.alex.howmanymore.constants.Keys;
 import com.example.alex.howmanymore.R;
 import com.example.alex.howmanymore.adapter.DatabaseAdapter;
 import com.example.alex.howmanymore.contract.InputScreenContract;
@@ -15,7 +14,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import static com.example.alex.howmanymore.Constants.RU;
+import static com.example.alex.howmanymore.constants.Keys.RU;
 
 /**
  * Created by alex on 10.07.17.
@@ -69,7 +68,7 @@ public class InputScreenPresenter extends PresenterBase<InputScreenContract.View
         boolean done = false;
 
         for (int i = 0; !done; i++) {
-            if(mCountries.get(i).getNameISO().equalsIgnoreCase(Constants.RU)) {
+            if(mCountries.get(i).getNameISO().equalsIgnoreCase(Keys.RU)) {
                 done = true;
                 return i;
             }
@@ -134,9 +133,9 @@ public class InputScreenPresenter extends PresenterBase<InputScreenContract.View
 
     private List<String> getListSex() {
         List<String> sexes = new ArrayList<String>();
-        sexes.add(Constants.SEXES);
-        sexes.add(Constants.FEMALE);
-        sexes.add(Constants.MALE);
+        sexes.add(Keys.SEXES);
+        sexes.add(Keys.FEMALE);
+        sexes.add(Keys.MALE);
 //        Log.d(LOG_TAG, "sexes = " + sexes.toString());
         return sexes;
         //TODO как-то через жопу, вдруг я захочу 1 пол оставить?. М.Б. через ENUM?

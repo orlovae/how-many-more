@@ -12,7 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.alex.howmanymore.Constants;
+import com.example.alex.howmanymore.constants.Keys;
 import com.example.alex.howmanymore.R;
 import com.example.alex.howmanymore.app.App;
 import com.example.alex.howmanymore.contract.MainActivityContract;
@@ -26,15 +26,14 @@ import com.example.alex.howmanymore.model.User;
 import com.example.alex.howmanymore.presenter.MainActivityPresenter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
-import static com.example.alex.howmanymore.Constants.APP_PREFERENCES;
-import static com.example.alex.howmanymore.Constants.APP_PREFERENCES_BIRTHDAY;
-import static com.example.alex.howmanymore.Constants.APP_PREFERENCES_COUNTRY_FLAG;
-import static com.example.alex.howmanymore.Constants.APP_PREFERENCES_IS_INITIAL;
-import static com.example.alex.howmanymore.Constants.APP_PREFERENCES_SEX;
+import static com.example.alex.howmanymore.constants.Keys.APP_PREFERENCES;
+import static com.example.alex.howmanymore.constants.Keys.APP_PREFERENCES_BIRTHDAY;
+import static com.example.alex.howmanymore.constants.Keys.APP_PREFERENCES_COUNTRY_FLAG;
+import static com.example.alex.howmanymore.constants.Keys.APP_PREFERENCES_IS_INITIAL;
+import static com.example.alex.howmanymore.constants.Keys.APP_PREFERENCES_SEX;
 
 public class MainActivity extends AppCompatActivity implements MainActivityContract.View,
         IOnSelectedDateListener, IOnSelectedCountryListener, IOnSelectedSexListener {
@@ -150,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
             args.putLong("Birthday" , mUser.getBirthday());
             changeDate.setArguments(args);
         }
-        changeDate.show(getSupportFragmentManager(), Constants.DATE_PICKER_NAME);
+        changeDate.show(getSupportFragmentManager(), Keys.DATE_PICKER_NAME);
     }
 
     private void startCountryDialog() {
@@ -248,13 +247,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
 
     private void setIconMenuSex(String sex) {
         switch (sex) {
-            case Constants.SEXES:
+            case Keys.SEXES:
                 mItemSex.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_human_male_female));
                 break;
-            case Constants.FEMALE:
+            case Keys.FEMALE:
                 mItemSex.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_human_female));
                 break;
-            case Constants.MALE:
+            case Keys.MALE:
                 mItemSex.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_human_male));
                 break;
         }

@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
 
-import com.example.alex.howmanymore.Constants;
+import com.example.alex.howmanymore.constants.Keys;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -14,8 +14,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import static com.example.alex.howmanymore.Constants.DB_NAME;
-import static com.example.alex.howmanymore.Constants.DB_VERSION;
+import static com.example.alex.howmanymore.constants.Keys.DB_NAME;
+import static com.example.alex.howmanymore.constants.Keys.DB_VERSION;
 import static com.example.alex.howmanymore.data.Contract.UserRequests.SQL_CREATE_USER_REQUESTS_TABLE;
 
 /**
@@ -31,11 +31,11 @@ public class DBHelper extends SQLiteOpenHelper {
     public DBHelper(Context context){
         super(context, DB_NAME, null, DB_VERSION);
         if (Build.VERSION.SDK_INT >= 17) {
-            DB_PATH = context.getApplicationInfo().dataDir + Constants.DB_PATH_SDK_INT_MORE_17;
+            DB_PATH = context.getApplicationInfo().dataDir + Keys.DB_PATH_SDK_INT_MORE_17;
         } else {
-            DB_PATH = Constants.DB_PATH_SDK_INT_LESS_17
+            DB_PATH = Keys.DB_PATH_SDK_INT_LESS_17
                     + context.getPackageName()
-                    + Constants.DB_PATH_SDK_INT_MORE_17;
+                    + Keys.DB_PATH_SDK_INT_MORE_17;
         }
 
         this.mContext = context;
@@ -71,7 +71,7 @@ public class DBHelper extends SQLiteOpenHelper {
             try {
                 copyDBFile();
             } catch (IOException e) {
-                throw new Error(Constants.ERORR);
+                throw new Error(Keys.ERORR);
             }
         }
     }

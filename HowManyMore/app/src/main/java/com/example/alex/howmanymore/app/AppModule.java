@@ -1,12 +1,6 @@
 package com.example.alex.howmanymore.app;
 
 import android.content.Context;
-import android.test.suitebuilder.annotation.Suppress;
-
-import com.example.alex.howmanymore.Constants;
-import com.example.alex.howmanymore.R;
-
-import java.util.TreeMap;
 
 import javax.inject.Singleton;
 

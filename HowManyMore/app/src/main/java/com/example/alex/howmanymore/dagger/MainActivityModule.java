@@ -2,14 +2,11 @@ package com.example.alex.howmanymore.dagger;
 
 import android.content.Context;
 
-import com.example.alex.howmanymore.Constants;
-import com.example.alex.howmanymore.R;
 import com.example.alex.howmanymore.adapter.DatabaseAdapter;
 import com.example.alex.howmanymore.model.Country;
 import com.example.alex.howmanymore.presenter.MainActivityPresenter;
 
 import java.util.List;
-import java.util.TreeMap;
 
 import javax.inject.Singleton;
 
