@@ -36,6 +36,8 @@ import static com.example.alex.howmanymore.constants.Keys.APP_PREFERENCES_BIRTHD
 import static com.example.alex.howmanymore.constants.Keys.APP_PREFERENCES_COUNTRY_FLAG;
 import static com.example.alex.howmanymore.constants.Keys.APP_PREFERENCES_IS_INITIAL;
 import static com.example.alex.howmanymore.constants.Keys.APP_PREFERENCES_SEX;
+import static com.example.alex.howmanymore.constants.Keys.COUNTRY_PICKER_BIRTHDAY;
+import static com.example.alex.howmanymore.constants.Keys.DATE_PICKER_BIRTHDAY;
 
 public class MainActivity extends AppCompatActivity implements MainActivityContract.View,
         IOnSelectedDateListener, IOnSelectedCountryListener, IOnSelectedSexListener {
@@ -152,9 +154,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
 
     private void startDatePickerDialog() {
         DialogFragment changeDate = new DatePickerFragment();
+
         if (mUser.getBirthday() > 0) {
             Bundle args = new Bundle();
-            args.putLong("Birthday" , mUser.getBirthday());
+            args.putLong(DATE_PICKER_BIRTHDAY, mUser.getBirthday());
             changeDate.setArguments(args);
         }
         changeDate.show(getSupportFragmentManager(), Keys.DATE_PICKER_NAME);
@@ -163,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     private void startCountryDialog() {
         CountryPickerFragment dialogCountry = new CountryPickerFragment();
         Bundle args = new Bundle();
-        args.putParcelableArrayList("country", (ArrayList<? extends Parcelable>) mPresenter.getCountries());
+        args.putParcelableArrayList(COUNTRY_PICKER_BIRTHDAY, (ArrayList<? extends Parcelable>) mPresenter.getCountries());
         dialogCountry.setArguments(args);
         dialogCountry.show(getSupportFragmentManager(), null);
     }

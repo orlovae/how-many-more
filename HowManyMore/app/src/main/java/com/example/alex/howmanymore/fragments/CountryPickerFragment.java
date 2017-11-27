@@ -20,6 +20,8 @@ import com.example.alex.howmanymore.model.Country;
 
 import java.util.List;
 
+import static com.example.alex.howmanymore.constants.Keys.COUNTRY_PICKER_BIRTHDAY;
+
 /**
  * Created by alex on 14.11.17.
  */
@@ -36,7 +38,7 @@ public class CountryPickerFragment extends DialogFragment {
     public void onAttach(Context context) {
         Bundle bundle = getArguments();
         if (bundle != null) {
-            mCountries = bundle.getParcelableArrayList("country");
+            mCountries = bundle.getParcelableArrayList(COUNTRY_PICKER_BIRTHDAY);
         }
 
         mListener = (IOnSelectedCountryListener) context;

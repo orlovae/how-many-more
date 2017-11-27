@@ -8,6 +8,10 @@ import android.app.DatePickerDialog;
 import android.widget.DatePicker;
 
 import java.util.Calendar;
+import java.util.Date;
+
+import static com.example.alex.howmanymore.constants.Keys.DATE_PICKER_BIRTHDAY;
+import static com.example.alex.howmanymore.constants.Keys.MAXIMUM_AGE;
 
 /**
  * Created by alex on 12.07.17.
@@ -23,7 +27,7 @@ public class DatePickerFragment extends DialogFragment
     public void onAttach(Context context) {
         Bundle bundle = getArguments();
         if (bundle != null) {
-            mBirthday = bundle.getLong("Birthday");
+            mBirthday = bundle.getLong(DATE_PICKER_BIRTHDAY);
         }
 
         mListener = (IOnSelectedDateListener)context;
@@ -47,7 +51,18 @@ public class DatePickerFragment extends DialogFragment
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
 
-        return new DatePickerDialog(getActivity(), this, year, month, day);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this,
+                year, month, day);
+
+        Calendar calendarMin = Calendar.getInstance();
+        calendarMin.set(year - MAXIMUM_AGE, month, day);
+
+        Calendar calendarMax = Calendar.getInstance();
+
+        datePickerDialog.getDatePicker().setMinDate(calendarMin.getTimeInMillis());
+        datePickerDialog.getDatePicker().setMaxDate(calendarMax.getTimeInMillis());
+
+        return datePickerDialog;
     }
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {

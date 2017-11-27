@@ -8,8 +8,6 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
-import com.example.alex.howmanymore.R;
-
 
 /**
  * Created by alex on 02.07.17.

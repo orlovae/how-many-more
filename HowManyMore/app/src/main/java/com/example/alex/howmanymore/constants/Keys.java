@@ -1,8 +1,5 @@
 package com.example.alex.howmanymore.constants;
 
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * Created by alex on 05.07.17.
  */
@@ -25,9 +22,16 @@ public class Keys {
     public static final String EN = "EN";
     public static final String RU = "RU";
 
-    //Flag Spinner
-    public static final String SPINNER_COUNTRY = "country";
-    public static final String SPINNER_SEX = "sex";
+    /** DatePickerFragment **/
+    public static final String DATE_PICKER_BIRTHDAY = "birthday";
+    public static final int MAXIMUM_AGE = 125;
+
+    /** CountryPickerFragment **/
+    public static final String COUNTRY_PICKER_BIRTHDAY = "country";
+
+    /** TextOnDraw **/
+    public static final String WHITE = "white";
+    public static final String BLACK = "black";
 
     /** InputScreen **/
     public static final String DATE_SELECTED = "date";

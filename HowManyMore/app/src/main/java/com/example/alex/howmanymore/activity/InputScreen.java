@@ -130,11 +130,11 @@ public class InputScreen extends AppCompatActivity implements InputScreenContrac
                         switch (spinner.getId()) {
                             case R.id.spinner_country:
                                 presenter.setSpinnerItemSelected(list.get(position),
-                                        Keys.SPINNER_COUNTRY);
+                                        "");
                                 break;
                             case R.id.spinner_sex:
                                 presenter.setSpinnerItemSelected(list.get(position),
-                                        Keys.SPINNER_SEX);
+                                        "");
                                 break;
                         }
                     }
@@ -142,10 +142,10 @@ public class InputScreen extends AppCompatActivity implements InputScreenContrac
                     public void onNothingSelected(AdapterView<?> parent) {
                         switch (spinner.getId()) {
                             case R.id.spinner_country:
-                                presenter.setSpinnerItemSelected(null, Keys.SPINNER_COUNTRY);
+                                presenter.setSpinnerItemSelected(null, "");
                                 break;
                             case R.id.spinner_sex:
-                                presenter.setSpinnerItemSelected(null, Keys.SPINNER_SEX);
+                                presenter.setSpinnerItemSelected(null, "");
                                 break;
                         }
                     }

@@ -22,6 +22,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import static android.content.Context.WINDOW_SERVICE;
+import static com.example.alex.howmanymore.constants.Keys.BLACK;
+import static com.example.alex.howmanymore.constants.Keys.WHITE;
 
 /**
  * Created by alex on 13.07.17.
@@ -68,7 +70,7 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
             prepareOnDraw();
 
             getView().draw(mWidthScreen, mHeightBlackDraw, mHeightWhiteDraw, mWidthBlackLine,
-                    textOnDraw.getText("white"), textOnDraw.getText("black"));
+                    textOnDraw.getText(WHITE), textOnDraw.getText(BLACK));
         }
     }
 

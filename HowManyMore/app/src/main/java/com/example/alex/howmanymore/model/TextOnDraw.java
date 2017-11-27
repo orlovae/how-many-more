@@ -8,6 +8,9 @@ import com.example.alex.howmanymore.constants.Keys;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import static com.example.alex.howmanymore.constants.Keys.BLACK;
+import static com.example.alex.howmanymore.constants.Keys.WHITE;
+
 /**
  * Created by alex on 27.11.17.
  */
@@ -32,12 +35,12 @@ public class TextOnDraw {
         String text = null;
 
         switch (key) {
-            case "white":
+            case WHITE:
                 text = getString(mYearLivedPercent,
                         mContext.getResources().getString(R.string.draw_lived),
                         mLived);
                 break;
-            case "black":
+            case BLACK:
                 text = getString(100 - mYearLivedPercent,
                         mContext.getResources().getString(R.string.draw_remained),
                         mRemained);
