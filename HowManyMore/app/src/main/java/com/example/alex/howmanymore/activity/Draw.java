@@ -22,7 +22,7 @@ public class Draw extends View {
 
     private int mWidthScreen, mHeightBlackDraw, mHeightWhiteDraw, mWidthBlackLine;
 
-    private float mYearLivedPercent;
+    private String mTextWhite, mTextBlack;
 
     public void setWidthScreen(int widthScreen) {
         mWidthScreen = widthScreen;
@@ -40,8 +40,12 @@ public class Draw extends View {
         mWidthBlackLine = widthBlackLine;
     }
 
-    public void setmYearLivedPercent(float yearLivedPercent) {
-        mYearLivedPercent = yearLivedPercent;
+    public void setTextWhite(String textWhite) {
+        mTextWhite = textWhite;
+    }
+
+    public void setTextBlack(String textBlack) {
+        mTextBlack = textBlack;
     }
 
     public Draw(Context context, AttributeSet attrs){
@@ -56,7 +60,9 @@ public class Draw extends View {
 
         paintBlackLine(canvas);
 
-        paintText(canvas);
+        if (mTextWhite != null && mTextBlack != null) {
+            paintText(canvas);
+        }
     }
 
     private void init(Canvas canvas){
@@ -83,22 +89,11 @@ public class Draw extends View {
         mPaint.setTextSize(32);
         mPaint.setTextAlign(Paint.Align.CENTER);
 
-        String textWhite = getResources().getString(R.string.draw_lived)
-                + " - "
-                + String.format("%(.2f", mYearLivedPercent)
-                + " %."
-                + "";
-
-        String textBlack = getResources().getString(R.string.draw_remained)
-                + " - "
-                + String.format("%(.2f", 100 - mYearLivedPercent)
-                + " %";
-
-        canvas.drawText(textWhite, mWidthScreen/2,
+        canvas.drawText(mTextWhite, mWidthScreen/2,
                 mHeightBlackDraw/2, mPaint);
 
         mPaint.setColor(Color.BLACK);
-        canvas.drawText(textBlack, mWidthScreen/2,
+        canvas.drawText(mTextBlack, mWidthScreen/2,
                 mHeightBlackDraw + 1 + mHeightWhiteDraw/2, mPaint);
     }
 }

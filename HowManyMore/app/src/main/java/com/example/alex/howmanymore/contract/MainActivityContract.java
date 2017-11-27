@@ -13,7 +13,7 @@ public interface MainActivityContract {
 
     interface View extends IView {
         void draw(int widthScreen, int heightBlackDraw, int heightWhiteDraw, int widthBlackLine,
-                  float yearLivedPercent);
+                  String textWhite, String textBlack);
         void showMessage(int messageResId);
         User getUser();
     }

@@ -25,7 +25,9 @@ import com.example.alex.howmanymore.fragments.SexPickerFragment;
 import com.example.alex.howmanymore.model.User;
 import com.example.alex.howmanymore.presenter.MainActivityPresenter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     private final String TAG = this.getClass().getSimpleName();
     private Toolbar mToolbar;
 
-    private MenuItem mItemCountry, mItemSex;
+    private MenuItem mItemBirthday, mItemCountry, mItemSex;
 
     @Inject
     MainActivityPresenter mPresenter;
@@ -102,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
          getMenuInflater().inflate(R.menu.main, menu);
+         mItemBirthday = menu.findItem(R.id.menu_item_birthday);
          mItemCountry = menu.findItem(R.id.menu_item_country);
          mItemSex = menu.findItem(R.id.menu_item_sex);
 
@@ -112,8 +115,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
 
     private void initIconMenu() {
          if (isUserNotNull()) {
+             setIconMenuBirthday(mUser.getBirthday());
              mItemCountry.setIcon(ContextCompat.getDrawable(this, mUser.getCountryFlag()));
              setIconMenuSex(mUser.getSex());
+         } else {
+             mItemBirthday.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_cake_black_24dp));
+             mItemCountry.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_country_black_24dp));
+             mItemSex.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_human_male_female));
          }
     }
 
@@ -167,14 +175,15 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
 
     @Override
     public void draw(int widthScreen, int heightBlackDraw, int heightWhiteDraw, int widthBlackLine,
-                     float yearLivedPercent) {
+                     String textWhite, String textBlack) {
         Draw draw = (Draw)findViewById(R.id.draw);
         draw.invalidate();
         draw.setWidthScreen(widthScreen);
         draw.setHeightBlackDraw(heightBlackDraw);
         draw.setHeightWhiteDraw(heightWhiteDraw);
         draw.setWidthBlackLine(widthBlackLine);
-        draw.setmYearLivedPercent(yearLivedPercent);
+        draw.setTextWhite(textWhite);
+        draw.setTextBlack(textBlack);
     }
 
     @Override
@@ -229,6 +238,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     public void onChooseDate(long dateFromDatePicker) {
         mPresenter.setBirthday(dateFromDatePicker);
         mUser.setBirthday(dateFromDatePicker);
+        setIconMenuBirthday(dateFromDatePicker);
     }
 
     @Override
@@ -243,6 +253,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
         mPresenter.setSex(sex);
         mUser.setSex(sex);
         setIconMenuSex(sex);
+    }
+
+    private void setIconMenuBirthday(long birthday) {
+        Date date = new Date();
+        date.setTime(birthday);
+        SimpleDateFormat sdf = new SimpleDateFormat(Keys.DATE_FORMAT);
+        mItemBirthday.setTitle(sdf.format(date));
     }
 
     private void setIconMenuSex(String sex) {
