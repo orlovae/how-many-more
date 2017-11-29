@@ -160,12 +160,10 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
 
     private float getYearLived() {
         Calendar toDay = GregorianCalendar.getInstance();
+        Calendar birthday = GregorianCalendar.getInstance();
+        birthday.setTimeInMillis(mUser.getBirthday());
 
-        long birthday = mUser.getBirthday();
-        long lived = toDay.getTimeInMillis() - birthday;
-        int daysLived = (int) (lived / (Keys.ONE_DAY_IN_MILLISECONDS));
-
-        return daysLived / Keys.ONE_YEAR;
+        return toDay.get(Calendar.YEAR) - birthday.get(Calendar.YEAR);
     }
 
     @Override

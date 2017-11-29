@@ -1,6 +1,7 @@
 package com.example.alex.howmanymore.model;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.alex.howmanymore.R;
 import com.example.alex.howmanymore.constants.Keys;
@@ -16,6 +17,7 @@ import static com.example.alex.howmanymore.constants.Keys.WHITE;
  */
 
 public class TextOnDraw {
+    private final String TAG = this.getClass().getSimpleName();
     private Context mContext;
     private User mUser;
 
@@ -74,21 +76,23 @@ public class TextOnDraw {
     private void prepare() {
         float yearLifeExpectancy = mUser.getYearLifeExpectancy();
         Calendar toDay = GregorianCalendar.getInstance();
+        Calendar birthday = GregorianCalendar.getInstance();
+        birthday.setTimeInMillis(mUser.getBirthday());
 
-        long birthday = mUser.getBirthday();
-        long lived = toDay.getTimeInMillis() - birthday;
-        int daysLived = (int) (lived / (Keys.ONE_DAY_IN_MILLISECONDS));
-        float yearLived = daysLived / Keys.ONE_YEAR;
+        int yearLived;
+        int dayLived = toDay.get(Calendar.DATE) - birthday.get(Calendar.DATE);
+
+        int mountLived = toDay.get(Calendar.MONTH) - birthday.get(Calendar.MONTH);
+        if (mountLived < 0) {
+            mountLived = 12 + toDay.get(Calendar.MONTH) - birthday.get(Calendar.MONTH);
+            yearLived = toDay.get(Calendar.YEAR) - birthday.get(Calendar.YEAR) - 1;
+        } else {
+            yearLived = toDay.get(Calendar.YEAR) - birthday.get(Calendar.YEAR);
+        }
+
         mYearLivedPercent = (yearLived / yearLifeExpectancy) * 100;
 
-        Calendar calendar = new GregorianCalendar();
-        calendar.setTimeInMillis(birthday);
-
-        mLived = new StringToOnDraw(
-                yearLived,
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DATE)
-        );
+        mLived = new StringToOnDraw(yearLived, mountLived, dayLived);
 
         float yearRemained = yearLifeExpectancy - yearLived;
         float mountRemained = (yearRemained - (int) yearRemained) * 12;

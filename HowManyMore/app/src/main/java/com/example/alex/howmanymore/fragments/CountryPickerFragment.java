@@ -8,17 +8,22 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.example.alex.howmanymore.R;
 import com.example.alex.howmanymore.adapter.RecyclerViewDialogFragment;
 import com.example.alex.howmanymore.adapter.RecyclerViewTouchListener;
 import com.example.alex.howmanymore.model.Country;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static com.example.alex.howmanymore.constants.Keys.COUNTRY_PICKER_BIRTHDAY;
 
@@ -28,6 +33,11 @@ import static com.example.alex.howmanymore.constants.Keys.COUNTRY_PICKER_BIRTHDA
 
 public class CountryPickerFragment extends DialogFragment {
     private List<Country> mCountries;
+    private List<Country> mSelectedCountriesList = new ArrayList<>();
+
+    private RecyclerViewDialogFragment mAdapter;
+
+    private EditText mSearchEditText;
     private RecyclerView mRVCountry;
 
     private IOnSelectedCountryListener mListener;
@@ -61,13 +71,49 @@ public class CountryPickerFragment extends DialogFragment {
 
         initViews(view);
 
+        mSelectedCountriesList = new ArrayList<>(mCountries.size());
+        mSelectedCountriesList.addAll(mCountries);
+
+        mAdapter = new RecyclerViewDialogFragment(getActivity(), mSelectedCountriesList);
+
+        int width = getResources().getDimensionPixelSize(R.dimen.cp_dialog_width);
+        int height = getResources().getDimensionPixelSize(R.dimen.cp_dialog_height);
+        getDialog().getWindow().setLayout(width, height);
+
         initRecyclerView();
 
         return view;
     }
 
     private void initViews(View view) {
+        mSearchEditText = (EditText) view.findViewById(R.id.country_code_picker_search);
         mRVCountry = (RecyclerView) view.findViewById(R.id.recycler_view_country);
+
+        mSearchEditText.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                search(s.toString());
+            }
+        });
+    }
+
+    private void search(String text) {
+        mSelectedCountriesList.clear();
+        for (Country country : mCountries) {
+            if (country.getNameRUS().toLowerCase().contains(text.toLowerCase())) {
+                mSelectedCountriesList.add(country);
+            }
+        }
+        mAdapter.notifyDataSetChanged();
     }
 
     private void initRecyclerView() {
@@ -77,14 +123,14 @@ public class CountryPickerFragment extends DialogFragment {
         mRVCountry.addItemDecoration(new DividerItemDecoration(getActivity(),
                 DividerItemDecoration.VERTICAL));
 
-        mRVCountry.setAdapter(new RecyclerViewDialogFragment(getActivity(), mCountries));
+        mRVCountry.setAdapter(mAdapter);
         mRVCountry.setLayoutManager(layoutManager);
 
         mRVCountry.addOnItemTouchListener(new RecyclerViewTouchListener(getActivity(), mRVCountry,
                 new IRecyclerViewClickListener() {
                     @Override
                     public void onClick(View view, int position) {
-                        mListener.onChooseCountry(mCountries.get(position).getFlag());
+                        mListener.onChooseCountry(mSelectedCountriesList.get(position).getFlag());
                         dismiss();
                     }
 

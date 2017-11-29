@@ -12,7 +12,7 @@ public class Keys {
     public static final String MALE = "male";
 
     //Key name to SharedPreferences
-    public static final String APP_PREFERENCES = "mysettings";
+    public static final String APP_PREFERENCES = "mySettings";
     public static final String APP_PREFERENCES_BIRTHDAY = "birthday";
     public static final String APP_PREFERENCES_COUNTRY_FLAG = "country flag";
     public static final String APP_PREFERENCES_SEX = "sex";
@@ -41,9 +41,7 @@ public class Keys {
     public static final String INTENT_MODEL = "model";
 
     /** MainActivityPresenter **/
-    public static final float ONE_YEAR = 365.2425f;
     public static final float ONE_MOUNT = 365.2425f / 12;
-    public static final int ONE_DAY_IN_MILLISECONDS = 24 * 60 * 60 * 1000;
     public static final String NAME_NOTIFICATION_BAR_1 = "status_bar_height";
     public static final String NAME_NOTIFICATION_BAR_2 = "dimen";
     public static final String NAME_NOTIFICATION_BAR_3 = "android";
@@ -55,5 +53,5 @@ public class Keys {
     public static final int DB_VERSION = 1;
     public static final String DB_PATH_SDK_INT_MORE_17 = "/databases/";
     public static final String DB_PATH_SDK_INT_LESS_17 = "/data/data/";
-    public static final String ERORR = "ErrorCopyingDataBase";
+    public static final String ERROR_COPYING_DATA_BASE = "ErrorCopyingDataBase";
 }

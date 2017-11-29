@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">How Many More</string>
+    <string name="app_name">Кукушка</string>
 
     <!-- Activity InputScreen start -->
     <string name="input_screen_birthday">Введите Ваш День рожденья</string>
@@ -16,7 +16,11 @@
     <string name="toolbar_country">Страна</string>
     <string name="toolbar_sex">Пол</string>
 
+    <!-- Sex Picker Fragment -->
     <string name="sexes">Без выбора</string>
     <string name="female">Женский</string>
     <string name="male">Мужской</string>
+
+    <!-- Country Picker Fragment -->
+    <string name="search">Найти</string>
 </resources>
