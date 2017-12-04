@@ -38,7 +38,7 @@ public class App extends Application {
 
         switch (Locale.getDefault().getLanguage().toUpperCase()) {
             case Keys.RU:
-                codeLanguage =Keys.RU;
+                codeLanguage = Keys.RU;
                 break;
             case Keys.EN:
                 codeLanguage = Keys.EN;

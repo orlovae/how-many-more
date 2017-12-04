@@ -75,7 +75,7 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
     }
 
     private boolean checkInputData() {
-        if (mUser.getBirthday() > 0 && mUser.getCountryFlag() > 0 && mUser.getSex() != null) {
+        if (mUser.getBirthday() != 0 && mUser.getCountryFlag() > 0 && mUser.getSex() != null) {
             return true;
         } else {
             getView().showMessage(R.string.input_screen_toast);

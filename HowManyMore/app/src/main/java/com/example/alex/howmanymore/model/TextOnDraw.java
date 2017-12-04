@@ -52,22 +52,18 @@ public class TextOnDraw {
 
     private String getString(float percent, String initString, StringToOnDraw stringToOnDraw) {
         String string = initString + stringToOnDraw.getStringYear();
+        String endString = ". ("
+                + String.format("%(.2f", percent)
+                + "%)";
 
         if (stringToOnDraw.getStringMount() != null) {
             string = string + stringToOnDraw.getStringMount();
         }
 
         if (stringToOnDraw.getStringDay() != null) {
-            string = string
-                    + stringToOnDraw.getStringDay()
-                    + ". ("
-                    + String.format("%(.2f", percent)
-                    + "%)";
+            string = string + stringToOnDraw.getStringDay() + endString;
         } else {
-            string = string
-                    + ". ("
-                    + String.format("%(.2f", percent)
-                    + "%)";
+            string = string + endString;
         }
         return string;
     }

@@ -5,19 +5,16 @@
     <item
         android:id="@+id/menu_item_birthday"
         android:orderInCategory="10"
-        app:showAsAction="ifRoom"
-        android:title="@string/toolbar_birthday"/>
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/menu_item_country"
         android:orderInCategory="20"
-        app:showAsAction="always"
-        android:title="@string/toolbar_country" />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/menu_item_sex"
         android:orderInCategory="30"
-        app:showAsAction="ifRoom"
-        android:title="@string/toolbar_sex"/>
+        app:showAsAction="always" />
 
 </menu>

@@ -5,10 +5,10 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.app.DatePickerDialog;
+import android.util.Log;
 import android.widget.DatePicker;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import static com.example.alex.howmanymore.constants.Keys.DATE_PICKER_BIRTHDAY;
 import static com.example.alex.howmanymore.constants.Keys.MAXIMUM_AGE;
@@ -19,17 +19,14 @@ import static com.example.alex.howmanymore.constants.Keys.MAXIMUM_AGE;
 
 public class DatePickerFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
+    private final String TAG = this.getClass().getSimpleName();
 
     private IOnSelectedDateListener mListener;
-    private long mBirthday;
+    private Bundle mBundle;
 
     @Override
     public void onAttach(Context context) {
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            mBirthday = bundle.getLong(DATE_PICKER_BIRTHDAY);
-        }
-
+        mBundle = getArguments();
         mListener = (IOnSelectedDateListener)context;
         super.onAttach(context);
     }
@@ -43,8 +40,8 @@ public class DatePickerFragment extends DialogFragment
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final Calendar c = Calendar.getInstance();
-        if (mBirthday > 0) {
-            c.setTimeInMillis(mBirthday);
+        if (mBundle != null) {
+            c.setTimeInMillis(mBundle.getLong(DATE_PICKER_BIRTHDAY));
         }
 
         int year = c.get(Calendar.YEAR);
@@ -66,6 +63,7 @@ public class DatePickerFragment extends DialogFragment
     }
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        Log.d(TAG, "onDateSet: start");
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, monthOfYear, dayOfMonth);
 
