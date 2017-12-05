@@ -70,20 +70,31 @@ public class TextOnDraw {
 
 
     private void prepare() {
+        Log.d(TAG, "Start prepare");
         float yearLifeExpectancy = mUser.getYearLifeExpectancy();
         Calendar toDay = GregorianCalendar.getInstance();
         Calendar birthday = GregorianCalendar.getInstance();
         birthday.setTimeInMillis(mUser.getBirthday());
 
-        int yearLived;
         int dayLived = toDay.get(Calendar.DATE) - birthday.get(Calendar.DATE);
-
         int mountLived = toDay.get(Calendar.MONTH) - birthday.get(Calendar.MONTH);
-        if (mountLived < 0) {
-            mountLived = 12 + toDay.get(Calendar.MONTH) - birthday.get(Calendar.MONTH);
+        int yearLived = toDay.get(Calendar.YEAR) - birthday.get(Calendar.YEAR);
+
+
+        if (dayLived < 0) {
+            dayLived = toDay.get(Calendar.DATE)
+                    + birthday.getActualMaximum(Calendar.DAY_OF_MONTH)
+                    - birthday.get(Calendar.DATE);
+
             yearLived = toDay.get(Calendar.YEAR) - birthday.get(Calendar.YEAR) - 1;
+            if (mountLived - 1 < 0) {
+                mountLived = 11;
+                yearLived = yearLived - 1;
+            } else {
+                mountLived = mountLived -1;
+            }
         } else {
-            yearLived = toDay.get(Calendar.YEAR) - birthday.get(Calendar.YEAR);
+            mountLived = toDay.get(Calendar.MONTH) - birthday.get(Calendar.MONTH);
         }
 
         mYearLivedPercent = (yearLived / yearLifeExpectancy) * 100;
