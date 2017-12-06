@@ -2,6 +2,7 @@ package com.example.alex.howmanymore.fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -11,9 +12,12 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.example.alex.howmanymore.R;
@@ -24,6 +28,7 @@ import com.example.alex.howmanymore.model.Country;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Context.WINDOW_SERVICE;
 import static com.example.alex.howmanymore.constants.Keys.COUNTRY_PICKER_LIST;
 
 /**
@@ -154,5 +159,20 @@ public class CountryPickerFragment extends DialogFragment {
     public void onDetach() {
         mListener = null;
         super.onDetach();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Point size = new Point();
+        WindowManager windowManager = (WindowManager) getActivity().getSystemService(WINDOW_SERVICE);
+        windowManager.getDefaultDisplay().getSize(size);
+        int widthScreen = size.x;
+        int heightScreen = size.y;
+
+        Window window = getDialog().getWindow();
+        window.setLayout(widthScreen, heightScreen);
+        window.setGravity(Gravity.CENTER);
     }
 }
