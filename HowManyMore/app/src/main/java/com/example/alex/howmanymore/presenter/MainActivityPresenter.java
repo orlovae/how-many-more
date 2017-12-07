@@ -2,6 +2,7 @@ package com.example.alex.howmanymore.presenter;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.WindowManager;
@@ -43,7 +44,7 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
     protected List<Country> mCountries;
 
     private int mWidthScreen, mHeightScreen;
-    private int mHeightBlackDraw, mHeightWhiteDraw, mWidthBlackLine;
+    private int mHeightBlackRect, mHeightWhiteRect;
 
     private User mUser;
 
@@ -69,8 +70,10 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
         if (checkInputData()) {
             prepareOnDraw();
 
-            getView().draw(mWidthScreen, mHeightBlackDraw, mHeightWhiteDraw, mWidthBlackLine,
-                    textOnDraw.getText(WHITE), textOnDraw.getText(BLACK));
+            getView().draw(getRect(mWidthScreen, mHeightWhiteRect),
+                    getRect(mWidthScreen, mHeightBlackRect),
+                    textOnDraw.getText(WHITE),
+                    textOnDraw.getText(BLACK));
         }
     }
 
@@ -145,17 +148,11 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
         int heightAllDraw = mHeightScreen
                 - getHeightNotificationBar(mContext)
                 - getHeightToolbar(mContext);
-        mHeightBlackDraw = (int) ((getYearLived() * heightAllDraw)/mUser.getYearLifeExpectancy())
-                - Keys.SIZE_BLACK_LINE;
-        mHeightWhiteDraw = heightAllDraw - mHeightBlackDraw
-                - Keys.SIZE_FRACTIONAL_LINE;
-
-        int percentBlackLine = (int) ((getYearLived() % 1) * 100);
-
-        mWidthBlackLine = (percentBlackLine * mWidthScreen) / 100;
+        mHeightBlackRect = (int) ((getYearLived() * heightAllDraw)/mUser.getYearLifeExpectancy());
+        mHeightWhiteRect = heightAllDraw - mHeightBlackRect;
 
         Log.d(TAG, "heightAllDraw = " + heightAllDraw + "; heightBlackDraw = " +
-                mHeightBlackDraw + "; heightWhiteDraw = " + mHeightWhiteDraw);
+                mHeightBlackRect + "; heightWhiteDraw = " + mHeightWhiteRect);
     }
 
     private float getYearLived() {
@@ -164,6 +161,10 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
         birthday.setTimeInMillis(mUser.getBirthday());
 
         return toDay.get(Calendar.YEAR) - birthday.get(Calendar.YEAR);
+    }
+
+    private Rect getRect(int width, int height) {
+        return new Rect(0, 0, width, height);
     }
 
     @Override

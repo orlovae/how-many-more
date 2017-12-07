@@ -1,6 +1,7 @@
 package com.example.alex.howmanymore.activity;
 
 import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.os.Parcelable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
@@ -177,14 +178,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     }
 
     @Override
-    public void draw(int widthScreen, int heightBlackDraw, int heightWhiteDraw, int widthBlackLine,
-                     String textWhite, String textBlack) {
+    public void draw(Rect rectWhite, Rect rectBlack, String textWhite, String textBlack) {
         Draw draw = (Draw)findViewById(R.id.draw);
         draw.invalidate();
-        draw.setWidthScreen(widthScreen);
-        draw.setHeightBlackDraw(heightBlackDraw);
-        draw.setHeightWhiteDraw(heightWhiteDraw);
-        draw.setWidthBlackLine(widthBlackLine);
+        draw.setRectWhite(rectWhite);
+        draw.setRectBlack(rectBlack);
         draw.setTextWhite(textWhite);
         draw.setTextBlack(textBlack);
     }
