@@ -70,8 +70,8 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
         if (checkInputData()) {
             prepareOnDraw();
 
-            getView().draw(getRect(mWidthScreen, mHeightWhiteRect),
-                    getRect(mWidthScreen, mHeightBlackRect),
+            getView().draw(getRect(mHeightBlackRect, mWidthScreen, mHeightWhiteRect),
+                    getRect(0, mWidthScreen, mHeightBlackRect),
                     textOnDraw.getText(WHITE),
                     textOnDraw.getText(BLACK));
         }
@@ -149,7 +149,7 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
                 - getHeightNotificationBar(mContext)
                 - getHeightToolbar(mContext);
         mHeightBlackRect = (int) ((getYearLived() * heightAllDraw)/mUser.getYearLifeExpectancy());
-        mHeightWhiteRect = heightAllDraw - mHeightBlackRect;
+        mHeightWhiteRect = heightAllDraw;
 
         Log.d(TAG, "heightAllDraw = " + heightAllDraw + "; heightBlackDraw = " +
                 mHeightBlackRect + "; heightWhiteDraw = " + mHeightWhiteRect);
@@ -163,8 +163,9 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
         return toDay.get(Calendar.YEAR) - birthday.get(Calendar.YEAR);
     }
 
-    private Rect getRect(int width, int height) {
-        return new Rect(0, 0, width, height);
+    private Rect getRect(int top, int right, int bottom) {
+        Log.d(TAG, "getRect: top = " + top);
+        return new Rect(0, top, right, bottom);
     }
 
     @Override

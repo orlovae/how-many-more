@@ -53,13 +53,13 @@ public class Draw extends View {
     protected void onDraw(Canvas canvas) {
         init(canvas);
 
-        paintBlackRect(canvas);
-
-//        paintBlackLine(canvas);
+        if (mRectBlack != null && mRectWhite != null) {
+            paintBlackRect(canvas);
+        }
 
         if (mTextWhite != null && mTextBlack != null) {
-            drawText(canvas, BLACK, mTextBlack, mRectBlack);
-            drawText(canvas, WHITE, mTextWhite, mRectWhite);
+            drawText(canvas, WHITE, mTextWhite, mRectBlack);
+            drawText(canvas, BLACK, mTextBlack, mRectWhite);
         }
     }
 
@@ -74,21 +74,15 @@ public class Draw extends View {
         canvas.drawRect(mRectBlack, mPaint);
     }
 
-//    private void paintBlackLine(Canvas canvas){
-//        mPaint.setColor(Color.BLACK);
-//        canvas.drawRect(0, mHeightBlackDraw, mWidthBlackLine, mHeightBlackDraw + 20,
-//                mPaint);
-//    }
-
     private void drawText(Canvas canvas, String key, String text, Rect rect){
         TextPaint textPaint = new TextPaint();
 
         switch (key) {
             case BLACK:
-                textPaint.setColor(Color.WHITE);
+                textPaint.setColor(Color.BLACK);
                 break;
             case WHITE:
-                textPaint.setColor(Color.BLACK);
+                textPaint.setColor(Color.WHITE);
                 break;
         }
 
@@ -98,22 +92,15 @@ public class Draw extends View {
         textPaint.setTextAlign(Paint.Align.CENTER);
 
         StaticLayout sL = new StaticLayout(text, textPaint, rect.width(),
-                Layout.Alignment.ALIGN_CENTER, 1, 1, true);
+                Layout.Alignment.ALIGN_NORMAL, 1, 1, true);
 
         canvas.save();
 
         float textHeight = getTextHeight(text, textPaint);
         int numberOfTextLine = sL.getLineCount();
-        float textXCoordinate = rect.left;
+        float textXCoordinate = rect.exactCenterX();
 
         float textYCoordinate = rect.exactCenterY() - ((numberOfTextLine * textHeight) / 2);
-
-        Log.d(TAG, "drawText: key = " + key);
-        Log.d(TAG, "drawText: rect.width = " + rect.width());
-        Log.d(TAG, "drawText: textHeight = " + textHeight);
-        Log.d(TAG, "drawText: numberOfTextLine = " + numberOfTextLine);
-        Log.d(TAG, "drawText: textXCoordinate = " + textXCoordinate);
-        Log.d(TAG, "drawText: textYCoordinate = " + textYCoordinate);
 
         canvas.translate(textXCoordinate, textYCoordinate);
         sL.draw(canvas);
