@@ -70,6 +70,10 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
         if (checkInputData()) {
             prepareOnDraw();
 
+            //TODO д.б. проверка прожито, продлжительность жизни
+
+            Log.d(TAG, "onDraw: yearLifeLived = " + textOnDraw.getLifeLived());
+
             getView().draw(getRect(mHeightBlackRect, mWidthScreen, mHeightWhiteRect),
                     getRect(0, mWidthScreen, mHeightBlackRect),
                     textOnDraw.getText(WHITE),
@@ -93,7 +97,7 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
     }
 
     private void setYearLifeExpectancy(User user) {
-        user.setYearLifeExpectancy(mDatabaseAdapter.getYearLifeExpectancy(
+        user.setLifeExpectancy(mDatabaseAdapter.getLifeExpectancy(
                 getCountryNameISO(user.getCountryFlag()),
                 user.getSex()));
     }
@@ -148,7 +152,7 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
         int heightAllDraw = mHeightScreen
                 - getHeightNotificationBar(mContext)
                 - getHeightToolbar(mContext);
-        mHeightBlackRect = (int) ((getYearLived() * heightAllDraw)/mUser.getYearLifeExpectancy());
+        mHeightBlackRect = (int) ((getYearLived() * heightAllDraw)/mUser.getLifeExpectancy());
         mHeightWhiteRect = heightAllDraw;
 
         Log.d(TAG, "heightAllDraw = " + heightAllDraw + "; heightBlackDraw = " +

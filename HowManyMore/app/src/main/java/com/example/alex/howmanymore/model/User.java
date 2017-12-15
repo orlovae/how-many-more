@@ -6,18 +6,21 @@ import android.os.Parcelable;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 /**
  * Created by alex on 09.11.17.
  */
 
 public class User implements Parcelable {
-    private float mYearLifeExpectancy;
+    private float mLifeExpectancy;
     private long mBirthday;
     private int mCountryFlag;
     private String mSex;
 
-    public User(float yearLifeExpectancy, long birthday, int countryFlag, String sex) {
-        mYearLifeExpectancy = yearLifeExpectancy;
+    public User(float lifeExpectancy, long birthday, int countryFlag, String sex) {
+        mLifeExpectancy = lifeExpectancy;
         mBirthday = birthday;
         mCountryFlag = countryFlag;
         mSex = sex;
@@ -26,12 +29,12 @@ public class User implements Parcelable {
     public User() {
     }
 
-    public float getYearLifeExpectancy() {
-        return mYearLifeExpectancy;
+    public float getLifeExpectancy() {
+        return mLifeExpectancy;
     }
 
-    public void setYearLifeExpectancy(float yearLifeExpectancy) {
-        mYearLifeExpectancy = yearLifeExpectancy;
+    public void setLifeExpectancy(float lifeExpectancy) {
+        mLifeExpectancy = lifeExpectancy;
     }
 
     public long getBirthday() {
@@ -58,8 +61,6 @@ public class User implements Parcelable {
         mSex = sex;
     }
 
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -69,7 +70,7 @@ public class User implements Parcelable {
         User user = (User) o;
 
         return new EqualsBuilder()
-                .append(getYearLifeExpectancy(), user.getYearLifeExpectancy())
+                .append(getLifeExpectancy(), user.getLifeExpectancy())
                 .append(getBirthday(), user.getBirthday())
                 .append(getCountryFlag(), user.getCountryFlag())
                 .append(getSex(), user.getSex())
@@ -79,7 +80,7 @@ public class User implements Parcelable {
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(getYearLifeExpectancy())
+                .append(getLifeExpectancy())
                 .append(getBirthday())
                 .append(getCountryFlag())
                 .append(getSex())
@@ -98,7 +99,7 @@ public class User implements Parcelable {
     };
 
     private User(Parcel in) {
-        mYearLifeExpectancy = in.readFloat();
+        mLifeExpectancy = in.readFloat();
         mBirthday = in.readLong();
         mCountryFlag = in.readInt();
         mSex = in.readString();
@@ -111,7 +112,7 @@ public class User implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeFloat(mYearLifeExpectancy);
+        dest.writeFloat(mLifeExpectancy);
         dest.writeLong(mBirthday);
         dest.writeInt(mCountryFlag);
         dest.writeString(mSex);

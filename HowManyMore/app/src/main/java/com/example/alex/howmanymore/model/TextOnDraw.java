@@ -23,6 +23,8 @@ public class TextOnDraw {
 
     private float mYearLivedPercent;
 
+    private int mYearLived;
+
     private StringToOnDraw mLived, mRemained;
 
 
@@ -33,7 +35,6 @@ public class TextOnDraw {
 
     public String getText(String key) {
         prepare();
-
         String text = null;
 
         switch (key) {
@@ -70,15 +71,14 @@ public class TextOnDraw {
 
 
     private void prepare() {
-        Log.d(TAG, "Start prepare");
-        float yearLifeExpectancy = mUser.getYearLifeExpectancy();
+        float yearLifeExpectancy = mUser.getLifeExpectancy();
         Calendar toDay = GregorianCalendar.getInstance();
         Calendar birthday = GregorianCalendar.getInstance();
         birthday.setTimeInMillis(mUser.getBirthday());
 
         int dayLived = toDay.get(Calendar.DATE) - birthday.get(Calendar.DATE);
         int mountLived = toDay.get(Calendar.MONTH) - birthday.get(Calendar.MONTH);
-        int yearLived = toDay.get(Calendar.YEAR) - birthday.get(Calendar.YEAR);
+        mYearLived = toDay.get(Calendar.YEAR) - birthday.get(Calendar.YEAR);
 
 
         if (dayLived < 0) {
@@ -86,10 +86,10 @@ public class TextOnDraw {
                     + birthday.getActualMaximum(Calendar.DAY_OF_MONTH)
                     - birthday.get(Calendar.DATE);
 
-            yearLived = toDay.get(Calendar.YEAR) - birthday.get(Calendar.YEAR) - 1;
+            mYearLived = toDay.get(Calendar.YEAR) - birthday.get(Calendar.YEAR) - 1;
             if (mountLived - 1 < 0) {
                 mountLived = 11;
-                yearLived = yearLived - 1;
+                mYearLived = mYearLived - 1;
             } else {
                 mountLived = mountLived -1;
             }
@@ -97,16 +97,33 @@ public class TextOnDraw {
             mountLived = toDay.get(Calendar.MONTH) - birthday.get(Calendar.MONTH);
         }
 
-        mYearLivedPercent = (yearLived / yearLifeExpectancy) * 100;
+        mYearLivedPercent = (mYearLived / yearLifeExpectancy) * 100;
 
-        mLived = new StringToOnDraw(yearLived, mountLived, dayLived);
+        mLived = new StringToOnDraw(mYearLived, mountLived, dayLived);
 
-        float yearRemained = yearLifeExpectancy - yearLived;
+        float yearRemained = yearLifeExpectancy - mYearLived;
         float mountRemained = (yearRemained - (int) yearRemained) * 12;
 
         mRemained = new StringToOnDraw(
                 yearRemained,
                 mountRemained,
                 (mountRemained - (int) mountRemained) * Keys.ONE_MOUNT);
+    }
+
+    public float getLifeLived() {
+        Calendar birthday = Calendar.getInstance();
+        birthday.setTimeInMillis(mUser.getBirthday());
+
+        return mYearLived + (float) birthday.get(Calendar.DAY_OF_YEAR) / getDayOfYear();
+    }
+
+    private int getDayOfYear() {
+        GregorianCalendar toDay = (GregorianCalendar) GregorianCalendar.getInstance();
+
+        if (toDay.isLeapYear(toDay.get(Calendar.YEAR))){
+            return 366;
+        } else {
+            return 365;
+        }
     }
 }

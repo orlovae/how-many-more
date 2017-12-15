@@ -128,8 +128,8 @@ public class DatabaseAdapter {
         }
     }
 
-    public float getYearLifeExpectancy (String countryNameISO, String sex) {
-        float yearLifeExpectancy = 0;
+    public float getLifeExpectancy(String countryNameISO, String sex) {
+        float lifeExpectancy = 0;
 
         String[] columns = new String[1];
         switch (sex) {
@@ -154,7 +154,7 @@ public class DatabaseAdapter {
         try {
             if (cursor != null && cursor.moveToFirst()){
                 do {
-                    yearLifeExpectancy = cursor.getFloat(0);
+                    lifeExpectancy = cursor.getFloat(0);
                 } while (cursor.moveToNext());
             }
         } catch (Exception e) {
@@ -164,12 +164,12 @@ public class DatabaseAdapter {
                 cursor.close();
             }
         }
-        return yearLifeExpectancy;
+        return lifeExpectancy;
     }
 
     public void insertInTableUserRequests (User user){
         ContentValues cv = new ContentValues();
-        float yearLifeExpectancy = user.getYearLifeExpectancy();
+        float yearLifeExpectancy = user.getLifeExpectancy();
         long birthday = user.getBirthday();
         int nameCountry = user.getCountryFlag();
         String sex = user.getSex();
