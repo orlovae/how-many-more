@@ -27,7 +27,6 @@ public class TextOnDraw {
 
     private StringToOnDraw mLived, mRemained;
 
-
     public TextOnDraw(Context context, User user) {
         mContext = context;
         mUser = user;
@@ -114,7 +113,10 @@ public class TextOnDraw {
         Calendar birthday = Calendar.getInstance();
         birthday.setTimeInMillis(mUser.getBirthday());
 
-        return mYearLived + (float) birthday.get(Calendar.DAY_OF_YEAR) / getDayOfYear();
+        Calendar toDay = GregorianCalendar.getInstance();
+        int yearLived = toDay.get(Calendar.YEAR) - birthday.get(Calendar.YEAR);
+
+        return yearLived + (float) birthday.get(Calendar.DAY_OF_YEAR) / getDayOfYear();
     }
 
     private int getDayOfYear() {

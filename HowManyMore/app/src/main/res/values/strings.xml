@@ -11,6 +11,9 @@
     <string name="draw_lived">ПРОЖИТО</string>
     <string name="draw_remained">ОСТАЛОСЬ</string>
 
+    <!-- Draw One Rect -->
+    <string name="draw_win">Поздравляем!!! \n Вы превысили среднюю продолжительность жизни!</string>
+
     <!-- Toolbar -->
     <string name="toolbar_birthday">День рожденья</string>
     <string name="toolbar_country">Страна</string>

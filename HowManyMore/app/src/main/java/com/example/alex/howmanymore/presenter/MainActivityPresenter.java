@@ -70,14 +70,24 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
         if (checkInputData()) {
             prepareOnDraw();
 
-            //TODO д.б. проверка прожито, продлжительность жизни
+            Log.d(TAG, "onDraw: textOnDraw.getLifeLived() = " + textOnDraw.getLifeLived());
+            Log.d(TAG, "onDraw: mUser.getLifeExpectancy() = " + mUser.getLifeExpectancy());
+            Log.d(TAG, "onDraw is " + (textOnDraw.getLifeLived() > mUser.getLifeExpectancy()));
 
-            Log.d(TAG, "onDraw: yearLifeLived = " + textOnDraw.getLifeLived());
-
-            getView().draw(getRect(mHeightBlackRect, mWidthScreen, mHeightWhiteRect),
-                    getRect(0, mWidthScreen, mHeightBlackRect),
-                    textOnDraw.getText(WHITE),
-                    textOnDraw.getText(BLACK));
+            if (textOnDraw.getLifeLived() > mUser.getLifeExpectancy()) {
+                getView().drawOneRect(getRect(0, mWidthScreen, mHeightWhiteRect),
+                        textOnDraw.getText(WHITE));
+                //TODO рисуем 1 Rect text = "Поздравляем!!! Вы превысили среднюю продолжительность жизни" + обычная надпись прожито
+            } else {
+                if (textOnDraw.getLifeLived() / 100 > 0.87) {
+                    //TODO белый текст переносится вниз черного прямоугольника.
+                } else {
+                    getView().drawTwoRect(getRect(mHeightBlackRect, mWidthScreen, mHeightWhiteRect),
+                            getRect(0, mWidthScreen, mHeightBlackRect),
+                            textOnDraw.getText(WHITE),
+                            textOnDraw.getText(BLACK));
+                }
+            }
         }
     }
 
@@ -122,15 +132,12 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
     }
 
     private int getHeightToolbar(Context context){
-        Log.d(TAG, "Start getWidthToolbar");
-
         int heightToolbar = 0;
         TypedValue tv = new TypedValue();
         if (context.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)){
             heightToolbar = TypedValue.complexToDimensionPixelSize(tv.data, context.getResources().
                     getDisplayMetrics());
         }
-        Log.d(TAG, "Toolbar height = " + heightToolbar);
         return heightToolbar;
     }
 
@@ -143,8 +150,6 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
         if (resourceId > 0) {
             heightNotificationBar = context.getResources().getDimensionPixelSize(resourceId);
         }
-
-        Log.d(TAG, "NotificationBar height = " + heightNotificationBar);
         return heightNotificationBar;
     }
 
@@ -154,9 +159,6 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
                 - getHeightToolbar(mContext);
         mHeightBlackRect = (int) ((getYearLived() * heightAllDraw)/mUser.getLifeExpectancy());
         mHeightWhiteRect = heightAllDraw;
-
-        Log.d(TAG, "heightAllDraw = " + heightAllDraw + "; heightBlackDraw = " +
-                mHeightBlackRect + "; heightWhiteDraw = " + mHeightWhiteRect);
     }
 
     private float getYearLived() {
@@ -168,7 +170,6 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
     }
 
     private Rect getRect(int top, int right, int bottom) {
-        Log.d(TAG, "getRect: top = " + top);
         return new Rect(0, top, right, bottom);
     }
 

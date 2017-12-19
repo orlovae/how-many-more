@@ -11,6 +11,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.alex.howmanymore.constants.Keys;
@@ -56,11 +59,17 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
 
     boolean isInitial = false;
 
+    private LinearLayout mLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSetting = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
+
         setContentView(R.layout.activity_main);
+
+        mLayout = (LinearLayout) findViewById(R.id.linear_layout);
+
         App.getComponent().injectsActivity(this);
 
         initToolbar();
@@ -178,13 +187,36 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     }
 
     @Override
-    public void draw(Rect rectWhite, Rect rectBlack, String textWhite, String textBlack) {
-        Draw draw = (Draw)findViewById(R.id.draw);
-        draw.invalidate();
-        draw.setRectWhite(rectWhite);
-        draw.setRectBlack(rectBlack);
-        draw.setTextWhite(textWhite);
-        draw.setTextBlack(textBlack);
+    public void drawTwoRect(Rect rectWhite, Rect rectBlack, String textWhite, String textBlack) {
+        LinearLayout.LayoutParams lP = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+        DrawTwoRect drawTwoRect = new DrawTwoRect(this);
+        drawTwoRect.invalidate();
+        drawTwoRect.setRectWhite(rectWhite);
+        drawTwoRect.setRectBlack(rectBlack);
+        drawTwoRect.setTextWhite(textWhite);
+        drawTwoRect.setTextBlack(textBlack);
+
+        drawTwoRect.setLayoutParams(lP);
+        mLayout.removeAllViews();
+        mLayout.addView(drawTwoRect);
+    }
+
+    @Override
+    public void drawOneRect(Rect rectWhite, String textBlack) {
+        LinearLayout.LayoutParams lP = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+
+        DrawOneRect drawOneRect = new DrawOneRect(this);
+        drawOneRect.invalidate();
+        drawOneRect.setRectWhite(rectWhite);
+        drawOneRect.setTextBlack(textBlack);
+
+        drawOneRect.setLayoutParams(lP);
+        mLayout.removeAllViews();
+        mLayout.addView(drawOneRect);
     }
 
     @Override
