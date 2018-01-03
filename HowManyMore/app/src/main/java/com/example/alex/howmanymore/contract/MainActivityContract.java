@@ -14,6 +14,7 @@ import com.example.alex.howmanymore.presenter.IPresenter;
 public interface MainActivityContract {
 
     interface View extends IView {
+        void drawTwoRectTextInOneRect(Rect rectWhite, Rect rectBlack, String textWhite, String textBlack);
         void drawTwoRect(Rect rectWhite, Rect rectBlack, String textWhite, String textBlack);
         void drawOneRect(Rect rectWhite, String textBlack);
         void showMessage(int messageResId);

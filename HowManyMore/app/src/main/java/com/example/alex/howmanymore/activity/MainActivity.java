@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -187,20 +186,37 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     }
 
     @Override
+    public void drawTwoRectTextInOneRect(Rect rectWhite, Rect rectBlack, String textWhite, String textBlack) {
+        LinearLayout.LayoutParams lP = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+        DrawTwoRectTextInOneRect drawTwoRectTextInOneRect = new DrawTwoRectTextInOneRect(this);
+        drawTwoRectTextInOneRect.invalidate();
+        drawTwoRectTextInOneRect.setRectWhite(rectWhite);
+        drawTwoRectTextInOneRect.setRectBlack(rectBlack);
+        drawTwoRectTextInOneRect.setTextWhite(textWhite);
+        drawTwoRectTextInOneRect.setTextBlack(textBlack);
+
+        drawTwoRectTextInOneRect.setLayoutParams(lP);
+        mLayout.removeAllViews();
+        mLayout.addView(drawTwoRectTextInOneRect);
+    }
+
+    @Override
     public void drawTwoRect(Rect rectWhite, Rect rectBlack, String textWhite, String textBlack) {
         LinearLayout.LayoutParams lP = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
-        DrawTwoRect drawTwoRect = new DrawTwoRect(this);
-        drawTwoRect.invalidate();
-        drawTwoRect.setRectWhite(rectWhite);
-        drawTwoRect.setRectBlack(rectBlack);
-        drawTwoRect.setTextWhite(textWhite);
-        drawTwoRect.setTextBlack(textBlack);
+        DrawTwoRectTextInTwoRect drawTwoRectTextInTwoRect = new DrawTwoRectTextInTwoRect(this);
+        drawTwoRectTextInTwoRect.invalidate();
+        drawTwoRectTextInTwoRect.setRectWhite(rectWhite);
+        drawTwoRectTextInTwoRect.setRectBlack(rectBlack);
+        drawTwoRectTextInTwoRect.setTextWhite(textWhite);
+        drawTwoRectTextInTwoRect.setTextBlack(textBlack);
 
-        drawTwoRect.setLayoutParams(lP);
+        drawTwoRectTextInTwoRect.setLayoutParams(lP);
         mLayout.removeAllViews();
-        mLayout.addView(drawTwoRect);
+        mLayout.addView(drawTwoRectTextInTwoRect);
     }
 
     @Override

@@ -70,22 +70,30 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
         if (checkInputData()) {
             prepareOnDraw();
 
-            Log.d(TAG, "onDraw: textOnDraw.getLifeLived() = " + textOnDraw.getLifeLived());
-            Log.d(TAG, "onDraw: mUser.getLifeExpectancy() = " + mUser.getLifeExpectancy());
-            Log.d(TAG, "onDraw is " + (textOnDraw.getLifeLived() > mUser.getLifeExpectancy()));
-
+            //Если прожито больше чем продолжительность жизни
             if (textOnDraw.getLifeLived() > mUser.getLifeExpectancy()) {
-                getView().drawOneRect(getRect(0, mWidthScreen, mHeightWhiteRect),
-                        textOnDraw.getText(WHITE));
-                //TODO рисуем 1 Rect text = "Поздравляем!!! Вы превысили среднюю продолжительность жизни" + обычная надпись прожито
+                getView().drawOneRect(
+                        getRect(0, mWidthScreen, mHeightWhiteRect),
+                        textOnDraw.getText(WHITE)
+                );
             } else {
-                if (textOnDraw.getLifeLived() / 100 > 0.87) {
-                    //TODO белый текст переносится вниз черного прямоугольника.
-                } else {
-                    getView().drawTwoRect(getRect(mHeightBlackRect, mWidthScreen, mHeightWhiteRect),
+                if (textOnDraw.getLifeLived() / mUser.getLifeExpectancy() > 0.87) {
+                    if (mHeightWhiteRect - mHeightBlackRect < 30) {
+                        mHeightBlackRect = mHeightWhiteRect - 30;
+                    }
+                    getView().drawTwoRectTextInOneRect(
+                            getRect(mHeightBlackRect, mWidthScreen, mHeightWhiteRect),
                             getRect(0, mWidthScreen, mHeightBlackRect),
                             textOnDraw.getText(WHITE),
-                            textOnDraw.getText(BLACK));
+                            textOnDraw.getText(BLACK)
+                    );
+                } else {
+                    getView().drawTwoRect(
+                            getRect(mHeightBlackRect, mWidthScreen, mHeightWhiteRect),
+                            getRect(0, mWidthScreen, mHeightBlackRect),
+                            textOnDraw.getText(WHITE),
+                            textOnDraw.getText(BLACK)
+                    );
                 }
             }
         }

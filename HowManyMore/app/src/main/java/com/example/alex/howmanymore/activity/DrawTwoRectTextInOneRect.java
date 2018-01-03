@@ -8,8 +8,6 @@ import android.graphics.Rect;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import static com.example.alex.howmanymore.constants.Keys.BLACK;
@@ -20,7 +18,7 @@ import static com.example.alex.howmanymore.constants.Keys.WHITE;
  * Created by alex on 02.07.17.
  */
 
-public class DrawTwoRect extends View {
+public class DrawTwoRectTextInOneRect extends View {
     private final String TAG = this.getClass().getSimpleName();
 
     private Paint mPaint = new Paint();
@@ -45,7 +43,7 @@ public class DrawTwoRect extends View {
         mTextBlack = textBlack;
     }
 
-    public DrawTwoRect(Context context){
+    public DrawTwoRectTextInOneRect(Context context){
         super(context);
     }
 
@@ -59,7 +57,7 @@ public class DrawTwoRect extends View {
 
         if (mTextWhite != null && mTextBlack != null) {
             drawText(canvas, WHITE, mTextWhite, mRectBlack);
-            drawText(canvas, BLACK, mTextBlack, mRectWhite);
+            drawText(canvas, BLACK, mTextBlack, mRectBlack);
         }
     }
 
@@ -76,20 +74,12 @@ public class DrawTwoRect extends View {
 
     private void drawText(Canvas canvas, String key, String text, Rect rect){
         TextPaint textPaint = new TextPaint();
-
-        switch (key) {
-            case BLACK:
-                textPaint.setColor(Color.BLACK);
-                break;
-            case WHITE:
-                textPaint.setColor(Color.WHITE);
-                break;
-        }
-
+        textPaint.setColor(Color.WHITE);
         textPaint.setStyle(Paint.Style.FILL);
         textPaint.setAntiAlias(true);
         textPaint.setTextSize(32);
         textPaint.setTextAlign(Paint.Align.CENTER);
+
 
         StaticLayout sL = new StaticLayout(text, textPaint, rect.width(),
                 Layout.Alignment.ALIGN_NORMAL, 1, 1, true);
@@ -99,8 +89,13 @@ public class DrawTwoRect extends View {
         float textHeight = getTextHeight(text, textPaint);
         int numberOfTextLine = sL.getLineCount();
         float textXCoordinate = rect.exactCenterX();
+        float textYCoordinate;
 
-        float textYCoordinate = rect.exactCenterY() - ((numberOfTextLine * textHeight) / 2);
+        if (key.equalsIgnoreCase(WHITE)) {
+            textYCoordinate = rect.exactCenterY() - ((numberOfTextLine * textHeight) / 2);
+        } else {
+            textYCoordinate = rect.bottom - 16 - numberOfTextLine * textHeight;
+        }
 
         canvas.translate(textXCoordinate, textYCoordinate);
         sL.draw(canvas);
