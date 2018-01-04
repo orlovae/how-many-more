@@ -6,6 +6,11 @@ import android.util.Log;
 import com.example.alex.howmanymore.R;
 import com.example.alex.howmanymore.constants.Keys;
 
+import org.joda.time.Interval;
+import org.joda.time.LocalDate;
+import org.joda.time.Period;
+import org.joda.time.PeriodType;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -72,35 +77,26 @@ public class TextOnDraw {
     private void prepare() {
         float yearLifeExpectancy = mUser.getLifeExpectancy();
         Calendar toDay = GregorianCalendar.getInstance();
-        Calendar birthday = GregorianCalendar.getInstance();
-        birthday.setTimeInMillis(mUser.getBirthday());
+        Calendar calBirthday = GregorianCalendar.getInstance();
+        calBirthday.setTimeInMillis(mUser.getBirthday());
 
-        int dayLived = toDay.get(Calendar.DATE) - birthday.get(Calendar.DATE);
-        int mountLived = toDay.get(Calendar.MONTH) - birthday.get(Calendar.MONTH);
-        mYearLived = toDay.get(Calendar.YEAR) - birthday.get(Calendar.YEAR);
+        LocalDate lDToDay = new LocalDate(toDay.get(Calendar.YEAR),
+                toDay.get(Calendar.MONTH) + 1,
+                toDay.get(Calendar.DAY_OF_MONTH));
+        LocalDate lDBirthday = new LocalDate(calBirthday.get(Calendar.YEAR),
+                calBirthday.get(Calendar.MONTH) + 1,
+                calBirthday.get(Calendar.DAY_OF_MONTH));
 
+        Period period = new Period(lDBirthday, lDToDay);
 
-        if (dayLived < 0) {
-            dayLived = toDay.get(Calendar.DATE)
-                    + birthday.getActualMaximum(Calendar.DAY_OF_MONTH)
-                    - birthday.get(Calendar.DATE);
+        mYearLivedPercent = ((
+                (float) period.getYears() + (float) calBirthday.get(Calendar.DAY_OF_YEAR) / getDayOfYear())
+                / yearLifeExpectancy)
+                * 100;
 
-            mYearLived = toDay.get(Calendar.YEAR) - birthday.get(Calendar.YEAR) - 1;
-            if (mountLived - 1 < 0) {
-                mountLived = 11;
-                mYearLived = mYearLived - 1;
-            } else {
-                mountLived = mountLived -1;
-            }
-        } else {
-            mountLived = toDay.get(Calendar.MONTH) - birthday.get(Calendar.MONTH);
-        }
+        mLived = new StringToOnDraw(period.getYears(), period.getMonths(), period.getDays());
 
-        mYearLivedPercent = (mYearLived / yearLifeExpectancy) * 100;
-
-        mLived = new StringToOnDraw(mYearLived, mountLived, dayLived);
-
-        float yearRemained = yearLifeExpectancy - mYearLived;
+        float yearRemained = yearLifeExpectancy - period.getYears();
         float mountRemained = (yearRemained - (int) yearRemained) * 12;
 
         mRemained = new StringToOnDraw(

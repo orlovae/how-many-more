@@ -70,6 +70,9 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
         if (checkInputData()) {
             prepareOnDraw();
 
+            Log.d(TAG, "lifeLived = " + textOnDraw.getLifeLived());
+            Log.d(TAG, "lifeExpectancy = " + mUser.getLifeExpectancy());
+
             //Если прожито больше чем продолжительность жизни
             if (textOnDraw.getLifeLived() > mUser.getLifeExpectancy()) {
                 getView().drawOneRect(
