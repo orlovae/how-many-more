@@ -27,6 +27,8 @@ public class DrawTwoRectTextInOneRect extends View {
 
     private String mTextWhite, mTextBlack;
 
+    private int mKey;
+
     public void setRectWhite(Rect rectWhite) {
         mRectWhite = rectWhite;
     }
@@ -43,6 +45,8 @@ public class DrawTwoRectTextInOneRect extends View {
         mTextBlack = textBlack;
     }
 
+    public void setKey(int key) {mKey = key;}
+
     public DrawTwoRectTextInOneRect(Context context){
         super(context);
     }
@@ -56,8 +60,16 @@ public class DrawTwoRectTextInOneRect extends View {
         }
 
         if (mTextWhite != null && mTextBlack != null) {
-            drawText(canvas, WHITE, mTextWhite, mRectBlack);
-            drawText(canvas, BLACK, mTextBlack, mRectBlack);
+            switch (mKey) {
+                case 13:
+                    drawText(canvas, WHITE, mTextWhite, mRectBlack);
+                    drawText(canvas, BLACK, mTextBlack, mRectWhite);
+                    break;
+                case 87:
+                    drawText(canvas, WHITE, mTextWhite, mRectBlack);
+                    drawText(canvas, BLACK, mTextBlack, mRectBlack);
+                break;
+            }
         }
     }
 
@@ -89,12 +101,25 @@ public class DrawTwoRectTextInOneRect extends View {
         float textHeight = getTextHeight(text, textPaint);
         int numberOfTextLine = sL.getLineCount();
         float textXCoordinate = rect.exactCenterX();
-        float textYCoordinate;
+        float textYCoordinate = 0;
 
-        if (key.equalsIgnoreCase(WHITE)) {
-            textYCoordinate = rect.exactCenterY() - ((numberOfTextLine * textHeight) / 2);
-        } else {
-            textYCoordinate = rect.bottom - 16 - numberOfTextLine * textHeight;
+        switch (mKey) {
+            case 13:
+                textPaint.setColor(Color.BLACK);
+                if (key.equalsIgnoreCase(WHITE)) {
+                    textYCoordinate = rect.bottom - 32 + numberOfTextLine * textHeight;
+                } else {
+                    textYCoordinate = rect.exactCenterY() - ((numberOfTextLine * textHeight) / 2);
+                }
+                break;
+            case 87:
+                textPaint.setColor(Color.WHITE);
+                if (key.equalsIgnoreCase(BLACK)) {
+                    textYCoordinate = rect.bottom - 16 - numberOfTextLine * textHeight;
+                } else {
+                    textYCoordinate = rect.exactCenterY() - ((numberOfTextLine * textHeight) / 2);
+                }
+                break;
         }
 
         canvas.translate(textXCoordinate, textYCoordinate);
