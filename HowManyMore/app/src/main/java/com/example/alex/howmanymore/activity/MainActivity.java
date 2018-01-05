@@ -186,7 +186,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     }
 
     @Override
-    public void drawTwoRectTextInOneRect(Rect rectWhite, Rect rectBlack, String textWhite, String textBlack) {
+    public void drawTwoRectTextInOneRect(Rect rectWhite, Rect rectBlack, String textWhite,
+                                         String textBlack, int key) {
         LinearLayout.LayoutParams lP = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
@@ -196,6 +197,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
         drawTwoRectTextInOneRect.setRectBlack(rectBlack);
         drawTwoRectTextInOneRect.setTextWhite(textWhite);
         drawTwoRectTextInOneRect.setTextBlack(textBlack);
+        drawTwoRectTextInOneRect.setKey(key);
 
         drawTwoRectTextInOneRect.setLayoutParams(lP);
         mLayout.removeAllViews();

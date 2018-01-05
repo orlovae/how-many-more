@@ -80,22 +80,38 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
                         textOnDraw.getText(WHITE)
                 );
             } else {
-                if (textOnDraw.getLifeLived() / mUser.getLifeExpectancy() > 0.87) {
-                    if (mHeightWhiteRect - mHeightBlackRect < 30) {
-                        mHeightBlackRect = mHeightWhiteRect - 30;
-                    }
-                    getView().drawTwoRectTextInOneRect(
-                            getRect(mHeightBlackRect, mWidthScreen, mHeightWhiteRect),
-                            getRect(0, mWidthScreen, mHeightBlackRect),
-                            textOnDraw.getText(WHITE),
-                            textOnDraw.getText(BLACK)
-                    );
-                } else {
+                if (textOnDraw.getLifeLived() / mUser.getLifeExpectancy() > 0.13 &
+                        textOnDraw.getLifeLived() / mUser.getLifeExpectancy() < 0.87) {
                     getView().drawTwoRect(
                             getRect(mHeightBlackRect, mWidthScreen, mHeightWhiteRect),
                             getRect(0, mWidthScreen, mHeightBlackRect),
                             textOnDraw.getText(WHITE),
                             textOnDraw.getText(BLACK)
+                    );
+                }
+                if (textOnDraw.getLifeLived() / mUser.getLifeExpectancy() > 0.87) {
+                    if (mHeightWhiteRect - mHeightBlackRect < 18) {
+                        mHeightBlackRect = mHeightWhiteRect - 18;
+                    }
+                    getView().drawTwoRectTextInOneRect(
+                            getRect(mHeightBlackRect, mWidthScreen, mHeightWhiteRect),
+                            getRect(0, mWidthScreen, mHeightBlackRect),
+                            textOnDraw.getText(WHITE),
+                            textOnDraw.getText(BLACK),
+                            87
+                    );
+                }
+                if (textOnDraw.getLifeLived() / mUser.getLifeExpectancy() < 0.13) {
+                    if (mHeightBlackRect < 2) {
+                        mHeightBlackRect = 2;
+                        Log.d(TAG, "mHeightBlackRect = " + mHeightBlackRect);
+                    }
+                    getView().drawTwoRectTextInOneRect(
+                            getRect(mHeightBlackRect, mWidthScreen, mHeightWhiteRect),
+                            getRect(0, mWidthScreen, mHeightBlackRect),
+                            textOnDraw.getText(WHITE),
+                            textOnDraw.getText(BLACK),
+                            13
                     );
                 }
             }

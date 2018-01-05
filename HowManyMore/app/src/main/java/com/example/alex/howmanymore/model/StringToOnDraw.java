@@ -30,20 +30,26 @@ class StringToOnDraw {
     }
 
     private void setStringYear(float year) {
-        mStringYear = " - "
-                + (int) year
-                + " "
-                + YearsRus.getNameYearsRus((int) year);
+        mStringYear = null;
+
+        if (year >= 1) {
+            mStringYear = " - "
+                    + (int) year
+                    + " "
+                    + YearsRus.getNameYearsRus((int) year)
+                    + ", ";
+        }
     }
 
     private void setStringMount(float mount) {
         mStringMount = null;
 
         if (mount > 0) {
-            mStringMount = ", "
+            mStringMount = " "
                     + (int) mount
                     + " "
-                    + MountRus.getNameMountsRus((int) mount);
+                    + MountRus.getNameMountsRus((int) mount)
+                    + ", ";
         }
     }
 
@@ -51,10 +57,11 @@ class StringToOnDraw {
         mStringDay = null;
 
         if (day > 0) {
-            mStringDay = ", "
+            mStringDay = " "
                     + (int) day
                     + " "
-                    + DayRus.getNameDaysRus((int) day);
+                    + DayRus.getNameDaysRus((int) day)
+                    + ". ";
         }
     }
 }

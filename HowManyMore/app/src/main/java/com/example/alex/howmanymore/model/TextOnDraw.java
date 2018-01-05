@@ -16,6 +16,7 @@ import java.util.GregorianCalendar;
 
 import static com.example.alex.howmanymore.constants.Keys.BLACK;
 import static com.example.alex.howmanymore.constants.Keys.WHITE;
+import static java.lang.Math.abs;
 
 /**
  * Created by alex on 27.11.17.
@@ -56,10 +57,14 @@ public class TextOnDraw {
     }
 
     private String getString(float percent, String initString, StringToOnDraw stringToOnDraw) {
-        String string = initString + stringToOnDraw.getStringYear();
-        String endString = ". ("
+        String string = initString;
+        String endString = "("
                 + String.format("%(.2f", percent)
                 + "%)";
+
+        if (stringToOnDraw.getStringYear() != null) {
+            string = string + stringToOnDraw.getStringYear();
+        }
 
         if (stringToOnDraw.getStringMount() != null) {
             string = string + stringToOnDraw.getStringMount();
@@ -80,12 +85,16 @@ public class TextOnDraw {
         Calendar calBirthday = GregorianCalendar.getInstance();
         calBirthday.setTimeInMillis(mUser.getBirthday());
 
-        LocalDate lDToDay = new LocalDate(toDay.get(Calendar.YEAR),
+        LocalDate lDToDay = new LocalDate(
+                toDay.get(Calendar.YEAR),
                 toDay.get(Calendar.MONTH) + 1,
                 toDay.get(Calendar.DAY_OF_MONTH));
-        LocalDate lDBirthday = new LocalDate(calBirthday.get(Calendar.YEAR),
+
+        LocalDate lDBirthday = new LocalDate(
+                calBirthday.get(Calendar.YEAR),
                 calBirthday.get(Calendar.MONTH) + 1,
                 calBirthday.get(Calendar.DAY_OF_MONTH));
+
 
         Period period = new Period(lDBirthday, lDToDay);
 
@@ -96,13 +105,45 @@ public class TextOnDraw {
 
         mLived = new StringToOnDraw(period.getYears(), period.getMonths(), period.getDays());
 
-        float yearRemained = yearLifeExpectancy - period.getYears();
-        float mountRemained = (yearRemained - (int) yearRemained) * 12;
+        float yearRemained = toDay.get(Calendar.YEAR) - yearLifeExpectancy;
+
+        float mountRemained = toDay.get(Calendar.MONTH) + 1 - ((yearLifeExpectancy - (int) yearLifeExpectancy) * 12);
+        if (mountRemained < 0) {
+            mountRemained = 12 - mountRemained;
+            yearRemained = yearRemained - 1;
+        }
+        float dayRemained = toDay.get(Calendar.DAY_OF_MONTH) - ((mountRemained - (int) mountRemained) * Keys.ONE_MOUNT);
+        if (dayRemained < 0) {
+            dayRemained = Keys.ONE_MOUNT - dayRemained;
+            mountRemained = mountRemained - 1;
+            if (mountRemained < 0) {
+                mountRemained = 12 - mountRemained;
+                yearRemained = yearRemained - 1;
+            }
+        }
+        if (dayRemained > 30) {
+            dayRemained = 30;
+        }
+
+        Log.d(TAG, "yearRemained = " + yearRemained);
+        Log.d(TAG, "mountRemained = " + mountRemained);
+        Log.d(TAG, "dayRemained = " + dayRemained);
+
+        LocalDate lDLifeExpectancy = new LocalDate(
+                (int) yearRemained,
+                (int) mountRemained,
+                (int) dayRemained);
+
+        Period periodRemained = new Period(lDLifeExpectancy, lDBirthday);
+
+        Log.d(TAG, "periodRemained.getYears() = " +  periodRemained.getYears());
+        Log.d(TAG, "periodRemained.getMonths() = " + periodRemained.getMonths());
+        Log.d(TAG, "periodRemained.getDays() = " + periodRemained.getDays());
 
         mRemained = new StringToOnDraw(
-                yearRemained,
-                mountRemained,
-                (mountRemained - (int) mountRemained) * Keys.ONE_MOUNT);
+                periodRemained.getYears(),
+                periodRemained.getMonths(),
+                periodRemained.getDays());
     }
 
     public float getLifeLived() {
