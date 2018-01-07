@@ -70,18 +70,18 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
         if (checkInputData()) {
             prepareOnDraw();
 
-            Log.d(TAG, "lifeLived = " + textOnDraw.getLifeLived());
+            Log.d(TAG, "lifeLived = " + textOnDraw.getLifeLived(mUser.getLifeExpectancy(), mUser.getBirthday()));
             Log.d(TAG, "lifeExpectancy = " + mUser.getLifeExpectancy());
 
             //Если прожито больше чем продолжительность жизни
-            if (textOnDraw.getLifeLived() > mUser.getLifeExpectancy()) {
+            if (textOnDraw.getLifeLived(mUser.getLifeExpectancy(), mUser.getBirthday()) > mUser.getLifeExpectancy()) {
                 getView().drawOneRect(
                         getRect(0, mWidthScreen, mHeightWhiteRect),
                         textOnDraw.getText(WHITE)
                 );
             } else {
-                if (textOnDraw.getLifeLived() / mUser.getLifeExpectancy() > 0.13 &
-                        textOnDraw.getLifeLived() / mUser.getLifeExpectancy() < 0.87) {
+                if (textOnDraw.getLifeLived(mUser.getLifeExpectancy(), mUser.getBirthday()) / mUser.getLifeExpectancy() > 0.13 &
+                        textOnDraw.getLifeLived(mUser.getLifeExpectancy(), mUser.getBirthday()) / mUser.getLifeExpectancy() < 0.87) {
                     getView().drawTwoRect(
                             getRect(mHeightBlackRect, mWidthScreen, mHeightWhiteRect),
                             getRect(0, mWidthScreen, mHeightBlackRect),
@@ -89,7 +89,7 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
                             textOnDraw.getText(BLACK)
                     );
                 }
-                if (textOnDraw.getLifeLived() / mUser.getLifeExpectancy() > 0.87) {
+                if (textOnDraw.getLifeLived(mUser.getLifeExpectancy(), mUser.getBirthday()) / mUser.getLifeExpectancy() > 0.87) {
                     if (mHeightWhiteRect - mHeightBlackRect < 18) {
                         mHeightBlackRect = mHeightWhiteRect - 18;
                     }
@@ -101,7 +101,7 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
                             87
                     );
                 }
-                if (textOnDraw.getLifeLived() / mUser.getLifeExpectancy() < 0.13) {
+                if (textOnDraw.getLifeLived(mUser.getLifeExpectancy(), mUser.getBirthday()) / mUser.getLifeExpectancy() < 0.13) {
                     if (mHeightBlackRect < 2) {
                         mHeightBlackRect = 2;
                         Log.d(TAG, "mHeightBlackRect = " + mHeightBlackRect);

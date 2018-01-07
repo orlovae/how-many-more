@@ -4,19 +4,12 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.alex.howmanymore.R;
-import com.example.alex.howmanymore.constants.Keys;
-
-import org.joda.time.Interval;
-import org.joda.time.LocalDate;
-import org.joda.time.Period;
-import org.joda.time.PeriodType;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import static com.example.alex.howmanymore.constants.Keys.BLACK;
 import static com.example.alex.howmanymore.constants.Keys.WHITE;
-import static java.lang.Math.abs;
 
 /**
  * Created by alex on 27.11.17.
@@ -29,9 +22,11 @@ public class TextOnDraw {
 
     private float mYearLivedPercent;
 
-    private int mYearLived;
-
     private StringToOnDraw mLived, mRemained;
+
+    private Calendar mToDay = GregorianCalendar.getInstance();
+    private Calendar mBirthday = GregorianCalendar.getInstance();
+    private Calendar mLifeExpectancy;
 
     public TextOnDraw(Context context, User user) {
         mContext = context;
@@ -78,91 +73,110 @@ public class TextOnDraw {
         return string;
     }
 
-
     private void prepare() {
-        float yearLifeExpectancy = mUser.getLifeExpectancy();
-        Calendar toDay = GregorianCalendar.getInstance();
-        Calendar calBirthday = GregorianCalendar.getInstance();
-        calBirthday.setTimeInMillis(mUser.getBirthday());
+        mBirthday.setTimeInMillis(mUser.getBirthday());
 
-        LocalDate lDToDay = new LocalDate(
-                toDay.get(Calendar.YEAR),
-                toDay.get(Calendar.MONTH) + 1,
-                toDay.get(Calendar.DAY_OF_MONTH));
+        mLifeExpectancy = getCalendarLifeExpectancy(mUser.getLifeExpectancy());
 
-        LocalDate lDBirthday = new LocalDate(
-                calBirthday.get(Calendar.YEAR),
-                calBirthday.get(Calendar.MONTH) + 1,
-                calBirthday.get(Calendar.DAY_OF_MONTH));
+        Log.d(TAG, "prepare: LifeExpectancy = "
+                + mLifeExpectancy.get(Calendar.YEAR) + ":"
+                + mLifeExpectancy.get(Calendar.MONTH) + ":"
+                + mLifeExpectancy.get(Calendar.DAY_OF_MONTH));
 
+        ModelCalendar lived = getPeriod(
+                mToDay.get(Calendar.YEAR) - mBirthday.get(Calendar.YEAR),
+                mToDay.get(Calendar.MONTH) - mBirthday.get(Calendar.MONTH),
+                mToDay.get(Calendar.DAY_OF_MONTH) - mBirthday.get(Calendar.DAY_OF_MONTH)
+        );
 
-        Period period = new Period(lDBirthday, lDToDay);
+        mYearLivedPercent = (getLifeLived(mUser.getLifeExpectancy(), mUser.getBirthday()) / mUser.getLifeExpectancy()) * 100;
 
-        mYearLivedPercent = ((
-                (float) period.getYears() + (float) calBirthday.get(Calendar.DAY_OF_YEAR) / getDayOfYear())
-                / yearLifeExpectancy)
-                * 100;
+        mLived = new StringToOnDraw(
+                lived.getYear(),
+                lived.getMount(),
+                lived.getDay());
 
-        mLived = new StringToOnDraw(period.getYears(), period.getMonths(), period.getDays());
-
-        float yearRemained = toDay.get(Calendar.YEAR) - yearLifeExpectancy;
-
-        float mountRemained = toDay.get(Calendar.MONTH) + 1 - ((yearLifeExpectancy - (int) yearLifeExpectancy) * 12);
-        if (mountRemained < 0) {
-            mountRemained = 12 - mountRemained;
-            yearRemained = yearRemained - 1;
-        }
-        float dayRemained = toDay.get(Calendar.DAY_OF_MONTH) - ((mountRemained - (int) mountRemained) * Keys.ONE_MOUNT);
-        if (dayRemained < 0) {
-            dayRemained = Keys.ONE_MOUNT - dayRemained;
-            mountRemained = mountRemained - 1;
-            if (mountRemained < 0) {
-                mountRemained = 12 - mountRemained;
-                yearRemained = yearRemained - 1;
-            }
-        }
-        if (dayRemained > 30) {
-            dayRemained = 30;
-        }
-
-        Log.d(TAG, "yearRemained = " + yearRemained);
-        Log.d(TAG, "mountRemained = " + mountRemained);
-        Log.d(TAG, "dayRemained = " + dayRemained);
-
-        LocalDate lDLifeExpectancy = new LocalDate(
-                (int) yearRemained,
-                (int) mountRemained,
-                (int) dayRemained);
-
-        Period periodRemained = new Period(lDLifeExpectancy, lDBirthday);
-
-        Log.d(TAG, "periodRemained.getYears() = " +  periodRemained.getYears());
-        Log.d(TAG, "periodRemained.getMonths() = " + periodRemained.getMonths());
-        Log.d(TAG, "periodRemained.getDays() = " + periodRemained.getDays());
+        ModelCalendar remained = getPeriod(
+                mBirthday.get(Calendar.YEAR) - mLifeExpectancy.get(Calendar.YEAR),
+                mBirthday.get(Calendar.MONTH) - mLifeExpectancy.get(Calendar.MONTH),
+                mBirthday.get(Calendar.DAY_OF_MONTH) - mLifeExpectancy.get(Calendar.DAY_OF_MONTH)
+        );
 
         mRemained = new StringToOnDraw(
-                periodRemained.getYears(),
-                periodRemained.getMonths(),
-                periodRemained.getDays());
+                remained.getYear(),
+                remained.getMount(),
+                remained.getDay());
     }
 
-    public float getLifeLived() {
-        Calendar birthday = Calendar.getInstance();
-        birthday.setTimeInMillis(mUser.getBirthday());
+    private Calendar getCalendarLifeExpectancy(float lifeExpectancy) {
+        int year = mToDay.get(Calendar.YEAR) - (int) lifeExpectancy;
+        float mount = ((int) lifeExpectancy - lifeExpectancy) * 12;
 
-        Calendar toDay = GregorianCalendar.getInstance();
-        int yearLived = toDay.get(Calendar.YEAR) - birthday.get(Calendar.YEAR);
+        Calendar calendar = new GregorianCalendar(year, (int) mount, 0);
 
-        return yearLived + (float) birthday.get(Calendar.DAY_OF_YEAR) / getDayOfYear();
+        float day = ((int) mount - mount) * calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+        ModelCalendar model = getPeriod(year, (int) mount, (int) day);
+
+        return new GregorianCalendar(model.getYear(), model.getMount(), model.getDay());
     }
 
-    private int getDayOfYear() {
-        GregorianCalendar toDay = (GregorianCalendar) GregorianCalendar.getInstance();
+    private ModelCalendar getPeriod(int year, int mount, int day) {
+        if (day < 0) {
+            if (mount < 0) {
+                mount = 11 + mount;
+                year = year - 1;
+            }
+            int previousMount = mount - 1;
+            if (previousMount < 0) {
+                previousMount = 11;
+            }
 
-        if (toDay.isLeapYear(toDay.get(Calendar.YEAR))){
-            return 366;
-        } else {
-            return 365;
+            Calendar previousCal = new GregorianCalendar(year, previousMount, 0);
+
+            day = previousCal.getActualMaximum(Calendar.DAY_OF_MONTH) + day;
         }
+
+        if (mount < 0) {
+            mount = 11 + mount;
+            year = year - 1;
+        }
+
+        return new ModelCalendar(year, mount, day);
+    }
+
+    public float getLifeLived(float lifeExpectancy, long birthday) {
+        mBirthday.setTimeInMillis(birthday);
+
+        int year = mToDay.get(Calendar.YEAR) - mBirthday.get(Calendar.YEAR);
+        int mount = mToDay.get(Calendar.MONTH) - mBirthday.get(Calendar.MONTH);
+        int day = mToDay.get(Calendar.DAY_OF_MONTH) - mBirthday.get(Calendar.DAY_OF_MONTH);
+
+        ModelCalendar model = getPeriod(year, mount, day);
+
+        if (model.getMount() - 1 < 0) {
+            mount = 0;
+        } else {
+            mount = mount - 1;
+        }
+
+        Calendar calendar = new GregorianCalendar(model.getYear(), mount, model.getDay());
+
+        int yearRemained = model.getYear();
+        int dayOfYear = calendar.get(Calendar.DAY_OF_YEAR);
+        int dayInYear = getDayOfYear((GregorianCalendar) mToDay);
+        Log.d(TAG, "getLifeLived: yearRemained = " + yearRemained);
+        Log.d(TAG, "getLifeLived: dayOfYear = " + dayOfYear);
+        Log.d(TAG, "getLifeLived: dayInYear = " + dayInYear);
+
+        float lifeLived = (float) yearRemained + (float) dayOfYear / dayInYear;
+
+        Log.d(TAG, "getLifeLived: lifeLived = " + lifeLived);
+
+        return lifeLived;
+    }
+
+    private int getDayOfYear(GregorianCalendar toDay) {
+        return toDay.isLeapYear(toDay.get(Calendar.YEAR)) ? 366 : 365;
     }
 }
