@@ -5,23 +5,23 @@ package com.example.alex.howmanymore.model;
  */
 
 public class ModelCalendar {
-    private int mYear, mMount, mDay;
+    private int mYear, mMonth, mDay;
 
-    public ModelCalendar(int year, int mount, int day) {
+    public ModelCalendar(int year, int month, int day) {
         mYear = year;
-        mMount = mount;
+        mMonth = month;
         mDay = day;
     }
 
-    public int getYear() {
+    public int getYears() {
         return mYear;
     }
 
-    public int getMount() {
-        return mMount;
+    public int getMonths() {
+        return mMonth;
     }
 
-    public int getDay() {
+    public int getDays() {
         return mDay;
     }
 }
