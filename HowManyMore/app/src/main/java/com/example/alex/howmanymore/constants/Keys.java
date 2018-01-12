@@ -32,8 +32,10 @@ public class Keys {
     /** TextOnDraw **/
     public static final String WHITE = "white";
     public static final String BLACK = "black";
-
     public static final String DATE_FORMAT = "dd.MM.yyyy";
+    public static final float MILLIS_IN_ONE_YEAR = 365.2425f * 24 * 60 * 60 * 1000;
+    public static final int DAY_IN_ONE_YEAR = 365;
+    public static final int DAY_IN_ONE_LEAP_YEAR = 366;
 
     /** MainActivityPresenter **/
     public static final String DATE_PICKER_NAME = "datePicker";

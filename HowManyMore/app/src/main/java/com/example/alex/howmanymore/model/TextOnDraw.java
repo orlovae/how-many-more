@@ -1,7 +1,6 @@
 package com.example.alex.howmanymore.model;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.example.alex.howmanymore.R;
 
@@ -9,6 +8,9 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import static com.example.alex.howmanymore.constants.Keys.BLACK;
+import static com.example.alex.howmanymore.constants.Keys.DAY_IN_ONE_LEAP_YEAR;
+import static com.example.alex.howmanymore.constants.Keys.DAY_IN_ONE_YEAR;
+import static com.example.alex.howmanymore.constants.Keys.MILLIS_IN_ONE_YEAR;
 import static com.example.alex.howmanymore.constants.Keys.WHITE;
 
 /**
@@ -17,123 +19,100 @@ import static com.example.alex.howmanymore.constants.Keys.WHITE;
 
 public class TextOnDraw {
     private final String TAG = this.getClass().getSimpleName();
+
     private Context mContext;
+
     private User mUser;
 
-    private float mYearLivedPercent;
-
-    private StringToOnDraw mLived, mRemained;
-
-    private Calendar mToDay = GregorianCalendar.getInstance();
-    private Calendar mBirthday = GregorianCalendar.getInstance();
+    private Calendar mToDay = Calendar.getInstance();
+    private Calendar mBirthday = Calendar.getInstance();
+    private Calendar mLifeExpectancy;
 
     public TextOnDraw(Context context, User user) {
         mContext = context;
         mUser = user;
     }
 
-    public String getText(String key) {
-        prepare();
+    public String getText(String key) {//TODO уточнить зависимость классов
+        initCalendars();
+
+        StringToOnDraw lived = getStringToOnDraw(mBirthday, mToDay);
+        StringToOnDraw remained = getStringToOnDraw(mLifeExpectancy, mBirthday);
+
+
         String text = null;
 
         switch (key) {
             case WHITE:
-                text = getString(mYearLivedPercent,
+                text = concatenatesStrings(getYearLivedPercent(),
                         mContext.getResources().getString(R.string.draw_lived),
-                        mLived);
+                        lived);
                 break;
             case BLACK:
-                text = getString(100 - mYearLivedPercent,
+                text = concatenatesStrings(100 - getYearLivedPercent(),
                         mContext.getResources().getString(R.string.draw_remained),
-                        mRemained);
+                        remained);
+                break;
         }
         return text;
     }
 
-    private String getString(float percent, String initString, StringToOnDraw stringToOnDraw) {
-        String string = initString;
-        String endString = "("
+    private float getYearLivedPercent() {
+        return (getLifeLived(mUser.getBirthday())
+                / mUser.getLifeExpectancy()) * 100;
+    }
+
+    private String concatenatesStrings(float percent, String initialString, StringToOnDraw stringToOnDraw) {
+        String lastString = "("
                 + String.format("%(.2f", percent)
                 + "%)";
 
         if (stringToOnDraw.getStringYear() != null) {
-            string = string + stringToOnDraw.getStringYear();
+            initialString = initialString + stringToOnDraw.getStringYear();
         }
 
         if (stringToOnDraw.getStringMount() != null) {
-            string = string + stringToOnDraw.getStringMount();
+            initialString = initialString + stringToOnDraw.getStringMount();
         }
 
         if (stringToOnDraw.getStringDay() != null) {
-            string = string + stringToOnDraw.getStringDay() + endString;
+            initialString = initialString + stringToOnDraw.getStringDay() + lastString;
         } else {
-            string = string + endString;
+            initialString = initialString + lastString;
         }
-        return string;
+        return initialString;
     }
 
-    private void prepare() {
+    private StringToOnDraw getStringToOnDraw(Calendar initial, Calendar last) {
+        Period period = new Period(initial, last);
+
+        return new StringToOnDraw(
+                period.getYears(),
+                period.getMonths(),
+                period.getDays());
+    }
+
+    private void initCalendars() {
         mBirthday.setTimeInMillis(mUser.getBirthday());
-
-        Calendar mLifeExpectancy = getCalendarLifeExpectancy(mUser.getLifeExpectancy());
-
-        ModelCalendar lived = getPeriod(mBirthday, mToDay);
-
-        mYearLivedPercent = (getLifeLived(mUser.getBirthday())
-                / mUser.getLifeExpectancy()) * 100;
-
-        mLived = new StringToOnDraw(
-                lived.getYears(),
-                lived.getMonths(),
-                lived.getDays());
-
-        ModelCalendar remained = getPeriod(mLifeExpectancy, mBirthday);
-
-        mRemained = new StringToOnDraw(
-                remained.getYears(),
-                remained.getMonths(),
-                remained.getDays());
+        mLifeExpectancy = getCalendarLifeExpectancy(mUser.getLifeExpectancy());
     }
 
     private Calendar getCalendarLifeExpectancy(float lifeExpectancy) {
         Calendar calLifeExpectancy = new GregorianCalendar();
 
-        calLifeExpectancy.setTimeInMillis(mToDay.getTimeInMillis() - (long) (lifeExpectancy * 365.2425f * 24 *60 *60 *1000) );
+        calLifeExpectancy.setTimeInMillis(
+                mToDay.getTimeInMillis() - (long) (lifeExpectancy * MILLIS_IN_ONE_YEAR)
+        );
 
         return calLifeExpectancy;
     }
 
-    private ModelCalendar getPeriod(Calendar first, Calendar last) {
-        int year = last.get(Calendar.YEAR) - first.get(Calendar.YEAR);
-        int month = last.get(Calendar.MONTH) - first.get(Calendar.MONTH);
-        int day = last.get(Calendar.DAY_OF_MONTH) - first.get(Calendar.DAY_OF_MONTH);
-
-        if (day < 0) {
-            month = month - 1;
-
-            if (month < 0) {
-                month = month + 12;
-                year = year - 1;
-            }
-
-            day = first.getActualMaximum(Calendar.DAY_OF_MONTH)
-                    - first.get(Calendar.DAY_OF_MONTH) + last.get(Calendar.DAY_OF_MONTH);
-        }
-
-        if (month < 0) {
-            month = month + 12;
-            year = year - 1;
-        }
-
-        return new ModelCalendar(year, month, day);
-    }
-
-    public float getLifeLived(long birthday) {
+    public float getLifeLived(long birthday) {//TODO уточнить зависимость классов
         mBirthday.setTimeInMillis(birthday);
 
-        ModelCalendar model = getPeriod(mBirthday, mToDay);
+        Period period = new Period(mBirthday, mToDay);
 
-        Calendar calendar = new GregorianCalendar(model.getYears(), model.getMonths(), model.getDays());
+        Calendar calendar = new GregorianCalendar(period.getYears(), period.getMonths(), period.getDays());
 
         int yearRemained = calendar.get(Calendar.YEAR);
         int dayOfYear = calendar.get(Calendar.DAY_OF_YEAR);
@@ -143,6 +122,6 @@ public class TextOnDraw {
     }
 
     private int getDayInYear(GregorianCalendar toDay) {
-        return toDay.isLeapYear(toDay.get(Calendar.YEAR)) ? 366 : 365;
+        return toDay.isLeapYear(toDay.get(Calendar.YEAR)) ? DAY_IN_ONE_LEAP_YEAR : DAY_IN_ONE_YEAR;
     }
 }

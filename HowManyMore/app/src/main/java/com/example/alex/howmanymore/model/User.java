@@ -11,7 +11,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  */
 
 public class User implements Parcelable {
-    private float mLifeExpectancy;
+    private float mLifeExpectancy, mLifeLived;
     private long mBirthday;
     private int mCountryFlag;
     private String mSex;
@@ -25,6 +25,12 @@ public class User implements Parcelable {
 
     public void setLifeExpectancy(float lifeExpectancy) {
         mLifeExpectancy = lifeExpectancy;
+    }
+
+    public float getLifeLived() { return mLifeLived; }
+
+    public void setLifeLived(float lifeLived) {
+
     }
 
     public long getBirthday() {
