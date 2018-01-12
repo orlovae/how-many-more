@@ -14,80 +14,80 @@ import java.util.Locale;
  */
 
 public class Country implements Parcelable {
-    private int id;
-    private String nameISO;
-    private String nameENG;
-    private String nameRUS;
-    private int flag = -1;
-    private float sexesLife;
-    private float sexesFemale;
-    private float sexesMale;
+    private int mId;
+    private String mNameISO;
+    private String mNameENG;
+    private String mNameRUS;
+    private int mFlag = -1;
+    private float mSexesLife;
+    private float mSexesFemale;
+    private float mSexesMale;
 
     public Country(int id, String nameISO, String nameENG, String nameRUS, int flag, float sexesLife,
                    float sexesFemale, float sexesMale) {
-        this.id = id;
-        this.nameISO = nameISO;
-        this.nameENG = nameENG;
-        this.nameRUS = nameRUS;
-        this.flag = flag;
-        this.sexesLife = sexesLife;
-        this.sexesFemale = sexesFemale;
-        this.sexesMale = sexesMale;
+        mId = id;
+        mNameISO = nameISO;
+        mNameENG = nameENG;
+        mNameRUS = nameRUS;
+        mFlag = flag;
+        mSexesLife = sexesLife;
+        mSexesFemale = sexesFemale;
+        mSexesMale = sexesMale;
     }
 
     public Country(String nameISO, String nameENG, String nameRUS, int flag) {
-        this.nameISO = nameISO;
-        this.nameENG = nameENG;
-        this.nameRUS = nameRUS;
-        this.flag = flag;
+        mNameISO = nameISO;
+        mNameENG = nameENG;
+        mNameRUS = nameRUS;
+        mFlag = flag;
     }
 
     public Country() {
     }
 
     public int getId() {
-        return id;
+        return mId;
     }
 
     public String getNameISO() {
-        return nameISO;
+        return mNameISO;
     }
 
     public String getNameENG() {
-        return nameENG;
+        return mNameENG;
     }
 
     public String getNameRUS() {
-        return nameRUS;
+        return mNameRUS;
     }
 
     public int getFlag() {
-        return flag;
+        return mFlag;
     }
 
     public float getSexesLife() {
-        return sexesLife;
+        return mSexesLife;
     }
 
     public float getSexesFemale() {
-        return sexesFemale;
+        return mSexesFemale;
     }
 
     public float getSexesMale() {
-        return sexesMale;
+        return mSexesMale;
     }
 
     public void loadFlagByCode(Context context) {
-        if (this.flag != -1)
+        if (mFlag != -1)
             return;
 
         try {
-            this.flag = context.getResources()
-                    .getIdentifier("flag_" + this.nameISO.toLowerCase(Locale.ENGLISH), "drawable",
+            mFlag = context.getResources()
+                    .getIdentifier("flag_" + mNameISO.toLowerCase(Locale.ENGLISH), "drawable",
                             context.getPackageName());
         } catch (Exception e) {
             e.printStackTrace();
-            this.flag = -1;
+            mFlag = -1;
         }
     }
 
@@ -103,29 +103,29 @@ public class Country implements Parcelable {
     };
 
     private Country(Parcel in) {
-        this.id = in.readInt();
+        mId = in.readInt();
 
         String[] strings = new String[3];
         in.readStringArray(strings);
-        this.nameISO = strings[0];
-        this.nameENG = strings[1];
-        this.nameRUS = strings[3];
+        mNameISO = strings[0];
+        mNameENG = strings[1];
+        mNameRUS = strings[3];
 
-        this.flag = in.readInt();
+        mFlag = in.readInt();
 
         float[] floats = new float[3];
         in.readFloatArray(floats);
-        this.sexesLife = floats[0];
-        this.sexesFemale = floats[1];
-        this.sexesMale = floats[3];
+        mSexesLife = floats[0];
+        mSexesFemale = floats[1];
+        mSexesMale = floats[3];
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeStringArray(new String[] {nameISO, nameENG, nameRUS});
-        dest.writeInt(flag);
-        dest.writeFloatArray(new float[]{sexesLife, sexesFemale, sexesMale});
+        dest.writeInt(mId);
+        dest.writeStringArray(new String[] {mNameISO, mNameENG, mNameRUS});
+        dest.writeInt(mFlag);
+        dest.writeFloatArray(new float[]{mSexesLife, mSexesFemale, mSexesMale});
     }
 
     @Override

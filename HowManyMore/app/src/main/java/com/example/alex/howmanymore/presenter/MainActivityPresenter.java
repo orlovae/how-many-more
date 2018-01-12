@@ -75,7 +75,6 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
             double isHundred = 100 * (
                     new BigDecimal(textOnDraw.getLifeLived(mUser.getBirthday()) / mUser.getLifeExpectancy())
                             .setScale(4, RoundingMode.HALF_UP).doubleValue());
-            Log.d(TAG, "isHundred = " + isHundred);
 
             //Если прожито больше чем продолжительность жизни
             if (isHundred >= 100) {
