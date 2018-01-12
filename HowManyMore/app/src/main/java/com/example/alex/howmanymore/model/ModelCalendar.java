@@ -4,24 +4,24 @@ package com.example.alex.howmanymore.model;
  * Created by alex on 07.01.18.
  */
 
-public class ModelCalendar {
+class ModelCalendar {
     private int mYear, mMonth, mDay;
 
-    public ModelCalendar(int year, int month, int day) {
+    ModelCalendar(int year, int month, int day) {
         mYear = year;
         mMonth = month;
         mDay = day;
     }
 
-    public int getYears() {
+    int getYears() {
         return mYear;
     }
 
-    public int getMonths() {
+    int getMonths() {
         return mMonth;
     }
 
-    public int getDays() {
+    int getDays() {
         return mDay;
     }
 }
