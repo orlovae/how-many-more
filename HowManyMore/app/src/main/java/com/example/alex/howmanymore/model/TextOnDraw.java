@@ -8,8 +8,6 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import static com.example.alex.howmanymore.constants.Keys.BLACK;
-import static com.example.alex.howmanymore.constants.Keys.DAY_IN_ONE_LEAP_YEAR;
-import static com.example.alex.howmanymore.constants.Keys.DAY_IN_ONE_YEAR;
 import static com.example.alex.howmanymore.constants.Keys.MILLIS_IN_ONE_YEAR;
 import static com.example.alex.howmanymore.constants.Keys.WHITE;
 
@@ -58,8 +56,8 @@ public class TextOnDraw {
     }
 
     private float getYearLivedPercent() {
-        return (getLifeLived(mUser.getBirthday())
-                / mUser.getLifeExpectancy()) * 100;
+        return (mUser.getLifeLived() / mUser.getLifeExpectancy())
+                * 100;
     }
 
     private String concatenatesStrings(float percent, String initialString, StringToOnDraw stringToOnDraw) {
@@ -105,23 +103,5 @@ public class TextOnDraw {
         );
 
         return calLifeExpectancy;
-    }
-
-    public float getLifeLived(long birthday) {//TODO уточнить зависимость классов
-        mBirthday.setTimeInMillis(birthday);
-
-        Period period = new Period(mBirthday, mToDay);
-
-        Calendar calendar = new GregorianCalendar(period.getYears(), period.getMonths(), period.getDays());
-
-        int yearRemained = calendar.get(Calendar.YEAR);
-        int dayOfYear = calendar.get(Calendar.DAY_OF_YEAR);
-        int dayInYear = getDayInYear((GregorianCalendar) mToDay);
-
-        return (float) yearRemained + (float) dayOfYear / dayInYear;
-    }
-
-    private int getDayInYear(GregorianCalendar toDay) {
-        return toDay.isLeapYear(toDay.get(Calendar.YEAR)) ? DAY_IN_ONE_LEAP_YEAR : DAY_IN_ONE_YEAR;
     }
 }
