@@ -6,9 +6,6 @@ import android.os.Parcelable;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 /**
  * Created by alex on 09.11.17.
  */
@@ -18,13 +15,6 @@ public class User implements Parcelable {
     private long mBirthday;
     private int mCountryFlag;
     private String mSex;
-
-    public User(float lifeExpectancy, long birthday, int countryFlag, String sex) {
-        mLifeExpectancy = lifeExpectancy;
-        mBirthday = birthday;
-        mCountryFlag = countryFlag;
-        mSex = sex;
-    }
 
     public User() {
     }
