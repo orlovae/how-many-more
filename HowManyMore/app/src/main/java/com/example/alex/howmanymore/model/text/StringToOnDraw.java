@@ -1,4 +1,4 @@
-package com.example.alex.howmanymore.model;
+package com.example.alex.howmanymore.model.text;
 
 import com.example.alex.howmanymore.constants.DayRus;
 import com.example.alex.howmanymore.constants.MountRus;

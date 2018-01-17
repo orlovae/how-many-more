@@ -16,8 +16,10 @@ import static com.example.alex.howmanymore.constants.Keys.DAY_IN_ONE_YEAR;
  * Created by alex on 09.11.17.
  */
 
+//TODO класс и хранит модель и обрабатывает её. Нужно разделить в два класса.
+
 public class User implements Parcelable {
-    private float mLifeExpectancy, mLifeLived;
+    private float mLifeExpectancy, mLifeLived, mPercentLived;
     private long mBirthday;
     private int mCountryFlag;
     private String mSex;
@@ -51,6 +53,21 @@ public class User implements Parcelable {
         int dayInYear = getDayInYear((GregorianCalendar) toDay);
 
         mLifeLived = (float) yearRemained + (float) dayOfYear / dayInYear;
+    }
+
+    public float getPercentLived() {
+        setPercentLived();
+        return mPercentLived;
+    }
+
+    private void setPercentLived() {
+        mPercentLived = 0;
+        try {
+            mPercentLived = (mLifeLived / mLifeExpectancy)
+                    * 100;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private int getDayInYear(GregorianCalendar toDay) {
@@ -92,6 +109,7 @@ public class User implements Parcelable {
         return new EqualsBuilder()
                 .append(getLifeExpectancy(), user.getLifeExpectancy())
                 .append(getLifeLived(), user.getLifeLived())
+                .append(getPercentLived(), user.getPercentLived())
                 .append(getBirthday(), user.getBirthday())
                 .append(getCountryFlag(), user.getCountryFlag())
                 .append(getSex(), user.getSex())
@@ -103,6 +121,7 @@ public class User implements Parcelable {
         return new HashCodeBuilder(17, 37)
                 .append(getLifeExpectancy())
                 .append(getLifeLived())
+                .append(getPercentLived())
                 .append(getBirthday())
                 .append(getCountryFlag())
                 .append(getSex())
@@ -123,6 +142,7 @@ public class User implements Parcelable {
     private User(Parcel in) {
         mLifeExpectancy = in.readFloat();
         mLifeLived = in.readFloat();
+        mPercentLived = in.readFloat();
         mBirthday = in.readLong();
         mCountryFlag = in.readInt();
         mSex = in.readString();
@@ -137,6 +157,7 @@ public class User implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeFloat(mLifeExpectancy);
         dest.writeFloat(mLifeLived);
+        dest.writeFloat(mPercentLived);
         dest.writeLong(mBirthday);
         dest.writeInt(mCountryFlag);
         dest.writeString(mSex);

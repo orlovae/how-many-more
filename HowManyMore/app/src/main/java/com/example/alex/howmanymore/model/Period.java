@@ -6,22 +6,22 @@ import java.util.Calendar;
  * Created by alex on 07.01.18.
  */
 
-class Period {
+public class Period {
     private int mYear, mMonth, mDay;
 
-    Period(Calendar first, Calendar last) {
+    public Period(Calendar first, Calendar last) {
         setPeriod(first, last);
     }
 
-    int getYears() {
+    public int getYears() {
         return mYear;
     }
 
-    int getMonths() {
+    public int getMonths() {
         return mMonth;
     }
 
-    int getDays() {
+    public int getDays() {
         return mDay;
     }
 

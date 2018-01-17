@@ -13,8 +13,10 @@ import com.example.alex.howmanymore.adapter.DatabaseAdapter;
 import com.example.alex.howmanymore.app.App;
 import com.example.alex.howmanymore.contract.MainActivityContract;
 import com.example.alex.howmanymore.model.Country;
-import com.example.alex.howmanymore.model.TextOnDraw;
+import com.example.alex.howmanymore.model.text.Factory;
+import com.example.alex.howmanymore.model.text.IFactory;
 import com.example.alex.howmanymore.model.User;
+import com.example.alex.howmanymore.model.text.Text;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -25,8 +27,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import static android.content.Context.WINDOW_SERVICE;
-import static com.example.alex.howmanymore.constants.Keys.BLACK;
-import static com.example.alex.howmanymore.constants.Keys.WHITE;
 
 /**
  * Created by alex on 13.07.17.
@@ -50,7 +50,7 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
 
     private User mUser;
 
-    private TextOnDraw textOnDraw;
+    private Text mWhiteText, mBlackText;
 
     public MainActivityPresenter(){
         App.getComponent().injectsPresenter(this);
@@ -64,7 +64,15 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
     public void viewIsReady(Context context) {
         mContext = context;
         mUser = getView().getUser();
-        textOnDraw = new TextOnDraw(mContext, mUser);
+
+        String recourcesWhiteText = mContext.getResources().getString(R.string.draw_lived);
+        String recourcesBlackText = mContext.getResources().getString(R.string.draw_remained);
+
+        IFactory factory = new Factory(mUser);
+
+        mWhiteText = factory.createWhiteText(recourcesWhiteText);
+        mBlackText = factory.createBlackText(recourcesBlackText);
+
         onDraw();
     }
 
@@ -75,21 +83,20 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
             double isHundred = 100 * (
                     new BigDecimal(mUser.getLifeLived() / mUser.getLifeExpectancy())
                             .setScale(4, RoundingMode.HALF_UP).doubleValue());
-            Log.d(TAG, "onDraw: isHundred = " + isHundred);
 
             //Если прожито больше чем продолжительность жизни
             if (isHundred >= 100) {
                 getView().drawOneRect(
                         getRect(0, mWidthScreen, mHeightWhiteRect),
-                        textOnDraw.getText(WHITE)
+                        mWhiteText.getText()
                 );
             } else {
                 if (isHundred > 13 & isHundred < 87) {
                     getView().drawTwoRect(
                             getRect(mHeightBlackRect, mWidthScreen, mHeightWhiteRect),
                             getRect(0, mWidthScreen, mHeightBlackRect),
-                            textOnDraw.getText(WHITE),
-                            textOnDraw.getText(BLACK)
+                            mWhiteText.getText(),
+                            mBlackText.getText()
                     );
                 }
                 if (isHundred > 87) {
@@ -99,8 +106,8 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
                     getView().drawTwoRectTextInOneRect(
                             getRect(mHeightBlackRect, mWidthScreen, mHeightWhiteRect),
                             getRect(0, mWidthScreen, mHeightBlackRect),
-                            textOnDraw.getText(WHITE),
-                            textOnDraw.getText(BLACK),
+                            mWhiteText.getText(),
+                            mBlackText.getText(),
                             87
                     );
                 }
@@ -112,8 +119,8 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
                     getView().drawTwoRectTextInOneRect(
                             getRect(mHeightBlackRect, mWidthScreen, mHeightWhiteRect),
                             getRect(0, mWidthScreen, mHeightBlackRect),
-                            textOnDraw.getText(WHITE),
-                            textOnDraw.getText(BLACK),
+                            mWhiteText.getText(),
+                            mBlackText.getText(),
                             13
                     );
                 }

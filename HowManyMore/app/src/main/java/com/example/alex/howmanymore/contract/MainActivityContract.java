@@ -3,7 +3,6 @@ package com.example.alex.howmanymore.contract;
 import android.graphics.Rect;
 
 import com.example.alex.howmanymore.activity.IView;
-import com.example.alex.howmanymore.model.Country;
 import com.example.alex.howmanymore.model.User;
 import com.example.alex.howmanymore.presenter.IPresenter;
 
