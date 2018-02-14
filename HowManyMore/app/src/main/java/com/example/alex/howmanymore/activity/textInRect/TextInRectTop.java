@@ -1,4 +1,4 @@
-package com.example.alex.howmanymore.activity.TextInRect.t;
+package com.example.alex.howmanymore.activity.textInRect;
 
 import android.graphics.Color;
 import android.graphics.Rect;

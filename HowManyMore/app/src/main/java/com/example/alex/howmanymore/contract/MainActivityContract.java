@@ -1,7 +1,7 @@
 package com.example.alex.howmanymore.contract;
 
 import com.example.alex.howmanymore.activity.IView;
-import com.example.alex.howmanymore.activity.TextInRect.t.TextInRectBase;
+import com.example.alex.howmanymore.activity.textInRect.TextInRectBase;
 import com.example.alex.howmanymore.model.User;
 import com.example.alex.howmanymore.presenter.IPresenter;
 

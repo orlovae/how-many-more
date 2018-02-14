@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.example.alex.howmanymore.activity.TextInRect.t.TextInRectBase;
+import com.example.alex.howmanymore.activity.textInRect.TextInRectBase;
 import com.example.alex.howmanymore.constants.Keys;
 import com.example.alex.howmanymore.R;
 import com.example.alex.howmanymore.app.App;

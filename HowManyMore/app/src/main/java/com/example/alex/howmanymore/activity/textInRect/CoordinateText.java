@@ -1,4 +1,4 @@
-package com.example.alex.howmanymore.activity.TextInRect.t;
+package com.example.alex.howmanymore.activity.textInRect;
 
 /**
  * Created by alex on 08.02.18.
