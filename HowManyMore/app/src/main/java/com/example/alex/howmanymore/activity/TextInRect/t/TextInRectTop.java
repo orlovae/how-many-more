@@ -8,7 +8,7 @@ import android.graphics.Rect;
  */
 
 public class TextInRectTop extends TextInRectBase {
-    public TextInRectTop(Rect rect, int colorRect, String text) {
+    TextInRectTop(Rect rect, int colorRect, String text) {
         super(rect, colorRect, text);
     }
 
