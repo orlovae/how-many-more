@@ -8,9 +8,9 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.WindowManager;
 
-import com.example.alex.howmanymore.activity.TextInRect.textinrect.FactoryTextInRect;
-import com.example.alex.howmanymore.activity.TextInRect.textinrect.IFactoryTextInRect;
-import com.example.alex.howmanymore.activity.TextInRect.textinrect.TextInRectBase;
+import com.example.alex.howmanymore.activity.TextInRect.t.FactoryTextInRect;
+import com.example.alex.howmanymore.activity.TextInRect.t.IFactoryTextInRect;
+import com.example.alex.howmanymore.activity.TextInRect.t.TextInRectBase;
 import com.example.alex.howmanymore.constants.Keys;
 import com.example.alex.howmanymore.R;
 import com.example.alex.howmanymore.adapter.DatabaseAdapter;

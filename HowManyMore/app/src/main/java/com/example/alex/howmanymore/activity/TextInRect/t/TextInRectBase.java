@@ -1,4 +1,4 @@
-package com.example.alex.howmanymore.activity.TextInRect.textinrect;
+package com.example.alex.howmanymore.activity.TextInRect.t;
 
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -29,17 +29,6 @@ public abstract class TextInRectBase implements ITextInRect{
         mCoordinateText = new CoordinateText();
         setStaticLayout(text);
         getCoordinateText();
-    }
-
-    @Override
-    public String toString() {
-        return "TextInRectBase{" + "\n" +
-                "mRect=" + mRect + ", \n" +
-                "mColorRect=" + mColorRect + ", \n" +
-                "mText=" + mText + ", \n" +
-                "colorText=" + getColorText() + ", \n" +
-                "mCoordinateText[x,y]=" + "[" + mCoordinateText.getX() + ", " + mCoordinateText.getY() + "]" +
-                '}';
     }
 
     @Override

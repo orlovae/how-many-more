@@ -1,8 +1,6 @@
-package com.example.alex.howmanymore.activity.TextInRect.textinrect;
+package com.example.alex.howmanymore.activity.TextInRect.t;
 
 import android.graphics.Rect;
-
-import java.util.List;
 
 /**
  * Created by alex on 22.01.18.
