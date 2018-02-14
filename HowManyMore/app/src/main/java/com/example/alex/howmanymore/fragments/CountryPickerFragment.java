@@ -57,7 +57,6 @@ public class CountryPickerFragment extends DialogFragment {
 
         mListener = (IOnSelectedCountryListener) context;
 
-        Log.d(TAG, "onAttach: " + mCountries.size());
         super.onAttach(context);
     }
 

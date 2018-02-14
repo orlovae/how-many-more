@@ -1,25 +1,30 @@
 package com.example.alex.howmanymore.presenter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.WindowManager;
 
+import com.example.alex.howmanymore.activity.TextInRect.textinrect.FactoryTextInRect;
+import com.example.alex.howmanymore.activity.TextInRect.textinrect.IFactoryTextInRect;
+import com.example.alex.howmanymore.activity.TextInRect.textinrect.TextInRectBase;
 import com.example.alex.howmanymore.constants.Keys;
 import com.example.alex.howmanymore.R;
 import com.example.alex.howmanymore.adapter.DatabaseAdapter;
 import com.example.alex.howmanymore.app.App;
 import com.example.alex.howmanymore.contract.MainActivityContract;
 import com.example.alex.howmanymore.model.Country;
-import com.example.alex.howmanymore.model.text.Factory;
-import com.example.alex.howmanymore.model.text.IFactory;
+import com.example.alex.howmanymore.model.text.IFactoryText;
 import com.example.alex.howmanymore.model.User;
 import com.example.alex.howmanymore.model.text.Text;
+import com.example.alex.howmanymore.model.text.FactoryText;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -45,12 +50,14 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
     @Inject
     protected List<Country> mCountries;
 
+    private List<TextInRectBase> mTextInRectList;
+
     private int mWidthScreen, mHeightScreen;
     private int mHeightBlackRect, mHeightWhiteRect;
 
     private User mUser;
 
-    private Text mWhiteText, mBlackText;
+    private Text mTextLived, mTextRemained;
 
     public MainActivityPresenter(){
         App.getComponent().injectsPresenter(this);
@@ -65,13 +72,13 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
         mContext = context;
         mUser = getView().getUser();
 
-        String recourcesWhiteText = mContext.getResources().getString(R.string.draw_lived);
-        String recourcesBlackText = mContext.getResources().getString(R.string.draw_remained);
+        String recourcesTextLived = mContext.getResources().getString(R.string.draw_lived);
+        String recourcesTextRemained = mContext.getResources().getString(R.string.draw_remained);
 
-        IFactory factory = new Factory(mUser);
+        IFactoryText factory = new FactoryText(mUser);
 
-        mWhiteText = factory.createWhiteText(recourcesWhiteText);
-        mBlackText = factory.createBlackText(recourcesBlackText);
+        mTextLived = factory.createWhiteText(recourcesTextLived);
+        mTextRemained = factory.createBlackText(recourcesTextRemained);
 
         onDraw();
     }
@@ -79,54 +86,11 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
     private void onDraw() {
         if (checkInputData()) {
             prepareOnDraw();
-
-            double isHundred = 100 * (
-                    new BigDecimal(mUser.getLifeLived() / mUser.getLifeExpectancy())
-                            .setScale(4, RoundingMode.HALF_UP).doubleValue());
-
-            //Если прожито больше чем продолжительность жизни
-            if (isHundred >= 100) {
-                getView().drawOneRect(
-                        getRect(0, mWidthScreen, mHeightWhiteRect),
-                        mWhiteText.getText()
-                );
-            } else {
-                if (isHundred > 13 & isHundred < 87) {
-                    getView().drawTwoRect(
-                            getRect(mHeightBlackRect, mWidthScreen, mHeightWhiteRect),
-                            getRect(0, mWidthScreen, mHeightBlackRect),
-                            mWhiteText.getText(),
-                            mBlackText.getText()
-                    );
-                }
-                if (isHundred > 87) {
-                    if (mHeightWhiteRect - mHeightBlackRect < 18) {
-                        mHeightBlackRect = mHeightWhiteRect - 18;
-                    }
-                    getView().drawTwoRectTextInOneRect(
-                            getRect(mHeightBlackRect, mWidthScreen, mHeightWhiteRect),
-                            getRect(0, mWidthScreen, mHeightBlackRect),
-                            mWhiteText.getText(),
-                            mBlackText.getText(),
-                            87
-                    );
-                }
-                if (isHundred < 13) {
-                    if (mHeightBlackRect < 2) {
-                        mHeightBlackRect = 2;
-                        Log.d(TAG, "mHeightBlackRect = " + mHeightBlackRect);
-                    }
-                    getView().drawTwoRectTextInOneRect(
-                            getRect(mHeightBlackRect, mWidthScreen, mHeightWhiteRect),
-                            getRect(0, mWidthScreen, mHeightBlackRect),
-                            mWhiteText.getText(),
-                            mBlackText.getText(),
-                            13
-                    );
-                }
-            }
+            createListTextInRect();
+            getView().draw(mTextInRectList);
         }
     }
+
 
     private boolean checkInputData() {
         if (mUser.getBirthday() != 0 && mUser.getCountryFlag() > 0 && mUser.getSex() != null) {
@@ -206,8 +170,113 @@ public class MainActivityPresenter extends PresenterBase<MainActivityContract.Vi
         return toDay.get(Calendar.YEAR) - birthday.get(Calendar.YEAR);
     }
 
+    private List<TextInRectBase> createListTextInRect() {
+        checkListTextInRect();
+
+        double isHundred = getHunder();
+
+        TextInRectBase textInRectBaseFirst, textInRectBaseSecond, textInRectBaseThird;
+
+        IFactoryTextInRect factory = new FactoryTextInRect();
+
+        if (isHundred >= 100) {
+            textInRectBaseFirst = factory.createTextInRectCenter(
+                    getRect(0, mWidthScreen, mHeightWhiteRect),
+                    Color.WHITE,
+                    getTextWin()
+            );
+
+            Log.d(TAG, "createListTextInRect: first = " + textInRectBaseFirst.toString());
+
+            mTextInRectList.add(textInRectBaseFirst);
+        } else {
+            if (isHundred > 13 & isHundred < 87) {
+                textInRectBaseFirst = factory.createTextInRectCenter(
+                        getRect(0, mWidthScreen, mHeightBlackRect),
+                        Color.BLACK,
+                        mTextLived.getText()
+                );
+
+                textInRectBaseSecond = factory.createTextInRectCenter(
+                        getRect(mHeightBlackRect, mWidthScreen, mHeightWhiteRect),
+                        Color.WHITE,
+                        mTextRemained.getText()
+                );
+                mTextInRectList.add(textInRectBaseFirst);
+                mTextInRectList.add(textInRectBaseSecond);
+            }
+            if (isHundred > 87) {
+                if (mHeightWhiteRect - mHeightBlackRect < 18) {
+                    mHeightBlackRect = mHeightWhiteRect - 18;
+                }
+                textInRectBaseFirst = factory.createTextInRectCenter(
+                        getRect(0, mWidthScreen, mHeightBlackRect),
+                        Color.BLACK,
+                        mTextLived.getText()
+                );
+                textInRectBaseSecond = factory.createTextInRectBottom(
+                        getRect(0, mWidthScreen, mHeightBlackRect),
+                        Color.TRANSPARENT,
+                        mTextRemained.getText()
+                );
+                textInRectBaseThird = factory.createTextInRectCenter(
+                        getRect(mHeightBlackRect, mWidthScreen, mHeightWhiteRect),
+                        Color.WHITE,
+                        ""
+                );
+
+                mTextInRectList.add(textInRectBaseFirst);
+                mTextInRectList.add(textInRectBaseSecond);
+                mTextInRectList.add(textInRectBaseThird);
+            }
+            if (isHundred < 13) {
+                if (mHeightBlackRect < 2) {
+                    mHeightBlackRect = 2;
+                }
+                textInRectBaseFirst = factory.createTextInRectCenter(
+                        getRect(0, mWidthScreen, mHeightBlackRect),
+                        Color.BLACK,
+                        ""
+                );
+                textInRectBaseSecond = factory.createTextInRectCenter(
+                        getRect(mHeightBlackRect, mWidthScreen, mHeightWhiteRect),
+                        Color.WHITE,
+                        mTextRemained.getText()
+                );
+                textInRectBaseThird = factory.createTextInRectTop(
+                        getRect(mHeightBlackRect, mWidthScreen, mHeightWhiteRect),
+                        Color.TRANSPARENT,
+                        mTextLived.getText()
+                );
+
+                mTextInRectList.add(textInRectBaseFirst);
+                mTextInRectList.add(textInRectBaseSecond);
+                mTextInRectList.add(textInRectBaseThird);
+            }
+        }
+        return mTextInRectList;
+    }
+
+    private void checkListTextInRect() {
+        if (mTextInRectList != null) {
+            mTextInRectList.clear();
+        } else mTextInRectList = new ArrayList<TextInRectBase>();
+    }
+
+    private double getHunder() {
+        return 100 * (
+            new BigDecimal(mUser.getLifeLived() / mUser.getLifeExpectancy())
+                    .setScale(4, RoundingMode.HALF_UP).doubleValue());
+    }
+
     private Rect getRect(int top, int right, int bottom) {
         return new Rect(0, top, right, bottom);
+    }
+
+    private String getTextWin() {
+        return mContext.getResources().getString(R.string.draw_win)
+                + System.getProperty("line.separator")
+                + mTextLived.getText();
     }
 
     @Override

@@ -7,19 +7,19 @@ import com.example.alex.howmanymore.model.User;
  * Created by alex on 15.01.18.
  */
 
-public class WhiteText extends Text {
+public class TextBlack extends Text {
 
-    public WhiteText(String string, User user) {
+    public TextBlack(String string, User user) {
         super(string, user);
     }
 
     @Override
     float getPercent() {
-        return mUser.getPercentLived();
+        return 100 - mUser.getPercentLived();
     }
 
     @Override
     Period getPeriod() {
-        return new Period(mBirthday, mToDay);
+        return new Period(mLifeExpectancy, mBirthday);
     }
 }

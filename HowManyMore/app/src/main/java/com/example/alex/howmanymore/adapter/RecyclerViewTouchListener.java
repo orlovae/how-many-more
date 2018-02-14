@@ -2,6 +2,7 @@ package com.example.alex.howmanymore.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,6 +16,8 @@ import com.example.alex.howmanymore.fragments.IRecyclerViewClickListener;
 public class RecyclerViewTouchListener implements RecyclerView.OnItemTouchListener {
     private GestureDetector mGestureDetector;
     private IRecyclerViewClickListener mListener;
+
+    private final String TAG = this.getClass().getSimpleName();
 
     public RecyclerViewTouchListener(Context context, final RecyclerView recyclerView,
                                      final IRecyclerViewClickListener listener) {

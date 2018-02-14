@@ -1,20 +1,20 @@
 package com.example.alex.howmanymore.activity;
 
 import android.content.SharedPreferences;
-import android.graphics.Rect;
 import android.os.Parcelable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.alex.howmanymore.activity.TextInRect.textinrect.TextInRectBase;
 import com.example.alex.howmanymore.constants.Keys;
 import com.example.alex.howmanymore.R;
 import com.example.alex.howmanymore.app.App;
@@ -31,13 +31,13 @@ import com.example.alex.howmanymore.presenter.MainActivityPresenter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import static com.example.alex.howmanymore.constants.Keys.APP_PREFERENCES;
 import static com.example.alex.howmanymore.constants.Keys.APP_PREFERENCES_BIRTHDAY;
 import static com.example.alex.howmanymore.constants.Keys.APP_PREFERENCES_COUNTRY_FLAG;
-import static com.example.alex.howmanymore.constants.Keys.APP_PREFERENCES_IS_INITIAL;
 import static com.example.alex.howmanymore.constants.Keys.APP_PREFERENCES_SEX;
 import static com.example.alex.howmanymore.constants.Keys.COUNTRY_PICKER_LIST;
 import static com.example.alex.howmanymore.constants.Keys.DATE_PICKER_BIRTHDAY;
@@ -76,20 +76,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
 
         mPresenter.attachView(this);
         mPresenter.viewIsReady(getApplicationContext());
-
-
-//        initialConfiguration();
-    }
-
-    private void initialConfiguration() {
-        isInitial = mSetting.getBoolean(APP_PREFERENCES_IS_INITIAL, false);
-        if (!isInitial) {
-            SharedPreferences.Editor editor = mSetting.edit();
-            editor.putBoolean(APP_PREFERENCES_IS_INITIAL, true);
-            isInitial = true;
-            editor.apply();
-        }
-        Log.d(TAG, "initialConfiguration: " + isInitial);
     }
 
     private void loadPreferences() {
@@ -109,7 +95,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
      private void initToolbar(){
         mToolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-
     }
 
     @Override
@@ -186,55 +171,22 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     }
 
     @Override
-    public void drawTwoRectTextInOneRect(Rect rectWhite, Rect rectBlack, String textWhite,
-                                         String textBlack, int key) {
-        LinearLayout.LayoutParams lP = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT);
-        DrawTwoRectTextInOneRect drawTwoRectTextInOneRect = new DrawTwoRectTextInOneRect(this);
-        drawTwoRectTextInOneRect.invalidate();
-        drawTwoRectTextInOneRect.setRectWhite(rectWhite);
-        drawTwoRectTextInOneRect.setRectBlack(rectBlack);
-        drawTwoRectTextInOneRect.setTextWhite(textWhite);
-        drawTwoRectTextInOneRect.setTextBlack(textBlack);
-        drawTwoRectTextInOneRect.setKey(key);
-
-        drawTwoRectTextInOneRect.setLayoutParams(lP);
-        mLayout.removeAllViews();
-        mLayout.addView(drawTwoRectTextInOneRect);
+    public void draw(List<TextInRectBase> textInRectBaseList) {
+        DrawRect drawRect = new DrawRect(this, textInRectBaseList);
+        LinearLayout.LayoutParams lP = getLayoutParams();
+        drawRect.setLayoutParams(lP);
+        addViewInLayout(drawRect);
     }
 
-    @Override
-    public void drawTwoRect(Rect rectWhite, Rect rectBlack, String textWhite, String textBlack) {
-        LinearLayout.LayoutParams lP = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT);
-        DrawTwoRectTextInTwoRect drawTwoRectTextInTwoRect = new DrawTwoRectTextInTwoRect(this);
-        drawTwoRectTextInTwoRect.invalidate();
-        drawTwoRectTextInTwoRect.setRectWhite(rectWhite);
-        drawTwoRectTextInTwoRect.setRectBlack(rectBlack);
-        drawTwoRectTextInTwoRect.setTextWhite(textWhite);
-        drawTwoRectTextInTwoRect.setTextBlack(textBlack);
-
-        drawTwoRectTextInTwoRect.setLayoutParams(lP);
-        mLayout.removeAllViews();
-        mLayout.addView(drawTwoRectTextInTwoRect);
+    private LinearLayout.LayoutParams getLayoutParams() {
+         return new LinearLayout.LayoutParams(
+                 ViewGroup.LayoutParams.MATCH_PARENT,
+                 ViewGroup.LayoutParams.MATCH_PARENT);
     }
 
-    @Override
-    public void drawOneRect(Rect rectWhite, String textBlack) {
-        LinearLayout.LayoutParams lP = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT);
-
-        DrawOneRect drawOneRect = new DrawOneRect(this);
-        drawOneRect.invalidate();
-        drawOneRect.setRectWhite(rectWhite);
-        drawOneRect.setTextBlack(textBlack);
-
-        drawOneRect.setLayoutParams(lP);
-        mLayout.removeAllViews();
-        mLayout.addView(drawOneRect);
+    private void addViewInLayout (View view) {
+         mLayout.removeAllViews();
+         mLayout.addView(view);
     }
 
     @Override
