@@ -22,7 +22,7 @@ public abstract class TextInRectBase implements ITextInRect{
 
     private CoordinateText mCoordinateText;
 
-    public TextInRectBase(Rect rect, int colorRect, String text) {
+    TextInRectBase(Rect rect, int colorRect, String text) {
         mRect = rect;
         mColorRect = colorRect;
         mText = text;
