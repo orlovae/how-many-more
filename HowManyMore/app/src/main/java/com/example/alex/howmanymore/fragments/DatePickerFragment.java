@@ -63,7 +63,6 @@ public class DatePickerFragment extends DialogFragment
     }
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        Log.d(TAG, "onDateSet: start");
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, monthOfYear, dayOfMonth);
 

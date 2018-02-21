@@ -47,6 +47,10 @@ public class Keys {
     public static final String NAME_NOTIFICATION_BAR_1 = "status_bar_height";
     public static final String NAME_NOTIFICATION_BAR_2 = "dimen";
     public static final String NAME_NOTIFICATION_BAR_3 = "android";
+    public static final int MIN_HEIGHT_RECT = 2;
+    public static final int HUNDRED_PERCENT = 100;
+    public static final int RECT_BLACK_NOT_CONTAIN_TEXT = 13;
+    public static final int RECT_WHITE_NOT_CONTAIN_TEXT = 87;
     public static final int SIZE_BLACK_LINE = 10;
     public static final int SIZE_FRACTIONAL_LINE = 20; /** это линия, дробной части прожитого года**/
 

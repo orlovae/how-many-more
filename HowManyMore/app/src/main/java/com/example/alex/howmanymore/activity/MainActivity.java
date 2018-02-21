@@ -56,13 +56,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
 
     private User mUser = new User();
 
-    boolean isInitial = false;
-
     private LinearLayout mLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         mSetting = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
 
         setContentView(R.layout.activity_main);
@@ -72,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
         App.getComponent().injectsActivity(this);
 
         initToolbar();
+
         loadPreferences();
 
         mPresenter.attachView(this);
@@ -160,7 +160,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     private void startCountryDialog() {
         CountryPickerFragment dialogCountry = new CountryPickerFragment();
         Bundle args = new Bundle();
-        args.putParcelableArrayList(COUNTRY_PICKER_LIST, (ArrayList<? extends Parcelable>) mPresenter.getCountries());
+        args.putParcelableArrayList(COUNTRY_PICKER_LIST,
+                (ArrayList<? extends Parcelable>) mPresenter.getCountries());
         dialogCountry.setArguments(args);
         dialogCountry.show(getSupportFragmentManager(), Keys.COUNTRY_PICKER_NAME);
     }
@@ -239,6 +240,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
 
     @Override
     public void onChooseDate(long dateFromDatePicker) {
+         //TODO непонятно, почему презентер и модель оповещаются. Должно, что-то одно.
         mPresenter.setBirthday(dateFromDatePicker);
         mUser.setBirthday(dateFromDatePicker);
         setIconMenuBirthday(dateFromDatePicker);

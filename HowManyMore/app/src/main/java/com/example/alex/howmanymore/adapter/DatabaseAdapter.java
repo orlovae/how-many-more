@@ -43,11 +43,9 @@ public class DatabaseAdapter {
     }
 
     public List<Country> getListCountry(String сodeLanguage) {
-        Log.d(TAG, "getListCountry: " + сodeLanguage);
         mCountries = new ArrayList<Country>();
 
         String sortOrder = getColumns(сodeLanguage) + " ASC";
-        Log.d(TAG, "getListCountry: " + sortOrder);
 
         Cursor cursor = query(Contract.LiveCountry.TABLE_NAME, null, null,
                 null, null, null,
@@ -79,8 +77,6 @@ public class DatabaseAdapter {
                 cursor.close();
             }
         }
-
-        Log.d(TAG, "getListCountry.size = " + mCountries.size());
         return mCountries;
     }
 
