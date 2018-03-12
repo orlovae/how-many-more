@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a183c1ac-e6bd-47bd-a2c8-fca693b87354" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/.gitignore" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/build.gradle" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/proguard-rules.pro" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/androidTest/java/com/example/alex/howmanymore/ExampleInstrumentedTest.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/AndroidManifest.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/assets/HowManyMore.db" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/activity/DrawRect.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/activity/IView.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/activity/MainActivity.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/activity/textInRect/CoordinateText.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/activity/textInRect/FactoryTextInRect.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/activity/textInRect/IFactoryTextInRect.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/activity/textInRect/ITextInRect.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/activity/textInRect/TextInRectBase.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/activity/textInRect/TextInRectBottom.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/activity/textInRect/TextInRectCenter.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/activity/textInRect/TextInRectTop.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/adapter/DatabaseAdapter.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/adapter/RecyclerViewDialogFragment.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/adapter/RecyclerViewTouchListener.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/app/App.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/app/AppComponent.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/app/AppModule.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/constants/DayRus.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/constants/Keys.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/constants/MountRus.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/constants/YearsRus.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/contract/MainActivityContract.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/dagger/MainActivityModule.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/dagger/SexPickerModule.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/data/Contract.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/data/DBHelper.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/fragments/CountryPickerFragment.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/fragments/DatePickerFragment.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/fragments/IOnSelectedCountryListener.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/fragments/IOnSelectedDateListener.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/fragments/IOnSelectedSexListener.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/fragments/IRecyclerViewClickListener.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/fragments/SexPickerFragment.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/model/Country.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/model/Period.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/model/User.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/model/text/FactoryText.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/model/text/IFactoryText.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/model/text/StringToOnDraw.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/model/text/Text.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/model/text/TextBlack.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/model/text/TextWhite.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/presenter/IPresenter.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/presenter/MainActivityPresenter.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/java/com/example/alex/howmanymore/presenter/PresenterBase.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable-hdpi/ic_human_female.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable-hdpi/ic_human_male.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable-hdpi/ic_human_male_female.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable-hdpi/ic_search.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable-ldpi/ic_human_female.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable-ldpi/ic_human_male.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable-ldpi/ic_human_male_female.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable-mdpi/ic_human_female.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable-mdpi/ic_human_male.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable-mdpi/ic_human_male_female.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable-mdpi/ic_search.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable-xhdpi/ic_human_female.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable-xhdpi/ic_human_male.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable-xhdpi/ic_human_male_female.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable-xhdpi/ic_search.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable-xxhdpi/ic_human_female.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable-xxhdpi/ic_human_male.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable-xxhdpi/ic_human_male_female.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable-xxhdpi/ic_search.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable-xxxhdpi/ic_human_female.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable-xxxhdpi/ic_human_male.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable-xxxhdpi/ic_human_male_female.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable-xxxhdpi/ic_search.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ac.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ad.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ae.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_af.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ag.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ai.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_al.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_am.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_an.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ao.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_aq.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ar.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_as.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_at.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_au.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_aw.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ax.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_az.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ba.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_bb.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_bd.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_be.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_bf.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_bg.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_bh.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_bi.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_bj.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_bl.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_bm.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_bn.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_bo.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_bq.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_br.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_bs.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_bt.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_bv.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_bw.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_by.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_bz.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ca.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_cc.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_cd.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_cf.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_cg.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ch.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ci.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ck.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_cl.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_cm.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_cn.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_co.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_cr.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_cu.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_cv.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_cw.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_cx.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_cy.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_cz.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_de.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_dj.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_dk.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_dm.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_do.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_dz.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ec.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ee.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_eg.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_eh.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_er.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_es.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_et.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_fi.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_fj.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_fk.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_fm.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_fo.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_fr.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_fx.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ga.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_gb.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_gd.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ge.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_gf.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_gg.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_gh.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_gi.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_gl.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_gm.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_gn.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_gp.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_gq.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_gr.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_gs.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_gt.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_gu.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_gw.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_gy.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_hk.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_hm.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_hn.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_hr.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ht.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_hu.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_id.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ie.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_il.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_im.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_in.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_io.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_iq.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ir.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_is.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_it.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_je.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_jm.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_jo.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_jp.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ke.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_kg.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_kh.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ki.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_km.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_kn.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_kp.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_kr.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_kw.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ky.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_kz.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_la.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_lb.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_lc.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_li.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_lk.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_lr.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ls.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_lt.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_lu.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_lv.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ly.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ma.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_mc.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_md.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_me.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_mf.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_mg.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_mh.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_mk.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ml.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_mm.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_mn.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_mo.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_mp.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_mq.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_mr.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ms.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_mt.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_mu.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_mv.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_mw.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_mx.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_my.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_mz.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_na.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_nc.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ne.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_nf.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ng.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ni.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_nl.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_no.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_np.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_nr.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_nu.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_nz.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_om.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_pa.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_pe.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_pf.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_pg.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ph.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_pk.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_pl.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_pm.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_pn.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_pr.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ps.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_pt.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_pw.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_py.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_qa.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_re.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ro.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_rs.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ru.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_rw.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_sa.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_sb.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_sc.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_sd.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_se.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_sg.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_sh.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_si.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_sj.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_sk.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_sl.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_sm.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_sn.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_so.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_sr.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ss.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_st.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_sv.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_sx.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_sy.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_sz.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_tc.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_td.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_tf.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_tg.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_th.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_tj.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_tk.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_tl.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_tm.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_tn.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_to.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_tr.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_tt.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_tv.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_tw.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_tz.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ua.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ug.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_um.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_us.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_uy.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_uz.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_va.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_vc.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ve.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_vg.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_vi.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_vn.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_vu.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_wf.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ws.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_xk.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_ye.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_yt.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_yu.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_za.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_zm.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/flag_zw.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/ic_cake_black_24dp.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/drawable/ic_country_black_24dp.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/layout/activity_main.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/layout/dialog_fragment_country.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/layout/recycler_view_country.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/layout/toolbar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/menu/main.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/values/colors.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/values/dimens.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/values/strings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/values/styles.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/main/res/values/themes.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HowManyMore/app/src/test/java/com/example/alex/howmanymore/ExampleUnitTest.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HowManyMore/.idea/gradle.xml" afterPath="$PROJECT_DIR$/HowManyMore/.idea/gradle.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HowManyMore/.idea/misc.xml" afterPath="$PROJECT_DIR$/HowManyMore/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HowManyMore/settings.gradle" afterPath="$PROJECT_DIR$/HowManyMore/settings.gradle" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-3" />
+    <option name="y" value="25" />
+    <option name="width" value="1926" />
+    <option name="height" value="1058" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HowManyMore" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HowManyMore" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HowManyMore" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HowManyMore" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HowManyMore" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HowManyMore" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HowManyMore" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HowManyMore" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="presentation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
+    <property name="android.project.structure.last.selected" value="SDK Location" />
+    <property name="android.project.structure.proportion" value="0.15" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration name="&lt;template&gt;" type="Applet" default="true" selected="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+    </configuration>
+    <configuration name="&lt;template&gt;" type="JUnit" default="true" selected="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+    </configuration>
+    <configuration name="&lt;template&gt;" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" default="true" selected="false">
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a183c1ac-e6bd-47bd-a2c8-fca693b87354" name="Default" comment="" />
+      <created>1520835633972</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1520835633972</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-3" y="25" width="1926" height="1058" extended-state="6" />
+    <layout>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24986765" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+</project>
